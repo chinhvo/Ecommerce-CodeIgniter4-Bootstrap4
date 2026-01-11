@@ -1,101 +1,68 @@
-<p align="center"><img src="https://cdn.worldvectorlogo.com/logos/codeigniter-1.svg" width="100"></p>
-<p align="center">Shopping Cart Solution - CodeIgniter and Bootstrap</p>
- 
-## Bootstrap Responsive Multi-Vendor, MultiLanguage Online Shop Platform
+# CodeIgniter 4 Application Starter
 
-Current versions:
+## What is CodeIgniter?
 
-* Codeigniter 3.1.13 (CodeIgniter Foundation)
-* Bootstrap 3.3.7
+CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
+More information can be found at the [official site](https://codeigniter.com).
 
-## Donate
-<p>If this project help you reduce time to develop, you can give me a cup of coffee to continue its development. Thank you! :)</p>
+This repository holds a composer-installable app starter.
+It has been built from the
+[development repository](https://github.com/codeigniter4/CodeIgniter4).
 
-[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W5BR6K29BQX7E)
+More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
 
-## See also
-<p><a href="https://codecanyon.net/item/wp-invoices-pdf-electronic-invoicing-system/36891583" title="Electronic invoicing and warehouse management plugin which allows you to issue, send and download invoices as pdf file">WordPress Invoice Generator Plugin</a> - with WooCommerce Support, Stripe Payments, Recurring Invoicing, Currency Exchange, and More...</p>
+You can read the [user guide](https://codeigniter.com/user_guide/)
+corresponding to the latest version of the framework.
 
-## Support of following features
+## Installation & updates
 
-1. Multi-Vendor
-2. MultiLanguage
-3. Virtual products support
-4. Multi Templates support
-5. API
-6. Beautiful administration with high level of access
-7. Ajax based shopping cart
-8. Checkouts are saved to administration, email notifications for every new order
-9. Quantity of products managed from orders
-10. Add textual pages
-11. Activate and disable pages
-12. File manager in administration
-13. Integrated blog
-14. Email subscribe
-15. Easy installation
-16. Readable source
-17. Complete editing of public texts
-18. Receive ![PayPal Ecommerce Integration](https://raw.githubusercontent.com/kirilkirkov/Shopping-Cart-Solution-CodeIgniter/master/github/paypalLogo.png "Paypal Integration") payments, also have option for paypal sandbox testing
-19. Fast-loading templates for good seo
-20. Site color change with easy to use gradient generator
-21. Add multilanguage cookie notificator from silktide.com for EU Cookie Law 
-22. Multiple templates.. also can easy create your own.. 
-23. Bank account payments support
-24. Highcharts statistics for orders
-25. Discount codes
-26. Available on English, Greek, Bulgarian
-27. Responsive public pages, responsive administration, responsive vendor pages
-28. Advanced search with treeView categories
-29. Easy manage of products (new filed for every added language, subcategories are easy to manage)
-30. Advanced sorting and order products
-31. etc.
+`composer create-project codeigniter4/appstarter` then `composer update` whenever
+there is a new release of the framework.
 
-## Easy installation in 2 steps
-1. Import database.sql to your MySQL database
-2. Set <b>database</b>, <b>username</b> and <b>password</b> in application/config/database.php
+When updating, check the release notes to see if there are any changes you might need to apply
+to your `app` folder. The affected files can be copied or merged from
+`vendor/codeigniter4/framework/app`.
 
-## Available Languages
-- ![CodeIgniter Ecommerce English](https://raw.githubusercontent.com/kirilkirkov/Shopping-Cart-Solution-CodeIgniter/master/attachments/lang_flags/en.jpg "English Translation CodeIgniter") English
-- ![CodeIgniter Ecommerce Greece](https://raw.githubusercontent.com/kirilkirkov/Shopping-Cart-Solution-CodeIgniter/master/attachments/lang_flags/gr.png "Greece Translation CodeIgniter") Greece
-- ![CodeIgniter Ecommerce Bulgarian](https://raw.githubusercontent.com/kirilkirkov/Shopping-Cart-Solution-CodeIgniter/master/attachments/lang_flags/bg.jpg "Bulgarian Translation CodeIgniter") Bulgarian
-- ![CodeIgniter Ecommerce Indonesian](https://raw.githubusercontent.com/kirilkirkov/Shopping-Cart-Solution-CodeIgniter/master/attachments/lang_flags/id.jpg "Indonesian Translation CodeIgniter") Indonesian
+## Setup
 
-## Login to administration with
-- Administration url - /admin (eg. https://yourwebsite.com/admin)
-- Username: admin 
-- Password: admin
+Copy `env` to `.env` and tailor for your app, specifically the baseURL
+and any database settings.
 
-## Vendors support
-- Login url is - /vendor/login (eg. https://yourwebsite.com/vendor/login)
-- Vendors are not supported only from "onepage" template.
-- Can register new vendor from url - /vendor/register.  (eg. https://yourwebsite.com/vendor/register)
-- Vendors must be enabled from administration - /admin (eg. https://yourwebsite.com/admin/settings) Settings -> Multi-Vendor Support (panel).
+## Important Change with index.php
 
-## Users registration
-<p>Users /registration/login (https://yourwebsite.com/registration/login) is added only in <b>greenlabel template</b>. (easily can be added to any other template, just copy files: login.php, signup.php, user.php to the new template directory (application/views/templates) and change your design).</p>
-<b>Users can track their orders history only.</b>
+`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
+for better security and separation of components.
 
-## Screenshots of public pages
-![MultiLanguage CodeIgniter Template Ecommerce](https://raw.githubusercontent.com/kirilkirkov/Shopping-Cart-Solution-CodeIgniter/master/github/templates.png "Multiple Templates")
+This means that you should configure your web server to "point" to your project's *public* folder, and
+not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
+framework are exposed.
 
-## Screenshots of vendors pages
-![MultiVendor CodeIgniter Template Ecommerce](https://raw.githubusercontent.com/kirilkirkov/Shopping-Cart-Solution-CodeIgniter/master/github/vendors_pages.jpg "Vendors Page Preview")
+**Please** read the user guide for a better explanation of how CI4 works!
 
-## Screenshot of admin panel
-![CodeIgniter Administration Bootstrap](https://raw.githubusercontent.com/kirilkirkov/Shopping-Cart-Solution-CodeIgniter/master/github/admin_panel4.png "Powerful Administration CodeIgniter")
+## Repository Management
 
-### How To Write Templates
-Read in our wiki - https://github.com/kirilkirkov/Shopping-Cart-Solution-CodeIgniter/wiki/How-to-write-templates
+We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
+We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
+FEATURE REQUESTS.
 
-### Shopping cart peculiarities
-Read in our wiki - https://github.com/kirilkirkov/Shopping-Cart-Solution-CodeIgniter/wiki/Shopping-cart-peculiarities
+This repository is a "distribution" one, built by our release preparation script.
+Problems with it can be raised on our forum, or as issues in the main repository.
 
-### Multi Vendor Support
-Read in our wiki - https://github.com/kirilkirkov/Shopping-Cart-Solution-CodeIgniter/wiki/Multi-Vendor-Support
+## Server Requirements
 
-### API Documentation
-Read in our wiki - https://github.com/kirilkirkov/Shopping-Cart-Solution-CodeIgniter/wiki/API
+PHP version 8.1 or higher is required, with the following extensions installed:
 
-### Server Requirements
-- PHP version 5.6 or newer (up to 8.1) is recommended.
-<p>It should work on 5.3.7 as well, but we strongly advise you NOT to run such old versions of PHP, because of potential security and performance issues, as well as missing features.</p>
+- [intl](http://php.net/manual/en/intl.requirements.php)
+- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+
+> [!WARNING]
+> - The end of life date for PHP 7.4 was November 28, 2022.
+> - The end of life date for PHP 8.0 was November 26, 2023.
+> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
+> - The end of life date for PHP 8.1 will be December 31, 2025.
+
+Additionally, make sure that the following extensions are enabled in your PHP:
+
+- json (enabled by default - don't turn it off)
+- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
+- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
