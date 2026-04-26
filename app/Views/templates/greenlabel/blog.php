@@ -1,5 +1,6 @@
+<?= $this->extend('templates/greenlabel/_parts/layout') ?>
+<?= $this->section('content') ?>
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div class="inner-nav">
     <div class="container">
@@ -30,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </span>
                                     </small>
                                     <p class="description"><?= character_limiter(strip_tags($post['description']), 300) ?></p>
-                                    <a class="btn btn-blog pull-right" href="<?= LANG_URL . '/blog/' . $post['url'] ?>">
+                                    <a class="btn btn-blog float-right" href="<?= LANG_URL . '/blog/' . $post['url'] ?>">
                                         <i class="fa fa-long-arrow-right"></i>
                                         <?= lang('read_mode') ?>
                                     </a>
@@ -49,3 +50,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     </div>
 </div>
+<?= $this->endSection() ?>

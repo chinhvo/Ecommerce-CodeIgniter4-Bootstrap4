@@ -1,12 +1,11 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div class="container blog-inner">
     <div class="body">
         <div class="row bottom-30">
             <div class="col-sm-3 left-col-archive">
                 <?= $archives ?>
-                <a href="<?= LANG_URL . '/blog' ?>" class="btn btn-default"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> <?= lang('go_back') ?></a>
+                <a href="<?= LANG_URL . '/blog' ?>" class="btn btn-secondary"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> <?= lang('go_back') ?></a>
             </div>
             <div class="col-sm-9">
                 <h1><?= $article['title'] ?></h1>

@@ -41,18 +41,18 @@
             <ul class="footer-icon">
                 <?php if ($footerContactAddr != '') { ?>
                     <li>
-                        <span class="pull-left"><i class="fa fa-map-marker"></i></span> 
-                        <span class="pull-left f-cont-info"> <?= $footerContactAddr ?></span> 
+                        <span class="float-left"><i class="fa fa-map-marker"></i></span> 
+                        <span class="float-left f-cont-info"> <?= $footerContactAddr ?></span> 
                     </li>
                 <?php }if ($footerContactPhone != '') { ?>
                     <li>
-                        <span class="pull-left"><i class="fa fa-phone"></i></span> 
-                        <span class="pull-left f-cont-info"> <?= $footerContactPhone ?></span> 
+                        <span class="float-left"><i class="fa fa-phone"></i></span> 
+                        <span class="float-left f-cont-info"> <?= $footerContactPhone ?></span> 
                     </li>
                 <?php } if ($footerContactEmail != '') { ?>
                     <li>
-                        <span class="pull-left"><i class="fa fa-envelope"></i></span> 
-                        <span class="pull-left f-cont-info"><a href="mailto:<?= $footerContactEmail ?>"><?= $footerContactEmail ?></a></span>
+                        <span class="float-left"><i class="fa fa-envelope"></i></span> 
+                        <span class="float-left f-cont-info"><a href="mailto:<?= $footerContactEmail ?>"><?= $footerContactEmail ?></a></span>
                     </li>
                 <?php } ?>
             </ul>

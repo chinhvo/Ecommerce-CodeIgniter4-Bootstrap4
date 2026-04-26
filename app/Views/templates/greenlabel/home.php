@@ -1,5 +1,6 @@
+<?= $this->extend('templates/greenlabel/_parts/layout') ?>
+<?= $this->section('content') ?>
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 if (count($sliderProducts) > 0) {
     ?>
     <div id="home-slider" class="carousel slide" data-ride="carousel">
@@ -48,19 +49,20 @@ if (count($sliderProducts) > 0) {
             }
             ?>
         </div>
-        <a class="left carousel-control" href="#home-slider" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-        <a class="right carousel-control" href="#home-slider" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+        <a class="left carousel-control" href="#home-slider" role="button" data-slide="prev"><span class="fa fa-chevron-left"></span></a>
+        <a class="right carousel-control" href="#home-slider" role="button" data-slide="next"><span class="fa fa-chevron-right"></span></a>
     </div>
 <?php } ?>
 <div class="home-banners">
-    <div class="single-banner pull-left">
+    <div class="single-banner float-left">
         <a href="#"><img src="<?= base_url('attachments/banners/1.jpg') ?>" alt="" /></a>
     </div>
-    <div class="single-banner pull-right">
+    <div class="single-banner float-right">
         <a href="#"><img src="<?= base_url('attachments/banners/2.jpg') ?>" alt="" /></a>
     </div>
     <div class="clearfix"></div>
 </div>
+<?= $this->endSection() ?>
 <div class="new-products">
     <div class="container">
         <h3><?= lang('new_products') ?></h3> 
@@ -70,10 +72,18 @@ if (count($sliderProducts) > 0) {
                     <div class="carousel-inner">
                         <?php
                         $i = 0;
+                        $itemIndex = 0;
                         foreach ($newProducts as $product) {
+                            // Start new item every 3 products
+                            if ($i % 3 == 0) {
+                                if ($i > 0) {
+                                    echo '</div>'; // Close previous item
+                                }
+                                echo '<div class="item' . ($itemIndex == 0 ? ' active' : '') . '">';
+                                $itemIndex++;
+                            }
                             ?>
-                            <div class="item <?= $i == 0 ? 'active' : '' ?>">
-                                <div class="col-xs-12 col-sm-4">
+                                <div class="col-12 col-sm-4">
                                     <a href="<?= LANG_URL . '/' . $product['url'] ?>">
                                         
                                         <?php 
@@ -91,14 +101,17 @@ if (count($sliderProducts) > 0) {
                                         <?= lang('add_to_cart') ?>
                                     </a>
                                 </div>
-                            </div>
                             <?php
                             $i++;
                         }
+                        // Close last item if needed
+                        if ($i > 0) {
+                            echo '</div>';
+                        }
                         ?>
                     </div>
-                    <a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                    <a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                    <a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
+                    <a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="fa fa-chevron-right"></i></a>
                 </div>
             </div>
         </div>
@@ -113,10 +126,18 @@ if (count($sliderProducts) > 0) {
                     <div class="carousel-inner">
                         <?php
                         $i = 0;
+                        $itemIndex = 0;
                         foreach ($lastBlogs as $post) {
+                            // Start new item every 3 posts
+                            if ($i % 3 == 0) {
+                                if ($i > 0) {
+                                    echo '</div>'; // Close previous item
+                                }
+                                echo '<div class="item' . ($itemIndex == 0 ? ' active' : '') . '">';
+                                $itemIndex++;
+                            }
                             ?>
-                            <div class="item <?= $i == 0 ? 'active' : '' ?>">
-                                <div class="col-xs-12 col-sm-4">
+                                <div class="col-12 col-sm-4">
                                     <a href="<?= LANG_URL . '/blog/' . $post['url'] ?>">
                                         <img src="<?= base_url('attachments/blog_images/' . $post['image']) ?>" class="img-responsive">
                                         <span class="time"><?= date('M d, Y', $post['time']) ?></span>
@@ -125,14 +146,17 @@ if (count($sliderProducts) > 0) {
                                         <span class="read-more"><?= lang('read_more') ?> <i class="fa fa-long-arrow-right" aria-hidden="true"></i></span>
                                     </a> 
                                 </div>
-                            </div>
                             <?php
                             $i++;
                         }
+                        // Close last item if needed
+                        if ($i > 0) {
+                            echo '</div>';
+                        }
                         ?>
                     </div>
-                    <a class="left carousel-control" href="#theCarousel1" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                    <a class="right carousel-control" href="#theCarousel1" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                    <a class="left carousel-control" href="#theCarousel1" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
+                    <a class="right carousel-control" href="#theCarousel1" data-slide="next"><i class="fa fa-chevron-right"></i></a>
                 </div>
             </div>
         </div>

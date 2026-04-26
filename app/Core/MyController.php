@@ -8,12 +8,20 @@ class MyController extends BaseController
     public $nonDynPages = array();
     private $dynPages = array();
     protected $template;
+    protected $session;
+    protected $shoppingcart;
+    protected $sendmail;
+    protected $loop;
 
     public function __construct()
     {
-        parent::__construct();
+        defined('LANG_URL') || define('LANG_URL', rtrim(base_url(), '/'));
+        $this->session = service('session');
+        $this->shoppingcart = new \App\Libraries\ShoppingCart();
+        $this->sendmail = new \App\Libraries\SendMail();
+        $this->loop = new \App\Libraries\Loop();
         $this->getActivePages();
-        $this->checkForPostRequests();
+        //$this->checkForPostRequests();
         $this->setReferrer();
         //set selected template
         $this->loadTemplate();
@@ -31,12 +39,10 @@ class MyController extends BaseController
         $head['sumOfItems'] = $this->shoppingcart->sumValues;
 
         // Load shared variables
-        $vars = $this->loadVars();
-        // In CI4: we merge data instead of $this->load->vars()
-        $data = array_merge((array) $vars, (array) $data);
+        $shared = $this->loadVars();
 
         // Get categories from model
-        $publicModel = model(\App\Models\Public_model::class);
+        $publicModel = model(\App\Models\PublicModel::class);
 
         $all_categories = $publicModel->getShopCategories();
 
@@ -57,10 +63,16 @@ class MyController extends BaseController
 
         $head['nav_categories'] = $buildTree($all_categories);
 
-        // Render views
-        echo view($this->template . '_parts/header', $head);
-        echo view($this->template . $view, $data);
-        echo view($this->template . '_parts/footer', $footer);
+        // In CI4: we merge data instead of $this->load->vars()
+        $head   = array_merge((array) $shared, (array) $head);
+        $data   = array_merge((array) $shared, (array) $data);
+        $footer = array_merge((array) $shared, (array) $footer);
+
+        // Merge all data so layout, header, footer partials all have access
+        $allData = array_merge($head, $data, $footer);
+
+        // Render via layout (CI4 extend/section pattern)
+        echo view($this->template . $view, $allData);
     }
     /*
      * Load variables from values-store
@@ -75,7 +87,7 @@ class MyController extends BaseController
         $vars['dynPages'] = $this->dynPages;
 
         // Load from PublicModel
-        $publicModel = model(\App\Models\Public_model::class);
+        $publicModel = model(\App\Models\PublicModel::class);
         $vars['footerCategories'] = $publicModel->getFooterCategories();
 
         // Load from SettingsModel
@@ -93,6 +105,7 @@ class MyController extends BaseController
         $vars['allLanguages'] = $this->getAllLangs();
         $vars['load'] = $this->loop;
         $vars['cookieLaw'] = $publicModel->getCookieLaw();
+        $vars['multiVendor'] = isset($vars['multiVendor']) ? (int) $vars['multiVendor'] : 0;
 
         return $vars;
     }
@@ -125,7 +138,7 @@ class MyController extends BaseController
     private function getActivePages()
     {
         // Load models
-        $pagesModel = model('App\Models\Admin\PagesModel');
+        $pagesModel = model(\App\Modules\Admin\Models\PagesModel::class);
         $publicModel = model('App\Models\PublicModel');
 
         // Get active pages
@@ -188,8 +201,8 @@ class MyController extends BaseController
     private function setReferrer()
     {
         if ($this->session->get('referrer') === null) {
-            $ref = $this->request->getServer('HTTP_REFERER') ?? 'Direct';
-            $this->session->set('referrer', $ref);
+//             $ref = $this->request->getServer('HTTP_REFERER') ?? 'Direct';
+//             $this->session->set('referrer', $ref);
         }
     }
 

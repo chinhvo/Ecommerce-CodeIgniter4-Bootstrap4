@@ -1,5 +1,6 @@
+<?= $this->extend('templates/greenlabel/_parts/layout') ?>
+<?= $this->section('content') ?>
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 ?> 
 <div id="contacts">
     <div id="map"></div>
@@ -7,10 +8,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="row">
             <div class="col-md-8">
                 <?php
-                if ($this->session->flashdata('resultSend')) {
+                if (session()->getFlashdata('resultSend')) {
                     ?>
                     <hr>
-                    <div class="alert alert-info"><?= $this->session->flashdata('resultSend') ?></div>
+                    <div class="alert alert-info"><?= session()->getFlashdata('resultSend') ?></div>
                     <hr>
                 <?php }
                 ?> 
@@ -77,3 +78,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </script>
     <?php } ?>
 </div>
+<?= $this->endSection() ?>

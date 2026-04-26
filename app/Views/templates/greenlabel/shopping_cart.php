@@ -1,5 +1,6 @@
+<?= $this->extend('templates/greenlabel/_parts/layout') ?>
+<?= $this->section('content') ?>
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div class="inner-nav">
     <div class="container">
@@ -41,19 +42,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <img class="product-image" src="<?= $productImage ?>" alt="">
                                 
                                 <a href="<?= base_url('home/removeFromCart?delete-product=' . $item['id'] . '&back-to=shopping-cart') ?>" class="btn btn-xs btn-danger remove-product">
-                                    <span class="glyphicon glyphicon-remove"></span>
+                                    <span class="fa fa-times"></span>
                                 </a>
                             </td>
                             <td><a href="<?= LANG_URL . '/' . $item['url'] ?>"><?= $item['title'] ?></a></td>
                             <td>
                                 <a class="btn btn-xs btn-primary refresh-me add-to-cart <?= $item['quantity'] <= $item['num_added'] ? 'disabled' : '' ?>" data-id="<?= $item['id'] ?>" href="javascript:void(0);">
-                                    <span class="glyphicon glyphicon-plus"></span>
+                                    <span class="fa fa-plus"></span>
                                 </a>
                                 <span class="quantity-num">
                                     <?= $item['num_added'] ?>
                                 </span>
                                 <a class="btn  btn-xs btn-danger" onclick="removeProduct(<?= $item['id'] ?>, true)" href="javascript:void(0);">
-                                    <span class="glyphicon glyphicon-minus"></span>
+                                    <span class="fa fa-minus"></span>
                                 </a>
                             </td>
                             <td><?= $item['price'] . CURRENCY ?></td>
@@ -67,21 +68,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
             </table>
         </div>
-        <a href="<?= LANG_URL ?>" class="btn btn-black pull-left go-shop">
+        <a href="<?= LANG_URL ?>" class="btn btn-black float-left go-shop">
             <?= lang('back_to_shop') ?>
         </a>
-        <a class="btn btn-black pull-right go-checkout" href="<?= LANG_URL . '/checkout' ?>">
+        <a class="btn btn-black float-right go-checkout" href="<?= LANG_URL . '/checkout' ?>">
             <?= lang('checkout') ?> 
         </a>
         <div class="clearfix"></div>
     <?php } ?>
 </div>
 <?php
-if ($this->session->flashdata('deleted')) {
+if (session()->getFlashdata('deleted')) {
     ?>
     <script>
         $(document).ready(function () {
-            ShowNotificator('alert-info', '<?= $this->session->flashdata('deleted') ?>');
+            ShowNotificator('alert-info', '<?= session()->getFlashdata('deleted') ?>');
         });
     </script>
 <?php } ?>
+<?= $this->endSection() ?>

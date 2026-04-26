@@ -1,6 +1,5 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?>
+<?= $this->extend('templates/onepage/_parts/layout') ?>
+<?= $this->section('content') ?>
 <div class="main-top">
 	
 	<div style="min-height:1200px;">
@@ -35,6 +34,7 @@ The main effect of Forskolin 1020 is related to increasing the levels of cyclic 
 </div>
 </div>
 </div>
+<?= $this->endSection() ?>
 <div class="page-third pages-bg">
 <div class="container">
 <div class="page-info">
@@ -65,7 +65,7 @@ if (!empty($products)) {
 }
 else {
 ?>
-<div class="col-xs-12">
+<div class="col-12">
 	<div class="alert alert-danger"><?= lang('no_products') ?></div>
 </div>
 <?php } ?>

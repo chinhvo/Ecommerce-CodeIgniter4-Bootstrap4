@@ -173,8 +173,8 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 /*
  | Template used constants
  */
-defined('TEMPLATES_DIR')       OR define('TEMPLATES_DIR', APPPATH.'views/templates/'); // directory of templates
-defined('VIEWS_DIR')           OR define('VIEWS_DIR', APPPATH.'views/'); // directory of views
+defined('TEMPLATES_DIR')       OR define('TEMPLATES_DIR', APPPATH.'Views/templates/'); // directory of templates
+defined('VIEWS_DIR')           OR define('VIEWS_DIR', APPPATH.'Views/'); // directory of views
 
 
 // Define languages constants

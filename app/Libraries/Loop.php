@@ -13,6 +13,9 @@ class Loop
 
     public static function getCartItems(array $cartItems)
     {
+        if (!is_array($cartItems) || empty($cartItems['array'])) {
+            return '';
+        }        
         if (!empty($cartItems['array'])) {
             ?>
             <li class="cleaner text-right">
@@ -85,10 +88,10 @@ class Loop
 
     public static function getProducts(array $products, string $classes = '', bool $carousel = false)
     {
-        $publicQuantity = Services::renderer()->getVar('publicQuantity');
-        $moreInfoBtn = Services::renderer()->getVar('moreInfoBtn');
-        $hideBuyButtonsOfOutOfStock = Services::renderer()->getVar('hideBuyButtonsOfOutOfStock');
-        $refreshAfterAddToCart = Services::renderer()->getVar('refreshAfterAddToCart');
+        $publicQuantity = Services::renderer()->getData('publicQuantity');
+        $moreInfoBtn = Services::renderer()->getData('moreInfoBtn');
+        $hideBuyButtonsOfOutOfStock = Services::renderer()->getData('hideBuyButtonsOfOutOfStock');
+        $refreshAfterAddToCart = Services::renderer()->getData('refreshAfterAddToCart');
 
         if ($carousel) {
             ?>

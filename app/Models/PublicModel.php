@@ -4,6 +4,9 @@ use CodeIgniter\Model;
 
 class PublicModel extends Model
 {
+    protected $HomeAdminModel;
+    protected $encrypter;
+
     private $showOutOfStock;
     private $showInSliderProducts;
     private $multiVendor;
@@ -52,7 +55,7 @@ class PublicModel extends Model
     public function getNewProducts()
     {
         $builder = $this->db->table('products');
-        $builder->select('vendors.url as vendor_url, products.id, products.quantity, products.image, products.url, products.shopee_link, products_translations.price, products_translations.title, products_translations.old_price');
+        $builder->select('vendors.url as vendor_url, products.id, products.quantity, products.image, products.url, products_translations.price, products_translations.title, products_translations.old_price');
         $builder->join('products_translations', 'products_translations.for_id = products.id', 'left');
         $builder->join('vendors', 'vendors.id = products.vendor_id', 'left');
         $builder->where('products_translations.abbr', MY_LANGUAGE_ABBR);
@@ -121,7 +124,7 @@ class PublicModel extends Model
             $this->getFilter($big_get, $builder); // Pass builder to apply filters in CI4
         }
         
-        $builder->select('vendors.url as vendor_url, products.id, products.image, products.quantity, products_translations.title, products_translations.price, products_translations.old_price, products.url, products.shopee_link, products.lazada_link');
+        $builder->select('vendors.url as vendor_url, products.id, products.image, products.quantity, products_translations.title, products_translations.price, products_translations.old_price, products.url');
         $builder->join('products_translations', 'products_translations.for_id = products.id', 'left');
         $builder->join('vendors', 'vendors.id = products.vendor_id', 'left');
         $builder->where('products_translations.abbr', MY_LANGUAGE_ABBR);
@@ -558,7 +561,7 @@ class PublicModel extends Model
     public function getBestSellers($categorie = 0, $noId = 0)
     {
         $builder = $this->db->table('products');
-        $builder->select('vendors.url as vendor_url, products.id, products.quantity, products.image, products.url, products.shopee_link, products.lazada_link, products_translations.price, products_translations.title, products_translations.old_price');
+        $builder->select('vendors.url as vendor_url, products.id, products.quantity, products.image, products.url, products_translations.price, products_translations.title, products_translations.old_price');
         $builder->join('products_translations', 'products_translations.for_id = products.id', 'left');
         $builder->join('vendors', 'vendors.id = products.vendor_id', 'left');
         
@@ -587,7 +590,7 @@ class PublicModel extends Model
     public function sameCategoryProducts($categorie, $noId, $vendor_id = false)
     {
         $builder = $this->db->table('products');
-        $builder->select('vendors.url as vendor_url, products.id, products.quantity, products.image, products.url, products.shopee_link, products.lazada_link, products_translations.price, products_translations.title, products_translations.old_price');
+        $builder->select('vendors.url as vendor_url, products.id, products.quantity, products.image, products.url, products_translations.price, products_translations.title, products_translations.old_price');
         $builder->join('products_translations', 'products_translations.for_id = products.id', 'left');
         $builder->join('vendors', 'vendors.id = products.vendor_id', 'left');
         

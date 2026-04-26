@@ -1,5 +1,4 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div class="container" id="shopping-cart">
     <div class="body">
@@ -46,13 +45,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <td><a href="<?= LANG_URL . '/' . $item['url'] ?>"><?= $item['title'] ?></a></td>
                                 <td>
                                     <a class="btn btn-xs btn-primary refresh-me add-to-cart <?= $item['quantity'] <= $item['num_added'] ? 'disabled' : '' ?>" data-id="<?= $item['id'] ?>" href="javascript:void(0);">
-                                        <span class="glyphicon glyphicon-plus"></span>
+                                        <span class="fa fa-plus"></span>
                                     </a>
                                     <span class="quantity-num">
                                         <?= $item['num_added'] ?>
                                     </span>
                                     <a class="btn  btn-xs btn-danger" onclick="removeProduct(<?= $item['id'] ?>, true)" href="javascript:void(0);">
-                                        <span class="glyphicon glyphicon-minus"></span>
+                                        <span class="fa fa-minus"></span>
                                     </a>
                                 </td>
                                 <td><?= $item['price'] . CURRENCY ?></td>
@@ -80,11 +79,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
 </div>
 <?php
-if ($this->session->flashdata('deleted')) {
+if (session()->getFlashdata('deleted')) {
     ?>
     <script>
         $(document).ready(function () {
-            ShowNotificator('alert-info', '<?= $this->session->flashdata('deleted') ?>');
+            ShowNotificator('alert-info', '<?= session()->getFlashdata('deleted') ?>');
         });
     </script>
 <?php } ?>

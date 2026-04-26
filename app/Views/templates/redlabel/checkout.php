@@ -1,5 +1,6 @@
+<?= $this->extend('templates/redlabel/_parts/layout') ?>
+<?= $this->section('content') ?>
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div class="container" id="checkout-page">
     <?php
@@ -22,13 +23,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <span><?= lang('checkout') ?></span>
                     </div>
                     <?php
-                    if ($this->session->flashdata('submit_error')) {
+                    if (session()->getFlashdata('submit_error')) {
                         ?>
                         <hr>
                         <div class="alert alert-danger">
-                            <h4><span class="glyphicon glyphicon-alert"></span> <?= lang('finded_errors') ?></h4>
+                            <h4><span class="fa fa-exclamation-triangle"></span> <?= lang('finded_errors') ?></h4>
                             <?php
-                            foreach ($this->session->flashdata('submit_error') as $error) {
+                            foreach (session()->getFlashdata('submit_error') as $error) {
                                 echo $error . '<br>';
                             }
                             ?>
@@ -43,7 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <option value="cashOnDelivery"><?= lang('cash_on_delivery') ?> </option>
                             <?php } if (filter_var($paypal_email, FILTER_VALIDATE_EMAIL)) { ?>
                                 <option value="PayPal"><?= lang('paypal') ?> </option>
-                            <?php } if ($bank_account['iban'] != null) { ?>
+                            <?php } if (isset($bank_account['iban']) && $bank_account['iban'] != null) { ?>
                                 <option value="Bank"><?= lang('bank_payment') ?> </option>
                             <?php } ?>
                         </select>
@@ -87,7 +88,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="discount">
                             <label><?= lang('discount_code') ?></label>
                             <input class="form-control" name="discountCode" value="<?= @$_POST['discountCode'] ?>" placeholder="<?= lang('enter_discount_code') ?>" type="text">
-                            <a href="javascript:void(0);" class="btn btn-default" onclick="checkDiscountCode()"><?= lang('check_code') ?></a>
+                            <a href="javascript:void(0);" class="btn btn-secondary" onclick="checkDiscountCode()"><?= lang('check_code') ?></a>
                         </div>
                     <?php } ?>
                     <div class="table-responsive">
@@ -117,19 +118,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <img class="product-image" src="<?= $productImage ?>" alt="">
                                             
                                             <a href="<?= base_url('home/removeFromCart?delete-product=' . $item['id'] . '&back-to=checkout') ?>" class="btn btn-xs btn-danger remove-product">
-                                                <span class="glyphicon glyphicon-remove"></span>
+                                                <span class="fa fa-times"></span>
                                             </a>
                                         </td>
                                         <td><a href="<?= LANG_URL . '/' . $item['url'] ?>"><?= $item['title'] ?></a></td>
                                         <td>
                                             <a class="btn btn-xs btn-primary refresh-me add-to-cart <?= $item['quantity'] <= $item['num_added'] ? 'disabled' : '' ?>" data-id="<?= $item['id'] ?>" href="javascript:void(0);">
-                                                <span class="glyphicon glyphicon-plus"></span>
+                                                <span class="fa fa-plus"></span>
                                             </a>
                                             <span class="quantity-num">
                                                 <?= $item['num_added'] ?>
                                             </span>
                                             <a class="btn  btn-xs btn-danger" onclick="removeProduct(<?= $item['id'] ?>, true)" href="javascript:void(0);">
-                                                <span class="glyphicon glyphicon-minus"></span>
+                                                <span class="fa fa-minus"></span>
                                             </a>
                                         </td>
                                         <td><?= $item['price'] . CURRENCY ?></td>
@@ -164,12 +165,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </form>
                 <div>
                     <a href="<?= LANG_URL ?>" class="btn btn-primary go-shop">
-                        <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                        <span class="fa fa-arrow-circle-left"></span>
                         <?= lang('back_to_shop') ?>
                     </a>
-                    <a href="javascript:void(0);" class="btn btn-primary go-order" onclick="document.getElementById('goOrder').submit();" class="pull-left">
+                    <a href="javascript:void(0);" class="btn btn-primary go-order" onclick="document.getElementById('goOrder').submit();" class="float-left">
                         <?= lang('custom_order') ?> 
-                        <span class="glyphicon glyphicon-circle-arrow-right"></span>
+                        <span class="fa fa-arrow-circle-right"></span>
                     </a>
                     <div class="clearfix"></div>
                 </div>
@@ -189,11 +190,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="alert alert-info"><?= lang('no_products_in_cart') ?></div>
     <?php
 }
-if ($this->session->flashdata('deleted')) {
+if (session()->getFlashdata('deleted')) {
     ?>
     <script>
         $(document).ready(function () {
-            ShowNotificator('alert-info', '<?= $this->session->flashdata('deleted') ?>');
+            ShowNotificator('alert-info', '<?= session()->getFlashdata('deleted') ?>');
         });
     </script>
 <?php } if ($codeDiscounts == 1 && isset($_POST['discountCode'])) { ?>
@@ -203,3 +204,4 @@ if ($this->session->flashdata('deleted')) {
         });
     </script>
 <?php } ?>
+<?= $this->endSection() ?>

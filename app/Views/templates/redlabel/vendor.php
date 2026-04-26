@@ -1,5 +1,6 @@
+<?= $this->extend('templates/redlabel/_parts/layout') ?>
+<?= $this->section('content') ?>
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div class="container" id="vendor-page">
     <h1 class="vendor-title"><?= lang('vendor_view') . $vendorInfo['name'] ?></h1>
@@ -12,7 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <a href="javascript:void(0);" class="clear-filter" data-type-clear="category" data-toggle="tooltip" data-placement="right" title="<?= lang('clear_the_filter') ?>"><i class="fa fa-times" aria-hidden="true"></i></a>
                     <?php } ?>
                 </div>
-                <a href="javascript:void(0)" id="show-xs-nav" class="visible-xs visible-sm">
+                <a href="javascript:void(0)" id="show-xs-nav" class="d-block d-md-none">
                     <span class="show-sp"><?= lang('showXsNav') ?><i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i></span>
                     <span class="hidde-sp"><?= lang('hideXsNav') ?><i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i></span>
                 </a>
@@ -38,7 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <i class="fa fa-circle-o" aria-hidden="true"></i>
                                     <?php } ?>
                                     <a href="javascript:void(0);" data-categorie-id="<?= $page['id'] ?>" class="go-category left-side <?= isset($_GET['category']) && $_GET['category'] == $page['id'] ? 'selected' : '' ?>">
-                                        <?= $page['name'] ?>
+                                        <?= htmlspecialchars($page['name'], ENT_QUOTES, 'UTF-8') ?>
                                     </a>
                                     <?php
                                     if ($children === true) {
@@ -121,3 +122,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     <?php } ?>
 </div>
+<?= $this->endSection() ?>

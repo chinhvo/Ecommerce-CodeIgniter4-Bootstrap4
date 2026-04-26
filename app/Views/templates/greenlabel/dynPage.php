@@ -1,5 +1,6 @@
+<?= $this->extend('templates/greenlabel/_parts/layout') ?>
+<?= $this->section('content') ?>
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div id="dynPage">
     <div class="top-bg">
@@ -11,3 +12,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     </div>
 </div>
+<?= $this->endSection() ?>

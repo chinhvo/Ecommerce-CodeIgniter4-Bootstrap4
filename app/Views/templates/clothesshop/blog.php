@@ -1,5 +1,4 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div class="container" id="blog">
     <div class="body">
@@ -52,7 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </span>
                                         </small>
                                         <p class="description"><?= character_limiter(strip_tags($post['description']), 300) ?></p>
-                                        <a class="btn btn-blog cloth-bg-color pull-right" href="<?= LANG_URL . '/blog/' . $post['url'] ?>">
+                                        <a class="btn btn-blog cloth-bg-color float-right" href="<?= LANG_URL . '/blog/' . $post['url'] ?>">
                                             <i class="fa fa-long-arrow-right"></i>
                                             <?= lang('read_mode') ?>
                                         </a>

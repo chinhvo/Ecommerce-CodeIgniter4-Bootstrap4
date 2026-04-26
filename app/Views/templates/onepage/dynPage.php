@@ -1,6 +1,5 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?>
+<?= $this->extend('templates/onepage/_parts/layout') ?>
+<?= $this->section('content') ?>
 <div class="container">
     <div class="body">
         <div class="dynPage bottom-30">
@@ -11,3 +10,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php include 'bodyFooter.php' ?>
     </div>
 </div>
+<?= $this->endSection() ?>

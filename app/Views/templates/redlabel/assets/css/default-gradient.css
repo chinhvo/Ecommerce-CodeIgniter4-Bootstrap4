@@ -1,24 +1,24 @@
 .gradient-color {
-  background: #4f8654;
-  background: linear-gradient(top, #4f8654, #148014);
-  background: -moz-linear-gradient(top, #4f8654, #148014);
-  background: -ms-linear-gradient(top, #4f8654, #148014);
+  background: #d83c3c;
+  background: linear-gradient(top, #d83c3c, #b03131);
+  background: -moz-linear-gradient(top, #d83c3c, #b03131);
+  background: -ms-linear-gradient(top, #d83c3c, #b03131);
   background: -webkit-gradient(
     linear,
     left top,
     left bottom,
-    from(#4f8654),
-    to(#148014)
+    from(#d83c3c),
+    to(#b03131)
   );
-  border: solid 1px #148014;
-  box-shadow: 2px 2px 3px #148014;
+  border: solid 1px #850e01;
+  box-shadow: 2px 2px 3px #661313;
 }
 .mine-color,
 .btn-inner-search {
-  background-color: initial;
+  background-color: #d83c3c;
 }
 .button-more::before {
-  border-color: transparent #4f8654;
+  border-color: transparent #d83c3c;
 }
 .btn-go-search:active,
 .btn-go-search:focus,
@@ -26,11 +26,11 @@
 .button-more:hover,
 .button-more:focus,
 .button-more:hover {
-  background-color: initial;
+  background-color: #c42f2f;
 }
 div.filter-sidebar .title,
 .title.alone {
-  border-bottom: 3px solid #4f8654;
+  border-bottom: 3px solid #d83c3c;
 }
 div.filter-sidebar .title span,
 .title.alone span {

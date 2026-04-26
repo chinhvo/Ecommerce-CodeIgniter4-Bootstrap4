@@ -1,5 +1,6 @@
+<?= $this->extend('templates/greenlabel/_parts/layout') ?>
+<?= $this->section('content') ?>
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <link rel="stylesheet" href="<?= base_url('assets/bootstrap-select-1.12.1/bootstrap-select.min.css') ?>">
 <div class="inner-nav">
@@ -18,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <?php } ?>
                 </div>
                 <div class="body">
-                    <a href="javascript:void(0)" id="show-xs-nav" class="visible-xs visible-sm">
+                    <a href="javascript:void(0)" id="show-xs-nav" class="d-block d-md-none">
                         <span class="show-sp"><?= lang('showXsNav') ?><i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i></span>
                         <span class="hidde-sp"><?= lang('hideXsNav') ?><i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i></span>
                     </a>
@@ -44,7 +45,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="fa fa-circle-o" aria-hidden="true"></i>
                                         <?php } ?>
                                         <a href="javascript:void(0);" data-categorie-id="<?= $page['id'] ?>" class="go-category left-side <?= isset($_GET['category']) && $_GET['category'] == $page['id'] ? 'selected' : '' ?>">
-                                            <?= $page['name'] ?>
+                                            <?= htmlspecialchars($page['name'], ENT_QUOTES, 'UTF-8') ?>
                                         </a>
                                         <?php
                                         if ($children === true) {
@@ -183,3 +184,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <?php } ?>
 </div>
 <script src="<?= base_url('assets/bootstrap-select-1.12.1/js/bootstrap-select.min.js') ?>"></script>
+<?= $this->endSection() ?>

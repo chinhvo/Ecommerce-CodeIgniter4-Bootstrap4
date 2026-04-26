@@ -1,5 +1,7 @@
 <?php
 
+use Config\App;
+
 function getTextualPages($activePages)
 {
     // Load config (replace App with your config file name if different)

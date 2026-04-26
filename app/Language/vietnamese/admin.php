@@ -38,7 +38,5 @@ return [
     'admin_users' => 'Người dùng quản trị',
     'there_are_some_errors_that_you_must_fix' => 'Có một số lỗi bạn phải sửa',
     'history' => 'Lịch sử',
-    'close' => 'Đóng',
-    'shopee_link' => 'Liên kết Shopee',
-    'lazada_link' => 'Liên kết Lazada',
+    'close' => 'Đóng'
 ];

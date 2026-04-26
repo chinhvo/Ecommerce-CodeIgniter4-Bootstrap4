@@ -1,5 +1,4 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div class="container" id="view-product">
     <div class="body">
@@ -26,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 while (($file = readdir($dh)) !== false) {
                                     if (is_file($dir . $file)) {
                                         ?>
-                                        <div class="col-xs-4 col-sm-6 col-md-4 text-center">
+                                        <div class="col-4 col-sm-6 col-md-4 text-center">
                                             <img src="<?= base_url($dir . $file) ?>"  data-num="<?= $i ?>" class="other-img-preview img-sl img-thumbnail the-image" alt="<?= str_replace('"', "'", $product['title']) ?>">
                                         </div>
                                         <?php
@@ -112,7 +111,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="col-sm-12 border-bottom"></div>
                 </div>
                 <div class="row row-info">
-                    <div class="col-xs-12"><b><?= lang('description') ?>:</b></div>
+                    <div class="col-12"><b><?= lang('description') ?>:</b></div>
                 </div>
                 <div id="description">
                     <?= $product['description'] ?>

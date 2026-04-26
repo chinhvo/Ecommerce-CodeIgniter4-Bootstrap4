@@ -13,7 +13,7 @@
             <?php
             if (session()->getFlashdata('err_login')) {
                 ?>
-                <div class="alert alert-danger"><?= session()->flashdata('err_login') ?></div>
+                <div class="alert alert-danger"><?= session()->getFlashdata('err_login') ?></div>
                 <?php
             }
             ?></div>

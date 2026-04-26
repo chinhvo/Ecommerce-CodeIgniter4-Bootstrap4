@@ -1,5 +1,4 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <link href="<?= base_url('assets/css/nice-select.css') ?>" rel="stylesheet">
 <div class="container" id="checkout-page">
@@ -22,11 +21,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span><?= lang('checkout') ?></span>
                         </div>
                         <?php
-                        if ($this->session->flashdata('submit_error')) {
+                        if (session()->getFlashdata('submit_error')) {
                             ?>
                             <hr>
-                            <div class="alert alert-danger"><h4><span class="glyphicon glyphicon-alert"></span> <?= lang('finded_errors') ?></h4><?php
-                                foreach ($this->session->flashdata('submit_error') as $error)
+                            <div class="alert alert-danger"><h4><span class="fa fa-exclamation-triangle"></span> <?= lang('finded_errors') ?></h4><?php
+                            foreach (session()->getFlashdata('submit_error') as $error)
                                     echo $error . '<br>';
                                 ?>
                             </div>
@@ -35,14 +34,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         }
                         ?>
                         <div class="row payment-type-box">
-                            <div class="col-xs-12">
+                            <div class="col-12">
                                 <span class="top-header"><?= lang('choose_payment') ?>:</span>
                                 <select class="payment-type" data-style="btn-blue" name="payment_type">
                                     <?php if ($cashondelivery_visibility == 1) { ?>
                                         <option value="cashOnDelivery"><?= lang('cash_on_delivery') ?> </option>
                                     <?php } if (filter_var($paypal_email, FILTER_VALIDATE_EMAIL)) { ?>
                                         <option value="PayPal"><?= lang('paypal') ?> </option>
-                                    <?php } if ($bank_account['iban'] != null) { ?>
+                                    <?php } if (isset($bank_account['iban']) && $bank_account['iban'] != null) { ?>
                                         <option value="Bank"><?= lang('bank_payment') ?> </option>
                                     <?php } ?>
                                 </select>
@@ -86,7 +85,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="discount">
                                 <label><?= lang('discount_code') ?></label>
                                 <input class="form-control" name="discountCode" value="<?= @$_POST['discountCode'] ?>" placeholder="<?= lang('enter_discount_code') ?>" type="text">
-                                <a href="javascript:void(0);" class="btn btn-default" onclick="checkDiscountCode()"><?= lang('check_code') ?></a>
+                                <a href="javascript:void(0);" class="btn btn-secondary" onclick="checkDiscountCode()"><?= lang('check_code') ?></a>
                             </div>
                         <?php } ?>
                         <div class="table-responsive">
@@ -122,13 +121,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <td><a href="<?= LANG_URL . '/' . $item['url'] ?>"><?= $item['title'] ?></a></td>
                                             <td>
                                                 <a class="btn btn-xs btn-primary refresh-me add-to-cart <?= $item['quantity'] <= $item['num_added'] ? 'disabled' : '' ?>" data-id="<?= $item['id'] ?>" href="javascript:void(0);">
-                                                    <span class="glyphicon glyphicon-plus"></span>
+                                                    <span class="fa fa-plus"></span>
                                                 </a>
                                                 <span class="quantity-num">
                                                     <?= $item['num_added'] ?>
                                                 </span>
                                                 <a class="btn  btn-xs btn-danger" onclick="removeProduct(<?= $item['id'] ?>, true)" href="javascript:void(0);">
-                                                    <span class="glyphicon glyphicon-minus"></span>
+                                                    <span class="fa fa-minus"></span>
                                                 </a>
                                             </td>
                                             <td><?= $item['price'] . CURRENCY ?></td>
@@ -170,7 +169,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?= lang('custom_order') ?> 
                             <i class="fa fa-angle-right" aria-hidden="true"></i>
                         </a>
-                        <div class="visible-xs bottom-30"></div>
+                        <div class="d-block d-sm-none bottom-30"></div>
                         <div class="clearfix"></div>
                     </div>
                 </div>
@@ -194,11 +193,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
 </div>
 <?php
-if ($this->session->flashdata('deleted')) {
+if (session()->getFlashdata('deleted')) {
     ?>
 <script>
 $(document).ready(function () {
-    ShowNotificator('alert-info', '<?= $this->session->flashdata('deleted') ?>');
+    ShowNotificator('alert-info', '<?= session()->getFlashdata('deleted') ?>');
 });
 </script>
 <?php } if ($codeDiscounts == 1 && isset($_POST['discountCode'])) {

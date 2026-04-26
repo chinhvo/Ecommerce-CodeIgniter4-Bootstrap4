@@ -1,5 +1,6 @@
+<?= $this->extend('templates/greenlabel/_parts/layout') ?>
+<?= $this->section('content') ?>
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div class="inner-nav">
     <div class="container">
@@ -24,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             while (($file = readdir($dh)) !== false) {
                                 if (is_file($dir . $file)) {
                                     ?>
-                                    <div class="col-xs-4 col-sm-6 col-md-4 text-center">
+                                    <div class="col-4 col-sm-6 col-md-4 text-center">
                                         <img src="<?= base_url($dir . $file) ?>" data-num="<?= $i ?>" class="other-img-preview img-sl img-thumbnail the-image" alt="<?= str_replace('"', "'", $product['title']) ?>">
                                     </div>
                                     <?php
@@ -68,7 +69,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="row row-info">
                     <div class="col-sm-6"><b><?= lang('num_added_to_cart') ?>:</b></div>
                     <div class="col-sm-6"><?php
-                        @$result = array_count_values($_SESSION['shopping_cart']);
+                        $shopping_cart = isset($_SESSION['shopping_cart']) && is_array($_SESSION['shopping_cart']) ? $_SESSION['shopping_cart'] : array();
+                        $result = array_count_values($shopping_cart);
                         if (isset($result[$product['id']]))
                             echo $result[$product['id']];
                         else
@@ -162,3 +164,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
 </div>
 <script src="<?= base_url('assets/js/image-preveiw.js') ?>"></script>
+<?= $this->endSection() ?>

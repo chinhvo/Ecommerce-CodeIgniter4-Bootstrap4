@@ -10,7 +10,7 @@ class ProductsModel extends Model
     protected $returnType = 'array';
     protected $allowedFields = [
         'image', 'shop_categorie', 'quantity', 'in_slider', 'position', 
-        'virtual_products', 'folder', 'brand_id', 'shopee_link', 'time', 'time_update', 'url', 'vendor_id', 'visibility'
+        'virtual_products', 'folder', 'brand_id', 'time', 'time_update', 'url', 'vendor_id', 'visibility'
     ];
 
     public function deleteProduct(int $id): void

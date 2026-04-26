@@ -22,7 +22,7 @@ class Home extends AdminController
     public function index()
     {
         $this->login_check();
-
+        
         $head = [
             'title'       => 'Administration - Home',
             'description' => '',

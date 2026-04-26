@@ -98,7 +98,7 @@ class ApiModel extends Model
                 'for_id' => $id
             );
 
-            if (! $this->db->insert('products_translations', $arr)) {
+            if (! $this->db->table('products_translations')->insert($arr)) {
                 log_message('error', print_r($this->db->error(), true));
             }
             $i ++;

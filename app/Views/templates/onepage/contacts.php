@@ -1,6 +1,5 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?>
+<?= $this->extend('templates/onepage/_parts/layout') ?>
+<?= $this->section('content') ?>
 <style>
     #map {
         height: 400px;
@@ -22,10 +21,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="row">
             <div class="col-md-8">
                 <?php
-                if ($this->session->flashdata('resultSend')) {
+                if (session()->getFlashdata('resultSend')) {
                     ?>
                     <hr>
-                    <div class="alert alert-info"><?= $this->session->flashdata('resultSend') ?></div>
+                    <div class="alert alert-info"><?= session()->getFlashdata('resultSend') ?></div>
                     <hr>
                 <?php }
                 ?>
@@ -42,7 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <label for="email">
                                         <?= lang('email_address') ?></label>
                                     <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                        <span class="input-group-text"><i class="fa fa-envelope-o" aria-hidden="true"></i>
                                         </span>
                                         <input type="email" name="email" class="form-control" id="email" placeholder="Enter email" required="required" /></div>
                                 </div>
@@ -61,7 +60,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <button type="submit" class="btn cloth-bg-color pull-right" id="btnContactUs">
+                                <button type="submit" class="btn cloth-bg-color float-right" id="btnContactUs">
                                     <?= lang('send_message') ?></button>
                             </div>
                         </div>
@@ -102,3 +101,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php include 'bodyFooter.php' ?>
     </div>
 </div>
+<?= $this->endSection() ?>
