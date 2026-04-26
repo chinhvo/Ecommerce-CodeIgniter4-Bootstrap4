@@ -13,7 +13,7 @@ class SetLocale implements FilterInterface
     {
         $locale = $request->getLocale();
 
-        $supportedLocales = ['en', 'vi'];
+        $supportedLocales = ['vi'];
         if (! in_array($locale, $supportedLocales)) {
             $locale = Services::request()->config->defaultLocale ?? 'en';
         }

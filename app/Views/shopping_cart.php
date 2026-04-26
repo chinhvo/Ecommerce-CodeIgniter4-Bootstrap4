@@ -75,7 +75,7 @@
             </a>
         <?php } ?>
         <div class="bottom-30"></div>
-        <?php include 'bodyFooter.php' ?>
+        <?= $this->include('_parts/bodyFooter') ?>
     </div>
 </div>
 <?php

@@ -183,7 +183,7 @@
                 </div>
             </div>
             <?php
-            include 'bodyFooter.php';
+            echo $this->include('_parts/bodyFooter');
         } else {
             ?>
             <div class="alert alert-info"><?= lang('no_products_in_cart') ?></div>

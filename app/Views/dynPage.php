@@ -7,7 +7,7 @@
                 <?= $content ?>
             </div>
         </div>
-        <?php include 'bodyFooter.php' ?>
+        <?= $this->include('_parts/bodyFooter') ?>
     </div>
 </div>
 <?= $this->endSection() ?>

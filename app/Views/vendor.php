@@ -63,6 +63,6 @@ foreach ($all_categories as $categorie) {
             <?php } ?>
         </div>
         <?= $links_pagination ?>
-        <?php include 'bodyFooter.php' ?>
+        <?= $this->include('_parts/bodyFooter') ?>
     </div>
 <?= $this->endSection() ?>

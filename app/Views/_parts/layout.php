@@ -43,6 +43,21 @@
         <![endif]-->
 </head>
 <body>
+	<!-- Mobile off-canvas drawer -->
+	<div id="mobile-overlay" class="mobile-overlay"></div>
+	<nav id="mobile-drawer" class="mobile-drawer">
+		<button id="mobile-drawer-close" class="mobile-drawer-close" aria-label="Đóng">&times;</button>
+		<ul class="mobile-drawer-nav">
+			<li><a href="<?= base_url() ?>">Trang chủ</a></li>
+			<?php if (!empty($nav_categories)) { ?>
+				<?php foreach ($nav_categories as $category) { ?>
+					<li><a href="<?= base_url('?category=' . $category['id']) ?>"><?= esc($category['name']) ?></a></li>
+				<?php } ?>
+			<?php } ?>
+			<li><a href="<?= base_url('blog') ?>">Blog</a></li>
+			<li><a href="<?= base_url('contacts') ?>">Liên hệ</a></li>
+		</ul>
+	</nav>
 	<div id="wrapper">
 		<div id="content">
 		    <?= $this->include('_parts/header') ?>
@@ -85,5 +100,18 @@ echo $addJs;
 	</script>
 	<script src="<?= base_url('assets/js/system.js') ?>"></script>
 	<script src="<?= base_url('templatejs/mine.js') ?>"></script>
+	<script>
+	$(document).on('click', '#m-nav', function(e) {
+		e.preventDefault();
+		$('#mobile-drawer').addClass('open');
+		$('#mobile-overlay').addClass('open');
+		$('body').css('overflow', 'hidden');
+	});
+	$(document).on('click', '#mobile-drawer-close, #mobile-overlay', function() {
+		$('#mobile-drawer').removeClass('open');
+		$('#mobile-overlay').removeClass('open');
+		$('body').css('overflow', '');
+	});
+	</script>
 </body>
 </html>
