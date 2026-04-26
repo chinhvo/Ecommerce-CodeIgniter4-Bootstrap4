@@ -745,17 +745,6 @@ class App extends BaseConfig
      | Array:		array('10.0.1.200', '192.168.5.0/24')
      */
     public  string $proxy_ips = '';
-    
-    /*
-     |--------------------------------------------------------------------------
-     | Site Template Name That Will Be Loaded
-     |--------------------------------------------------------------------------
-     |
-     | By default is redlabel.
-     |
-     */
-    public  string $template = 'redlabel';
-    
     /**
      * Add allowed FTP hosts for elFinder plugin into the administration
      * (prevent of SSRF attacks, do not allow to connect to the internal network, etc.)

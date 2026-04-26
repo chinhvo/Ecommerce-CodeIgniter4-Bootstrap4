@@ -7,7 +7,6 @@ class MyController extends BaseController
 
     public $nonDynPages = array();
     private $dynPages = array();
-    protected $template;
     protected $session;
     protected $shoppingcart;
     protected $sendmail;
@@ -23,8 +22,6 @@ class MyController extends BaseController
         $this->getActivePages();
         //$this->checkForPostRequests();
         $this->setReferrer();
-        //set selected template
-        $this->loadTemplate();
     }
 
     /*
@@ -72,7 +69,7 @@ class MyController extends BaseController
         $allData = array_merge($head, $data, $footer);
 
         // Render via layout (CI4 extend/section pattern)
-        echo view($this->template . $view, $allData);
+        echo view($view, $allData);
     }
     /*
      * Load variables from values-store
@@ -206,32 +203,6 @@ class MyController extends BaseController
         }
     }
 
-    /*
-     * Check for selected template 
-     * and set it in config if exists
-     */
 
-    private function loadTemplate()
-    {
-        $homeAdminModel = model(\App\Modules\Admin\Models\HomeAdminModel::class);
-
-        // Get template from DB
-        $template = $homeAdminModel->getValueStore('template');
-
-        // Get config value if DB is null
-        if ($template === null) {
-            $template = config('App')->template;
-        } else {
-            // Update config dynamically
-            config('App')->template = $template;
-        }
-
-        // Check template directory exists
-        if (!is_dir(TEMPLATES_DIR . $template)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('The selected template does not exist!');
-        }
-
-        $this->template = 'templates' . DIRECTORY_SEPARATOR . $template . DIRECTORY_SEPARATOR;
-    }
 
 }

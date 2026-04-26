@@ -41,8 +41,7 @@ class Loader extends MyController
     {
         $style = $this->Home_admin_model->getValueStore('newStyle');
         if ($style == null) {
-            $template = $this->template;
-            $style = file_get_contents(VIEWS_DIR . $template . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'default-gradient.css');
+            $style = file_get_contents(VIEWS_DIR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'default-gradient.css');
             if (!$style) {
                 return $this->response->setStatusCode(404);
             }
@@ -59,8 +58,7 @@ class Loader extends MyController
 
     public function templateCss($file)
     {
-        $template = $this->template;
-        $style = file_get_contents(VIEWS_DIR . $template . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . $file);
+        $style = file_get_contents(VIEWS_DIR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . $file);
         if (!$style) {
             return $this->response->setStatusCode(404);
         }
@@ -76,8 +74,7 @@ class Loader extends MyController
 
     public function templateJs($file)
     {
-        $template = $this->template;
-        $js = file_get_contents(VIEWS_DIR . $template . 'assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . $file);
+        $js = file_get_contents(VIEWS_DIR . 'assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . $file);
         if (!$js) {
             return $this->response->setStatusCode(404);
         }
@@ -93,12 +90,7 @@ class Loader extends MyController
 
     public function templateCssImage($file, $template = null)
     {
-        if ($template == null) {
-            $template = $this->template;
-        } else {
-            $template = DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $template . DIRECTORY_SEPARATOR;
-        }
-        $path = VIEWS_DIR . $template . 'assets' . DIRECTORY_SEPARATOR . 'imgs' . DIRECTORY_SEPARATOR . $file;
+        $path = VIEWS_DIR . 'assets' . DIRECTORY_SEPARATOR . 'imgs' . DIRECTORY_SEPARATOR . $file;
         
         $img = @file_get_contents($path);
         if (!$img) {
