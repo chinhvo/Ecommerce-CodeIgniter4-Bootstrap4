@@ -2,7 +2,11 @@
 <?= $this->section('content') ?>
 
 <div class="container-fluid body">
-    <?= $this->include('_parts/hero_slider') ?>
+    <?= $this->include('_parts/top_slider') ?>
+    <div class="row content">
+        <?= $this->include('_parts/highlighted_product') ?>
+        <?= $this->include('_parts/news') ?>
+    </div>
     <?= $this->include('_parts/product_grid') ?>
     <?= $this->include('_parts/categories') ?>
     <?= $this->include('_parts/brands') ?> 

@@ -14,12 +14,12 @@
                     }
                     ?>
                 </ol>
-                <div class="carousel-inner" role="listbox">
+                <div class="carousel-inner">
                     <?php
                     $i = 0;
                     foreach ($sliderProducts as $article) {
                     ?>
-                        <div class="item <?= $i == 0 ? 'active' : '' ?>">
+                        <div class="carousel-item <?= $i == 0 ? 'active' : '' ?>">
                             <div class="absolute-texts">
                                 <h1>
                                     <a href="<?= LANG_URL . '/' . $article['url'] ?>">
@@ -36,51 +36,23 @@
                                 $productImage = base_url('/attachments/shop_images/' . $article['image']);
                             }
                             ?>
-                            <img src="<?= $productImage ?>" alt="<?= htmlentities($article['title']) ?>" class="img-responsive">
+                            <img src="<?= $productImage ?>" alt="<?= htmlentities($article['title']) ?>" class="d-block w-100">
                         </div>
                     <?php
                         $i++;
                     }
                     ?>
                 </div>
-                <div class="controls">
-                    <a class="left carousel-control" href="#home-slider" role="button" data-slide="prev">
-                        <i class="fa fa-2x fa-angle-left" aria-hidden="true"></i>
-                    </a>
-                    <a class="right carousel-control" href="#home-slider" role="button" data-slide="next">
-                        <i class="fa fa-2x fa-angle-right" aria-hidden="true"></i>
-                    </a>
-                </div>
+                <a class="carousel-control-prev" href="#home-slider" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#home-slider" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
             </section>
         </section>
-
-        <aside class="sidebar-banner sidebar-banner-home col-md-4 col-sm-12 col-xs-12">
-            <div class="row">
-                <div class="col-md-12 col-sm-6 col-xs-12 banner">
-                    <a href="<?= base_url('blog') ?>">
-                        <div class="banner-item icon-on-left red">
-                            <h4>Khuyến mãi!</h4>
-                            <p>Mua xe nhận ngay quà khủng</p>
-                            <span class="button">Xem</span>
-                            <i class="fa fa-star-o banner-icon" aria-hidden="true"></i>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-12 col-sm-6 col-xs-12 banner">
-                    <a href="<?= base_url('checkout') ?>">
-                        <div class="banner-item icon-on-left green">
-                            <h4>MUA TRẢ GÓP</h4>
-                            <p>Áp dụng cho tất cả sản phẩm</p>
-                            <span class="button">Xem</span>
-                            <i class="fa fa-cc-visa banner-icon" aria-hidden="true"></i>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-12 col-sm-6 col-xs-12 banner">
-                    <?= $load::getProducts($bestSellers, '', true) ?>
-                </div>
-            </div>
-        </aside>
     </div>
 <?php } ?>

@@ -171,6 +171,13 @@ if (session()->getFlashdata('result_publish')) {
 			</select>
 		</div>
 		<div class="form-group for-shop">
+			<label for="highlighted">Highlighted</label>
+			<select class="selectpicker" name="highlighted" id="highlighted">
+				<option value="1" <?= isset($_POST['highlighted']) && $_POST['highlighted'] == 1 ? 'selected' : '' ?>>Yes</option>
+				<option value="0" <?= isset($_POST['highlighted']) && $_POST['highlighted'] == 0 || !isset($_POST['highlighted']) ? 'selected' : '' ?>>No</option>
+			</select>
+		</div>
+		<div class="form-group for-shop">
 			<label for="position">Position</label> 
 			<input type="number" placeholder="Position number" name="position" id="position"
 				value="<?= isset($_POST['position']) ? htmlspecialchars($_POST['position']) : '' ?>" class="form-control">

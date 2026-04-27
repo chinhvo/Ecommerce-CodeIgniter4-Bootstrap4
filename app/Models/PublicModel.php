@@ -558,6 +558,23 @@ class PublicModel extends Model
         return $builder->get()->getResultArray();
     }
 
+    public function getHighlightedProducts()
+    {
+        $builder = $this->db->table('products');
+        $builder->select('vendors.url as vendor_url, products.id, products.quantity, products.image, products.url, products_translations.price, products_translations.title, products_translations.basic_description, products_translations.old_price');
+        $builder->join('products_translations', 'products_translations.for_id = products.id', 'left');
+        $builder->join('vendors', 'vendors.id = products.vendor_id', 'left');
+        $builder->where('products_translations.abbr', MY_LANGUAGE_ABBR);
+        $builder->where('visibility', 1);
+        $builder->where('highlighted', 1);
+
+        if ($this->showOutOfStock == 0) {
+            $builder->where('quantity >', 0);
+        }
+
+        return $builder->get()->getResultArray();
+    }
+
     public function getBestSellers($categorie = 0, $noId = 0)
     {
         $builder = $this->db->table('products');

@@ -20,6 +20,7 @@
     <link href="<?= base_url('assets/css/bootstrap-datepicker3.min.css') ?>" rel="stylesheet">
     <link href="<?= base_url('assets/css/font-awesome.min.css') ?>" rel="stylesheet" />
     <link href="<?= base_url('assets/css/bootstrap-datepicker.min.css') ?>" rel="stylesheet" />
+    <link href="<?= base_url('assets/css/flexslider.css') ?>" rel="stylesheet" />
     <link href="<?= base_url('templatecss/custom.css') ?>" rel="stylesheet" />
     <link href="<?= base_url('cssloader/theme.css') ?>" rel="stylesheet" />
 
@@ -92,6 +93,7 @@
     <script src="<?= base_url('assets/js/bootstrap4-toggle.min.js') ?>"></script>
     <script src="<?= base_url('assets/js/bootstrap.min.js') ?>"></script>
     <script src="<?= base_url('assets/js/bootbox.min.js') ?>"></script>
+    <script src="<?= base_url('assets/js/flexslider.min.js') ?>"></script>
     <script src="<?= base_url('assets/js/zxcvbn.js') ?>"></script>
     <script src="<?= base_url('assets/js/zxcvbn_bootstrap3.js') ?>"></script>
     <script src="<?= base_url('assets/js/pGenerator.jquery.js') ?>"></script>

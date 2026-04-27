@@ -9,7 +9,7 @@ return [
 	'out_of_stock' => 'Hết hàng',
 	'categories' => 'Danh mục',
 	'price' => 'Giá',
-	'old_price' => 'Trước đây',
+	'old_price' => 'Giá cũ',
 	'availability' => 'Số lượng',
 	'search_now' => 'Tìm kiếm ngay',
 	'details' => 'Xem trước',
@@ -246,4 +246,7 @@ return [
 	'social_share' => 'Chia sẻ trên mạng xã hội',
 	'favorite_products' => 'Sản phẩm yêu thích',
 	'thanks_message' => 'Lời nhắn gửi đến khách hàng',
+	'highlighted_products' => 'Sản phẩm nổi bật',
+	'read_more' => 'Xem thêm',
+	'best_sellers' => 'Sản phẩm bán chạy',
 ];

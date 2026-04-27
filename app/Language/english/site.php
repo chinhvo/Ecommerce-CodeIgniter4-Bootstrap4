@@ -243,4 +243,7 @@ return [
     'user_order_quantity' => 'Quantity:',
     'usr_no_orders' => 'No purchases made',
     'social_share' => 'Share',
+    'highlighted_products' => 'Highlighted products',
+    'read_more' => 'Read more',
+    'best_sellers' => 'Best sellers',
 ];

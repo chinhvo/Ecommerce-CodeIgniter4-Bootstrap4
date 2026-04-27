@@ -42,10 +42,12 @@ header {
 .my-basket span.sum-scope {
   margin-right: 10px;
 }
-.navbar-toggle {
+.navbar-toggle,
+.navbar-toggler {
   border: 1px solid #727272;
 }
-.navbar-toggle span {
+.navbar-toggle span,
+.navbar-toggler-icon {
   background-color: #727272;
 }
 .search {
@@ -135,18 +137,21 @@ header {
   margin-bottom: 70px;
   display: inline-block;
 }
-#home-slider .item .absolute-texts {
+#home-slider .item .absolute-texts,
+#home-slider .carousel-item .absolute-texts {
   position: absolute;
   top: 10px;
   left: 10px;
 }
-#home-slider .item h1 {
+#home-slider .item h1,
+#home-slider .carousel-item h1 {
   font-size: 20px;
   font-weight: bold;
   text-transform: uppercase;
   max-width: 300px;
 }
-#home-slider .item .description {
+#home-slider .item .description,
+#home-slider .carousel-item .description {
   max-width: 400px;
 }
 #home-slider .carousel-indicators {
@@ -254,6 +259,8 @@ header {
   padding: 2px 7px;
   font-size: 12px;
   margin-bottom: 5px;
+  text-align: center;
+  cursor: pointer;
 }
 .products .product-list .price-down {
   background-color: #181818;
@@ -262,13 +269,17 @@ header {
 }
 .products .product-list div.add-to-cart a {
   color: #fff;
+  display: block;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
 }
 .part-label {
   color: #fff;
-  padding: 5px 15px;
+  padding: 5px 10px;
   display: inline-block;
-  margin-top: 15px;
-  margin-bottom: -20px;
+  margin-bottom: -10px;
+  font-size: 1.2rem;
 }
 footer {
   bottom: 0;
@@ -464,7 +475,8 @@ footer {
   color: #fff;
   padding: 5px 10px;
 }
-.pagination li {
+.pagination li,
+.pagination .page-item {
   display: inline-block;
   margin-right: 5px;
 }
@@ -472,13 +484,18 @@ footer {
 .pagination li:first-child,
 .pagination li a,
 .pagination li:first-child a,
-.pagination li:last-child a {
+.pagination li:last-child a,
+.pagination .page-link,
+.pagination .page-item:first-child .page-link,
+.pagination .page-item:last-child .page-link {
   border-radius: 0;
 }
-.pagination li a:hover {
+.pagination li a:hover,
+.pagination .page-link:hover {
   color: #b54e4f;
 }
-.pagination li.active a {
+.pagination li.active a,
+.pagination .page-item.active .page-link {
   color: #fff;
 }
 #notificator {
@@ -557,6 +574,10 @@ footer {
   color: #fff;
   text-decoration: none;
 }
+
+/* =====================================================
+   Homepage right-side banners
+   ===================================================== */
 .sidebar-banner-home {
   padding-left: 10px;
   padding-right: 0;
@@ -603,8 +624,182 @@ footer {
 .banner-item.green {
   background: #2a8b63;
 }
+
+/* =====================================================
+   Shared section containers
+   ===================================================== */
 .main-content .padding-add {
   padding: 10px 0;
+}
+.section-box {
+  background: #fff;
+  border: 1px solid #dee2e6;
+  padding: 10px;
+}
+.section-box-no-padding {
+  padding: 0;
+}
+
+/* =====================================================
+   Highlighted products block
+   ===================================================== */
+.highlighted-products-wrap {
+  margin-top: 10px;
+}
+.highlighted-products-grid {
+  margin-bottom: 0;
+}
+.highlighted-products-grid .product-list .img-container a {
+  height: auto;
+  min-height: 180px;
+  aspect-ratio: 4 / 3;
+}
+
+/* =====================================================
+   Top news tabs + bestsellers table
+   ===================================================== */
+.top-news-home {
+  padding-left: 10px;
+  padding-right: 0;
+}
+.top-news-card {
+  margin-top: 0;
+}
+.top-news-tabs-wrap {
+  padding: 0;
+}
+.top-news-tabs {
+  border-bottom: 1px solid #e5e5e5;
+  margin: 0;
+}
+.top-news-tabs .nav-item {
+  flex: 1 1 0;
+  text-align: center;
+}
+.top-news-tabs .nav-link {
+  border: 0;
+  border-radius: 0;
+  color: #333;
+  font-size: 13px;
+  padding: 10px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.top-news-tabs .nav-link i {
+  margin-right: 4px;
+}
+.top-news-tabs .nav-link.active {
+  color: #0077cc;
+  font-weight: 700;
+  background: #fff;
+  border-bottom: 2px solid #0077cc;
+}
+.top-news-tab-content {
+  padding: 10px;
+}
+.bestsellers-table td {
+  border-top: 0;
+  vertical-align: top;
+  padding: 8px 0;
+}
+.bestsellers-table .product-thumbnail {
+  width: 78px;
+  padding-right: 10px;
+}
+.bestsellers-table .product-thumbnail img {
+  width: 68px;
+  height: 52px;
+  object-fit: cover;
+}
+.bestsellers-table .product-info p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.bestsellers-table .product-info a {
+  color: #333;
+}
+
+/* =====================================================
+   Top news videos + compact list
+   ===================================================== */
+.video-links li {
+  border-bottom: 1px solid #eee;
+  padding: 6px 0;
+}
+.video-links li:last-child {
+  border-bottom: 0;
+}
+.video-links a {
+  color: #333;
+  font-size: 13px;
+}
+.top-news-card .part-label {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+.top-news-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #ececec;
+}
+.top-news-item:first-child {
+  padding-top: 0;
+}
+.top-news-item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.top-news-image {
+  display: block;
+  width: 110px;
+  flex: 0 0 110px;
+}
+.top-news-image img {
+  height: 78px;
+  object-fit: cover;
+}
+.top-news-content h4 {
+  font-size: 14px;
+  line-height: 1.35;
+  margin: 0 0 6px;
+}
+.top-news-content h4 a {
+  color: #333;
+}
+.top-news-content small {
+  color: #777;
+  display: block;
+  margin-bottom: 6px;
+}
+.top-news-content p {
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+  color: #666;
+}
+
+/* =====================================================
+   Top news + highlighted responsive tweaks
+   ===================================================== */
+@media (max-width: 767.98px) {
+  .highlighted-products-grid .product-list .img-container a {
+    min-height: 160px;
+    aspect-ratio: 16 / 11;
+  }
+  .top-news-home {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .top-news-card {
+    margin-top: 10px;
+  }
+  .top-news-tabs .nav-link {
+    font-size: 12px;
+    padding: 8px 6px;
+  }
 }
 .blog-artchive {
   list-style: none;
@@ -699,7 +894,10 @@ footer {
 }
 .dropdown-menu .active a,
 .dropdown-menu .active a:hover,
-.dropdown-menu .active a:focus {
+.dropdown-menu .active a:focus,
+.dropdown-menu .dropdown-item.active,
+.dropdown-menu .dropdown-item.active:hover,
+.dropdown-menu .dropdown-item.active:focus {
   background-color: transparent;
 }
 #view-product h1 {
@@ -919,24 +1117,38 @@ footer {
   display: none;
 }
 a.left.carousel-control,
-a.right.carousel-control {
+a.right.carousel-control,
+.carousel-control-prev,
+.carousel-control-next {
   background-image: none;
   top: 30%;
 }
-#home-slider a.left.carousel-control,
-#home-slider a.right.carousel-control {
+#home-slider .carousel-control-prev,
+#home-slider .carousel-control-next {
+  width: auto;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  padding: 4px 8px;
+  top: 50%;
+  transform: translateY(-50%);
   bottom: auto;
-  left: auto;
-  right: auto;
-  position: static;
 }
-#home-slider a.left.carousel-control {
-  margin-right: 10px;
+#home-slider .carousel-control-prev {
+  left: 0;
 }
-#home-slider .controls {
-  position: absolute;
-  right: 20px;
-  top: 20px;
+#home-slider .carousel-control-next {
+  right: 0;
+}
+#home-slider:hover .carousel-control-prev,
+#home-slider:hover .carousel-control-next {
+  opacity: 1;
+}
+#home-slider .carousel-control-prev-icon,
+#home-slider .carousel-control-next-icon {
+  width: 16px;
+  height: 16px;
 }
 .brands {
   margin-left: -10px;
@@ -1151,3 +1363,78 @@ body {
 .row-of-slider {
   margin-bottom: 20px;
 }
+
+/* =====================================================
+   Top slider image scaling
+   ===================================================== */
+#sidebarCarousel .carousel-item img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Keep top-left carousel same height as right banners on desktop */
+@media (min-width: 768px) {
+  .sidebar-slider {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+  }
+  #sidebarCarousel,
+  #sidebarCarousel .carousel-inner,
+  #sidebarCarousel .carousel-item,
+  #sidebarCarousel .carousel-item a,
+  #sidebarCarousel .carousel-item img {
+    height: 100%;
+  }
+  #sidebarCarousel,
+  #sidebarCarousel .carousel-inner,
+  #sidebarCarousel .carousel-item,
+  #sidebarCarousel .carousel-item a {
+    overflow: hidden;
+  }
+  #sidebarCarousel .carousel-item a {
+    display: block;
+  }
+  #sidebarCarousel .carousel-item img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+/* =====================================================
+   slider controls refinements
+   ===================================================== */
+
+  #sidebarCarousel .carousel-control-prev,
+  #sidebarCarousel .carousel-control-next {
+      height: 40px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      width: auto;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 4px;
+      padding: 4px 8px;
+  }
+  #sidebarCarousel .carousel-control-prev-icon,
+  #sidebarCarousel .carousel-control-next-icon {
+      width: 16px;
+      height: 16px;
+  }
+  #sidebarCarousel .carousel-control-prev {
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+  }
+  #sidebarCarousel .carousel-control-next {
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+  }
+  #sidebarCarousel:hover .carousel-control-prev,
+  #sidebarCarousel:hover .carousel-control-next {
+      opacity: 1;
+  }
+

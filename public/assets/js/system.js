@@ -16,6 +16,14 @@ $('a.add-to-cart').click(function () {
     manageShoppingCart('add', article_id, reload);
 });
 
+// Allow clicking anywhere in the card action container, not only on the inner anchor.
+$(document).on('click', '.products .product-list div.add-to-cart', function (e) {
+    if ($(e.target).closest('a.add-to-cart').length) {
+        return;
+    }
+    $(this).find('a.add-to-cart').first().trigger('click');
+});
+
 // DatePicker
 $('.input-group.date').datepicker({
     format: "dd/mm/yyyy"
@@ -212,3 +220,9 @@ function setupScrollToTop() {
 	});
 }
 
+ $('.flexslider').flexslider({
+    animation: "slide",  // Choose "fade" or "slide"
+    slideshowSpeed: 7000, // Duration of each slide in ms
+    animationSpeed: 600,  // Speed of transition in ms
+    controlNav: true      // Enable/disable bullet navigation
+  });

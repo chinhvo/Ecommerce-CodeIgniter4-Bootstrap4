@@ -2,7 +2,7 @@
 $pager->setSurroundCount(2);
 ?>
 
-<nav aria-label="Page navigation">
+<nav aria-label="Page navigation" class="mt-4">
     <ul class="pagination justify-content-center">
 
         <!-- Previous -->

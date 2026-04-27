@@ -9,7 +9,7 @@ class ProductsModel extends Model
     protected $primaryKey = 'id';
     protected $returnType = 'array';
     protected $allowedFields = [
-        'image', 'shop_categorie', 'quantity', 'in_slider', 'position', 
+        'image', 'shop_categorie', 'quantity', 'in_slider', 'highlighted', 'position', 
         'virtual_products', 'folder', 'brand_id', 'time', 'time_update', 'url', 'vendor_id', 'visibility'
     ];
 
@@ -116,6 +116,7 @@ class ProductsModel extends Model
                 'shop_categorie'   => $post['shop_categorie'],
                 'quantity'         => $post['quantity'],
                 'in_slider'        => $post['in_slider'],
+                'highlighted'      => $post['highlighted'] ?? 0,
                 'position'         => $post['position'],
                 'virtual_products' => $post['virtual_products'],
                 'brand_id'         => $post['brand_id'],
@@ -132,6 +133,7 @@ class ProductsModel extends Model
                 'shop_categorie'   => $post['shop_categorie'],
                 'quantity'         => $post['quantity'],
                 'in_slider'        => $post['in_slider'],
+                'highlighted'      => $post['highlighted'] ?? 0,
                 'position'         => $post['position'],
                 'virtual_products' => $post['virtual_products'],
                 'folder'           => $post['folder'],
