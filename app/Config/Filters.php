@@ -73,6 +73,7 @@ class Filters extends BaseFilters
      */
     public array $globals = [
         'before' => [
+            'setlocale',
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',

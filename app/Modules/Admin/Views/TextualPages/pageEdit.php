@@ -3,12 +3,12 @@
     <div class="col-sm-8">
         <form method="POST" action="">
             <input type="hidden" name="pageId" value="<?= $page[0]['id'] ?>">
-            <?php foreach ($page as $p) { ?>
+            <?php foreach ($page as $index => $p) { ?>
                 <input type="hidden" name="translations[]" value="<?= $p['abbr'] ?>">
-            <?php } foreach ($page as $p) { ?>
+            <?php } foreach ($page as $index => $p) { ?>
                 <div class="form-group">
-                    <label for="name">Name in menu (<?= $p['lname'] ?><img src="<?= base_url('attachments/lang_flags/' . $p['flag']) ?>" alt="">)</label>
-                    <input type="text" name="name[]" class="form-control" value="<?= $p['name'] ?>" id="name">
+                    <label for="name<?= $index ?>">Name in menu (<?= $p['lname'] ?><img src="<?= base_url('attachments/lang_flags/' . $p['flag']) ?>" alt="">)</label>
+                    <input type="text" name="name[]" class="form-control" value="<?= $p['name'] ?>" id="name<?= $index ?>">
                 </div>
             <?php } ?>
             <?php
@@ -16,7 +16,7 @@
             foreach ($page as $p) {
                 ?>
                 <div class="form-group">
-                    <label>Page content (<?= $p['lname'] ?><img src="<?= base_url('attachments/lang_flags/' . $p['flag']) ?>" alt="">)</label>
+                    <label for="description<?= $i ?>">Page content (<?= $p['lname'] ?><img src="<?= base_url('attachments/lang_flags/' . $p['flag']) ?>" alt="">)</label>
                     <textarea name="description[]" id="description<?= $i ?>" rows="200" class="form-control"><?= $p['description'] ?></textarea>
                     <script>
                         CKEDITOR.replace('description<?= $i ?>');

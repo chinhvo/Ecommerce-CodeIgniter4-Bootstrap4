@@ -35,9 +35,9 @@
                 <?php endforeach; ?>
 
                 <!-- Title Inputs -->
-                <?php foreach ($languages as $language): ?>
+                <?php $titleIndex = 0; foreach ($languages as $language): ?>
                     <div class="form-group mb-3">
-                        <label>
+                        <label for="title<?= $titleIndex ?>">
                             Title (<?= esc($language->name) ?> 
                             <img src="<?= base_url('attachments/lang_flags/' . $language->flag) ?>" alt="">
                             )
@@ -45,10 +45,11 @@
                         <input 
                             type="text" 
                             name="title[]" 
+                            id="title<?= $titleIndex ?>"
                             value="<?= $trans_load && isset($trans_load[$language->abbr]['title']) ? esc($trans_load[$language->abbr]['title']) : '' ?>" 
                             class="form-control">
                     </div>
-                <?php endforeach; ?>
+                <?php $titleIndex++; endforeach; ?>
 
                 <!-- Descriptions -->
                 <?php $i = 0; foreach ($languages as $language): ?>

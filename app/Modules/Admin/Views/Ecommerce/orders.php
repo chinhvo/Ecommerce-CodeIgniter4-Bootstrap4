@@ -257,6 +257,7 @@ if (! $request->getGet('settings')) :
                     <form method="POST" action="">  
                      	<?= csrf_field() ?>                
                         <input type="hidden" name="cashondelivery_visibility" value="<?= htmlspecialchars($cashondelivery_visibility) ?>">
+												<label for="cashondelivery_visibility_switch" class="sr-only">Cash on delivery visibility</label>
                         <input id="cashondelivery_visibility_switch" <?= $cashondelivery_visibility == 1 ? 'checked' : '' ?> data-toggle="toggle" data-for-field="cashondelivery_visibility" class="toggle-changer" type="checkbox" >
                         <button class="btn btn-secondary" value="" type="submit">
                             Save
@@ -284,6 +285,7 @@ if (! $request->getGet('settings')) :
                     <form method="post" action="" id="paypal_sandbox">
                         <?= csrf_field() ?>
            				<input type="hidden" name="paypal_sandbox" value="<?= htmlspecialchars($paypal_sandbox) ?>">
+						<label for="paypal_sandbox_switch" class="sr-only">Paypal sandbox mode</label>
                         <input id="paypal_sandbox_switch" <?= $paypal_sandbox == 1 ? 'checked' : '' ?> data-toggle="toggle" data-for-field="paypal_sandbox" class="toggle-changer" type="checkbox">   
 						<button class="btn btn-secondary" type="submit">Save</button>
 					</form>

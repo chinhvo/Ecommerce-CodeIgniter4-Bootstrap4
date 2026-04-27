@@ -47,10 +47,10 @@ if (session()->getFlashdata('result_publish')) {
         <div class="locale-container locale-container-<?= htmlspecialchars($language->abbr) ?>" <?= $language->abbr == MY_DEFAULT_LANGUAGE_ABBR ? 'style="display:block;"' : '' ?>>
 			<input type="hidden" name="translations[]" value="<?= htmlspecialchars($language->abbr) ?>">
 			<div class="form-group">
-				<label>Title (<?= htmlspecialchars($language->name) ?>
+				<label for="title<?= $i ?>">Title (<?= htmlspecialchars($language->name) ?>
 					<img src="<?= base_url('attachments/lang_flags/' . $language->flag) ?>" alt="">)
 				</label> 
-                <input type="text" name="title[]" value="<?= $trans_load != null && isset($trans_load[$language->abbr]['title']) ? $trans_load[$language->abbr]['title'] : '' ?>" class="form-control">
+				<input type="text" id="title<?= $i ?>" name="title[]" value="<?= $trans_load != null && isset($trans_load[$language->abbr]['title']) ? $trans_load[$language->abbr]['title'] : '' ?>" class="form-control">
 			</div>
 
 			<div class="form-group">
@@ -79,15 +79,15 @@ if (session()->getFlashdata('result_publish')) {
                 </script>
 			</div>
 			<div class="form-group for-shop">
-				<label>Price (<?= htmlspecialchars($language->name) ?><img src="<?= base_url('attachments/lang_flags/' . $language->flag) ?>" alt="">)
+				<label for="price<?= $i ?>">Price (<?= htmlspecialchars($language->name) ?><img src="<?= base_url('attachments/lang_flags/' . $language->flag) ?>" alt="">)
 				</label> 
-                <input type="text" name="price[]" placeholder="without currency at the end"
+				<input type="text" id="price<?= $i ?>" name="price[]" placeholder="without currency at the end"
 					value="<?= $trans_load != null && isset($trans_load[$language->abbr]['price']) ? $trans_load[$language->abbr]['price'] : '' ?>" class="form-control">
 			</div>
 			<div class="form-group for-shop">
-				<label>Old Price (<?= htmlspecialchars($language->name) ?><img src="<?= base_url('attachments/lang_flags/' . $language->flag) ?>" alt="">)
+				<label for="old_price<?= $i ?>">Old Price (<?= htmlspecialchars($language->name) ?><img src="<?= base_url('attachments/lang_flags/' . $language->flag) ?>" alt="">)
 				</label> 
-                <input type="text" name="old_price[]" placeholder="without currency at the end"
+				<input type="text" id="old_price<?= $i ?>" name="old_price[]" placeholder="without currency at the end"
 					value="<?= $trans_load != null && isset($trans_load[$language->abbr]['old_price']) ? $trans_load[$language->abbr]['old_price'] : '' ?>" class="form-control">
 			</div>
 		</div>
@@ -123,8 +123,8 @@ if (session()->getFlashdata('result_publish')) {
 			<a href="javascript:void(0);" data-toggle="modal" data-target="#modalMoreImages" class="btn btn-secondary">Upload more images</a>
 		</div>
 		<div class="form-group for-shop">
-			<label>Shop Categories</label> 
-            <select class="selectpicker form-control show-tick show-menu-arrow" name="shop_categorie">
+			<label for="shop_categorie">Shop Categories</label> 
+			<select class="selectpicker form-control show-tick show-menu-arrow" name="shop_categorie" id="shop_categorie">
             <?php foreach ($shop_categories as $key_cat => $shop_categorie) { ?>
                 <option <?= isset($_POST['shop_categorie']) && $_POST['shop_categorie'] == $key_cat ? 'selected=""' : '' ?> value="<?= $key_cat ?>">
                     <?php
@@ -146,8 +146,8 @@ if (session()->getFlashdata('result_publish')) {
 		</div>
     <?php if ($showBrands == 1) { ?>
         <div class="form-group for-shop">
-			<label>Brand</label> 
-            <select class="selectpicker" name="brand_id">
+			<label for="brand_id">Brand</label> 
+			<select class="selectpicker" name="brand_id" id="brand_id">
                 <?php foreach ($brands as $brand) { ?>
                     <option <?= isset($_POST['brand_id']) && $_POST['brand_id'] == $brand['id'] ? 'selected' : '' ?> value="<?= $brand['id'] ?>"><?= $brand['name'] ?></option>
                 <?php } ?>
@@ -155,24 +155,24 @@ if (session()->getFlashdata('result_publish')) {
 		</div>
     <?php } if ($virtualProducts == 1) { ?>
         <div class="form-group for-shop">
-			<label>Virtual Products 
+			<label for="virtual_products">Virtual Products 
                 <a href="javascript:void(0);" data-toggle="modal" data-target="#virtualProductsHelp">
                     <i class="fa fa-question-circle" aria-hidden="true"></i>
                 </a>
             </label>
-			<textarea class="form-control" name="virtual_products"><?= isset($_POST['virtual_products']) ? htmlspecialchars($_POST['virtual_products']) : '' ?></textarea>
+			<textarea class="form-control" name="virtual_products" id="virtual_products"><?= isset($_POST['virtual_products']) ? htmlspecialchars($_POST['virtual_products']) : '' ?></textarea>
 		</div>
     <?php } ?>
     <div class="form-group for-shop">
-			<label>In Slider</label> 
-            <select class="selectpicker" name="in_slider">
+			<label for="in_slider">In Slider</label> 
+			<select class="selectpicker" name="in_slider" id="in_slider">
 				<option value="1" <?= isset($_POST['in_slider']) && $_POST['in_slider'] == 1 ? 'selected' : '' ?>>Yes</option>
 				<option value="0" <?= isset($_POST['in_slider']) && $_POST['in_slider'] == 0 || !isset($_POST['in_slider']) ? 'selected' : '' ?>>No</option>
 			</select>
 		</div>
 		<div class="form-group for-shop">
-			<label>Position</label> 
-            <input type="number" placeholder="Position number" name="position"
+			<label for="position">Position</label> 
+			<input type="number" placeholder="Position number" name="position" id="position"
 				value="<?= isset($_POST['position']) ? htmlspecialchars($_POST['position']) : '' ?>" class="form-control">
 		</div>
 		<button type="submit" name="submit" class="btn btn-lg btn-secondary btn-publish" value="save">Publish</button>

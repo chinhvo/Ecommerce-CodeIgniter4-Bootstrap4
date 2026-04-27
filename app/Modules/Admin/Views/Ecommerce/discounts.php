@@ -15,10 +15,10 @@
 		</a>
 
 		<form method="POST" action="" class="float-right form-inline">
-			<label class="mr-2">Code discounts</label> 
+			<label class="mr-2" for="codeDiscountsSwitch">Code discounts</label> 
 			<input type="hidden"
 				name="codeDiscounts" value="<?= htmlspecialchars($codeDiscounts) ?>">
-			<input <?= $codeDiscounts == 1 ? 'checked' : '' ?>
+			<input id="codeDiscountsSwitch" <?= $codeDiscounts == 1 ? 'checked' : '' ?>
 				data-toggle="toggle" data-for-field="codeDiscounts"
 				class="toggle-changer" type="checkbox">
 			<button class="btn btn-secondary ml-2" type="submit" name = "saveCodeDiscounts" value="save">Save</button>
@@ -98,8 +98,8 @@
                         <?php endif; ?>
 
                         <div class="form-group">
-							<label>Type of discount</label> <select class="form-control"
-								name="type">
+							<label for="discount_type">Type of discount</label> <select class="form-control"
+								name="type" id="discount_type">
 								<option
 									<?= (isset($_POST['type']) && $_POST['type'] == 'percent') || !isset($_POST['percent']) ? 'selected' : '' ?>
 									value="percent">%</option>
@@ -110,14 +110,16 @@
 						</div>
 
 						<div class="form-group">
-							<label>Discount value</label> <input class="form-control"
+							<label for="discount_amount">Discount value</label> <input class="form-control"
+								id="discount_amount"
 								name="amount"
 								value="<?= isset($_POST['amount']) ? htmlspecialchars($_POST['amount']) : '' ?>"
 								type="text">
 						</div>
 
 						<div class="form-group position-relative">
-							<label>Discount code</label> <input class="form-control"
+							<label for="discount_code">Discount code</label> <input class="form-control"
+								id="discount_code"
 								name="code"
 								value="<?= isset($_POST['code']) ? htmlspecialchars($_POST['code']) : '' ?>"
 								type="text">
@@ -133,7 +135,8 @@
 						</div>
 
 						<div class="form-group">
-							<label>Valid from date</label> <input
+							<label for="valid_from_date">Valid from date</label> <input
+								id="valid_from_date"
 								class="form-control datepicker" name="valid_from_date"
 								placeholder="yyyy/mm/dd"
 								value="<?= isset($_POST['valid_from_date']) ? htmlspecialchars($_POST['valid_from_date']) : '' ?>"
@@ -141,7 +144,8 @@
 						</div>
 
 						<div class="form-group">
-							<label>Valid to date</label> <input
+							<label for="valid_to_date">Valid to date</label> <input
+								id="valid_to_date"
 								class="form-control datepicker" name="valid_to_date"
 								placeholder="yyyy/mm/dd"
 								value="<?= isset($_POST['valid_to_date']) ? htmlspecialchars($_POST['valid_to_date']) : '' ?>"

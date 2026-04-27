@@ -42,8 +42,9 @@
                 </div>
                 <div class="card-body">
                   <?php foreach ($languages as $language): ?>
+                    <?php $titleId = 'seo_title_' . md5($page['name'] . '_' . $language->abbr); ?>
                     <div class="form-group">
-                      <label class="d-block">
+                      <label class="d-block" for="<?= $titleId ?>">
                         Title (<?= htmlspecialchars($language->name) ?>
                         <img
                           src="<?= base_url('attachments/lang_flags/' . $language->flag) ?>"
@@ -54,6 +55,7 @@
 
                       <input
                         type="text"
+                        id="<?= $titleId ?>"
                         name="title[]"
                         value="<?= @$seo_trans[$page['name']][$language->abbr]['title'] ?>"
                         class="form-control"
@@ -62,8 +64,9 @@
                   <?php endforeach; ?>
 
                   <?php foreach ($languages as $language): ?>
+                    <?php $descriptionId = 'seo_description_' . md5($page['name'] . '_' . $language->abbr); ?>
                     <div class="form-group">
-                      <label class="d-block">
+                      <label class="d-block" for="<?= $descriptionId ?>">
                         Description (<?= htmlspecialchars($language->name) ?>
                         <img
                           src="<?= base_url('attachments/lang_flags/' . $language->flag) ?>"
@@ -74,6 +77,7 @@
 
                       <input
                         type="text"
+                        id="<?= $descriptionId ?>"
                         name="description[]"
                         value="<?= @$seo_trans[$page['name']][$language->abbr]['description'] ?>"
                         class="form-control"

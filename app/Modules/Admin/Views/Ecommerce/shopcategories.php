@@ -1,98 +1,118 @@
 <?= $this->extend('\App\Modules\Admin\Views\_parts\layout') ?>
 <?= $this->section('shop-categories') ?>
-<div class="col-sm-9 col-md-9 col-lg-10 offset-sm-3 offset-md-3 offset-lg-2  pt-2">
+
+<div class="col-sm-9 col-md-9 col-lg-10 offset-sm-3 offset-md-3 offset-lg-2 pt-2">
 	<div id="languages">
 		<h1>
 			<img src="<?= base_url('assets/imgs/categories.jpg') ?>"
-				class="header-img" style="margin-top: -2px;"> Shop Categories
+				class="header-img" style="margin-top: -2px;">
+			Shop Categories
 		</h1>
 		<hr>
 
-    <?php if (isset($validation) && count($validation->getErrors()) > 0): ?>
-        <div class="alert alert-danger alert-dismissible" role="alert"><?= $validation->listErrors() ?>
-        	<?= $this->include('\App\Views\templates\close_alert') ?>
-        </div>
+		<?php if (isset($validation) && count($validation->getErrors()) > 0): ?>
+			<div class="alert alert-danger alert-dismissible" role="alert">
+				<?= $validation->listErrors() ?>
+				<?= $this->include('\App\Views\templates\close_alert') ?>
+			</div>
 		<hr>
-    <?php endif; ?>
+		<?php endif; ?>
 
-    <?php if (session()->getFlashdata('result_add')): ?>
-        <div class="alert alert-success alert-dismissible" role="alert">
-        	<?= session()->getFlashdata('result_add') ?>
-        	<?= $this->include('\App\Views\templates\close_alert') ?>
-        </div>
+		<?php if (session()->getFlashdata('result_add')): ?>
+			<div class="alert alert-success alert-dismissible" role="alert">
+				<?= session()->getFlashdata('result_add') ?>
+				<?= $this->include('\App\Views\templates\close_alert') ?>
+			</div>
 		<hr>
-    <?php endif; ?>
+		<?php endif; ?>
 
-    <?php if (session()->getFlashdata('result_delete')): ?>
-        <div class="alert alert-success alert-dismissible" role="alert"><?= session()->getFlashdata('result_delete') ?>
-        	<?= $this->include('\App\Views\templates\close_alert') ?>
-        </div>
+		<?php if (session()->getFlashdata('result_delete')): ?>
+			<div class="alert alert-success alert-dismissible" role="alert">
+				<?= session()->getFlashdata('result_delete') ?>
+				<?= $this->include('\App\Views\templates\close_alert') ?>
+			</div>
 		<hr>
-    <?php endif; ?>
+		<?php endif; ?>
 
-    <a href="javascript:void(0);" data-toggle="modal"
+		<a href="javascript:void(0);" data-toggle="modal"
 			data-target="#add_edit_articles"
-			class="btn btn-primary btn-sm float-right mb-2"> <b>+</b> Add shop
+			class="btn btn-primary btn-sm float-right mb-2">
+			<b>+</b> Add shop
 			category
 		</a>
 
 		<div class="clearfix"></div>
 
-    <?php if (!empty($shop_categories)): ?>
-        <div class="table-responsive">
+		<?php if (! empty($shop_categories)): ?>
+			<div class="table-responsive">
 			<table class="table table-striped custab">
 				<thead>
 					<tr>
 						<th>#ID</th>
 						<th>Name</th>
+						<th>Icon</th>
 						<th>Subcategory for</th>
 						<th>Position</th>
 						<th class="text-center">Action</th>
 					</tr>
 				</thead>
-                <?php
-        $i = 1;
-        foreach ($shop_categories as $key_cat => $shop_categorie) :
-            $catName = '';
-            foreach ($shop_categorie['info'] as $ff) {
-                $catName .= '<div>' . '<a href="javascript:void(0);" class="editCategorie" data-indic="' . $i . '" data-parent_id"' . $ff['sub_for'] . '" data-for-id="' . $key_cat . '"  data-abbr="' . $ff['abbr'] . '" data-toggle="tooltip" data-placement="top" title="Edit this category">' . '<i class="fa fa-pencil"></i>' . '</a> ' . '[' . $ff['abbr'] . ']<span id="indic-' . $i . '">' . $ff['name'] . '</span>' . '</div>';
-                $i ++;
-            }
-            ?>
-                    <tr>
+				<?php
+				$i = 1;
+				foreach ($shop_categories as $key_cat => $shop_categorie):
+					$catName = '';
+					foreach ($shop_categorie['info'] as $ff) {
+						$catName .= '<div>' . '<a href="javascript:void(0);" class="editCategorie" data-indic="' . $i . '" data-parent_id"' . $ff['sub_for'] . '" data-for-id="' . $key_cat . '"  data-abbr="' . $ff['abbr'] . '" data-toggle="tooltip" data-placement="top" title="Edit this category">' . '<i class="fa fa-pencil"></i>' . '</a> ' . '[' . $ff['abbr'] . ']<span id="indic-' . $i . '">' . $ff['name'] . '</span>' . '</div>';
+						$i++;
+					}
+					?>
+					<tr>
 					<td><?= $key_cat ?></td>
 					<td><?= $catName ?></td>
-					<td><a href="javascript:void(0);" class="editCategorieSub"
-						data-sub-for="<?=$shop_categorie['sub_for'] ?>"
-						data-sub-for-id="<?= $key_cat ?>"> <i class="fa fa-pencil"></i>
-					</a>
-                            <?php foreach ($shop_categorie['sub'] as $sub): ?>
-                                <div><?= $sub ?></div>
-                            <?php endforeach; ?>
-                        </td>
-					<td><a href="javascript:void(0);" class="editPosition"
-						data-position-for-id="<?= $key_cat ?>"
-						data-my-position="<?= $shop_categorie['position'] ?>"> <i
-							class="fa fa-pencil"></i>
-					</a> <span id="position-<?= $key_cat ?>"><?= $shop_categorie['position'] ?></span>
+					<td>
+						<?php if (! empty($shop_categorie['icon'])): ?>
+							<i class="<?= esc($shop_categorie['icon']) ?>" aria-hidden="true"></i>
+							<small class="text-muted d-block"><?= esc($shop_categorie['icon']) ?></small>
+						<?php else: ?>
+							<span class="text-muted">-</span>
+						<?php endif; ?>
 					</td>
-					<td class="text-center"><a
+					<td>
+						<a href="javascript:void(0);" class="editCategorieSub"
+							data-sub-for="<?= $shop_categorie['sub_for'] ?>"
+							data-sub-for-id="<?= $key_cat ?>">
+							<i class="fa fa-pencil"></i>
+						</a>
+						<?php foreach ($shop_categorie['sub'] as $sub): ?>
+							<div><?= $sub ?></div>
+						<?php endforeach; ?>
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="editPosition"
+						data-position-for-id="<?= $key_cat ?>"
+						data-my-position="<?= $shop_categorie['position'] ?>">
+							<i class="fa fa-pencil"></i>
+						</a>
+						<span id="position-<?= $key_cat ?>"><?= $shop_categorie['position'] ?></span>
+					</td>
+					<td class="text-center">
+						<a
 						href="<?= base_url('admin/shopcategories/?delete=' . $key_cat) ?>"
-						class="btn btn-danger btn-sm confirm-delete"> <i
-							class="fa fa-trash"></i> Del
-					</a></td>
+						class="btn btn-danger btn-sm confirm-delete">
+							<i class="fa fa-trash"></i> Delete
+						</a>
+					</td>
 				</tr>
-                <?php endforeach; ?>
-            </table>
+				<?php endforeach; ?>
+			</table>
 		</div>
-        <?= $links_pagination ?>
-    <?php else: ?>
-        <div class="clearfix"></div>
+			<?= $links_pagination ?>
+		<?php else: ?>
+			<div class="clearfix"></div>
 		<hr>
 		<div class="alert alert-info">No shop categories found!</div>
-    <?php endif; ?>
+		<?php endif; ?>
 
-    <!-- add/edit category modal -->
+        <!-- add/edit category modal -->
 		<div class="modal fade" id="add_edit_articles" tabindex="-1"
 			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
@@ -106,38 +126,44 @@
 							</button>
 						</div>
 						<div class="modal-body">
-                        <?php foreach ($languages as $language): ?>
-                            <input type="hidden" name="translations[]"
+						<?php foreach ($languages as $language): ?>
+							<input type="hidden" name="translations[]"
 								value="<?= esc($language->abbr) ?>">
-                        <?php endforeach; ?>
+						<?php endforeach; ?>
 
-                        <?php foreach ($languages as $language): ?>
-                            <div class="form-group">
-								<label>Name (<?= esc($language->name) ?> <img
+						<?php foreach ($languages as $language): ?>
+							<div class="form-group">
+								<label for="categorie_name_<?= esc($language->abbr) ?>">Name (<?= esc($language->name) ?> <img
 									src="<?= base_url('attachments/lang_flags/' . $language->flag) ?>"
 									alt="">)
 								</label> <input type="text" name="categorie_name[]"
-									class="form-control">
+									class="form-control" id="categorie_name_<?= esc($language->abbr) ?>">
 							</div>
-                        <?php endforeach; ?>
+						<?php endforeach; ?>
 
-                        <div class="form-group">
-								<label>Parent <small class="text-muted">this category will be a
+						<div class="form-group">
+								<label for="icon">Icon class (Font Awesome)</label>
+								<input type="text" name="icon" class="form-control" id="icon"
+									placeholder="fa fa-leaf">
+						</div>
+
+						<div class="form-group">
+								<label for="sub_for">Parent <small class="text-muted">this category will be a
 										subcategory of parent</small>:
-								</label> <select class="form-control" name="sub_for">
+								</label>
+								<select class="form-control" name="sub_for" id="sub_for">
 									<option value="0">None</option>
-                                <?php
-
-foreach ($shop_categories as $key_cat => $shop_categorie) :
-                                    $aa = '';
-                                    foreach ($shop_categorie['info'] as $ff) {
-                                        $aa .= '[' . $ff['abbr'] . ']' . $ff['name'] . '/';
-                                    }
-                                    ?>
-                                    <option value="<?= $key_cat ?>"><?= $aa ?></option>
-                                <?php endforeach; ?>
-                            </select>
-							</div>
+									<?php
+									foreach ($shop_categories as $key_cat => $shop_categorie):
+										$aa = '';
+										foreach ($shop_categorie['info'] as $ff) {
+											$aa .= '[' . $ff['abbr'] . ']' . $ff['name'] . '/';
+										}
+										?>
+										<option value="<?= $key_cat ?>"><?= $aa ?></option>
+									<?php endforeach; ?>
+								</select>
+						</div>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
@@ -165,27 +191,28 @@ foreach ($shop_categories as $key_cat => $shop_categorie) :
 
 	<div id="categorieSubEdit">
 		<form method="POST" id="categorieEditSubChanger">
-			<input type="hidden" name="editSubId" value=""> <select
+			<input type="hidden" name="editSubId" value="">
+			<select
 				class="form-control" name="newSubIs">
 				<option value=""></option>
 				<option value="0">None</option>
-            <?php
+				<?php
 
-            foreach ($shop_categories as $key_cat => $shop_categorie) :
-                $aa = '';
-                foreach ($shop_categorie['info'] as $ff) {
-                    $aa .= '[' . $ff['abbr'] . ']' . $ff['name'] . '/';
-                }
-                ?>
-                <option value="<?= $key_cat ?>"><?= $aa ?></option>
-            <?php endforeach; ?>
-        </select>
+				foreach ($shop_categories as $key_cat => $shop_categorie):
+					$aa = '';
+					foreach ($shop_categorie['info'] as $ff) {
+						$aa .= '[' . $ff['abbr'] . ']' . $ff['name'] . '/';
+					}
+					?>
+					<option value="<?= $key_cat ?>"><?= $aa ?></option>
+				<?php endforeach; ?>
+			</select>
 		</form>
 	</div>
 
 	<div id="positionEditor">
-		<input type="hidden" name="positionEditId" value=""> <input
-			type="text" name="new_position" class="form-control" value="">
+		<input type="hidden" name="positionEditId" value="">
+		<input type="text" name="new_position" class="form-control" value="">
 		<button type="button" class="btn btn-secondary savePositionCategorie">
 			<i class="fa fa-save noSavePosition"></i> <i
 				class="fa fa-spinner fa-spin fa-fw yesSavePosition"></i>
@@ -195,4 +222,5 @@ foreach ($shop_categories as $key_cat => $shop_categorie) :
 		</button>
 	</div>
 </div>
+
 <?= $this->endSection() ?>

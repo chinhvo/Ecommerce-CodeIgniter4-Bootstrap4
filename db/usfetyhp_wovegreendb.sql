@@ -806,23 +806,24 @@ CREATE TABLE `seo_pages_translations` (
 CREATE TABLE `shop_categories` (
   `id` int(10) UNSIGNED NOT NULL,
   `sub_for` int(11) NOT NULL,
-  `position` int(10) UNSIGNED NOT NULL
+  `position` int(10) UNSIGNED NOT NULL,
+  `icon` varchar(120) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `shop_categories`
 --
 
-INSERT INTO `shop_categories` (`id`, `sub_for`, `position`) VALUES
-(2, 0, 0),
-(3, 0, 0),
-(4, 0, 0),
-(5, 0, 0),
-(6, 0, 0),
-(7, 0, 0),
-(8, 0, 0),
-(9, 0, 0),
-(10, 0, 0);
+INSERT INTO `shop_categories` (`id`, `sub_for`, `position`, `icon`) VALUES
+(2, 0, 0, NULL),
+(3, 0, 0, NULL),
+(4, 0, 0, NULL),
+(5, 0, 0, NULL),
+(6, 0, 0, NULL),
+(7, 0, 0, NULL),
+(8, 0, 0, NULL),
+(9, 0, 0, NULL),
+(10, 0, 0, NULL);
 
 -- --------------------------------------------------------
 

@@ -202,10 +202,10 @@
 							</div>
 
 							<div class="form-group">
-								<label>Currency key:</label>
+								<label for="currencyKey">Currency key:</label>
 								<!-- If you still use bootstrap-select, keep class="selectpicker" and its JS/CSS.
                                  If not, remove selectpicker + data-live-search, and keep form-control/custom-select. -->
-								<select class="form-control" name="currencyKey">
+								<select class="form-control" name="currencyKey" id="currencyKey">
                                 <?php
                                 $curr = currencies();
                                 foreach ($curr as $key => $val) {

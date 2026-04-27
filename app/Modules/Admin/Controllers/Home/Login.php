@@ -52,12 +52,11 @@ class Login extends AdminController
                     return redirect()->to('admin/home');
                 } else {
                     $this->saveHistory(
-                        'Cant login with - User: ' . $postData['username'] . 
-                        ' and Pass: ' . $postData['password']
+                        'Cant login with - User: ' . $postData['username']
                     );
 
                     $this->session->setFlashdata('err_login', 'Wrong username or password!');
-                    return redirect()->to('/');
+                    return redirect()->to('/admin');
                 }
             }
         }

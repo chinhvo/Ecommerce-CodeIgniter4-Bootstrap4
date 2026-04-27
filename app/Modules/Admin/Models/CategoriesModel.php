@@ -8,7 +8,7 @@ class CategoriesModel extends Model
 {
     protected $table = 'shop_categories';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['sub_for', 'position'];
+    protected $allowedFields = ['sub_for', 'position', 'icon'];
     protected $returnType = 'array';
     protected $useTimestamps = false;
 
@@ -25,7 +25,8 @@ class CategoriesModel extends Model
                  WHERE for_id = sub_for AND abbr = translations_first.abbr) as sub_is, 
                 shop_categories.id,
                 shop_categories.sub_for,
-                shop_categories.position')
+                shop_categories.position,
+                shop_categories.icon')
             ->join('shop_categories', 'shop_categories.id = translations_first.for_id')
             ->orderBy('position', 'ASC');
 
@@ -45,6 +46,7 @@ class CategoriesModel extends Model
             $arr[$row->for_id]['sub'][] = $row->sub_is;
             $arr[$row->for_id]['sub_for'] = $row->sub_for;
             $arr[$row->for_id]['position'] = $row->position;
+            $arr[$row->for_id]['icon'] = $row->icon;
         }
 
         return $arr;
@@ -76,7 +78,10 @@ class CategoriesModel extends Model
     {
         $this->db->transStart();
 
-        $this->insert(['sub_for' => $post['sub_for']]);
+        $this->insert([
+            'sub_for' => $post['sub_for'],
+            'icon'    => trim((string) ($post['icon'] ?? '')),
+        ]);
         $id = $this->getInsertID();
 
         foreach ($post['translations'] as $i => $abbr) {

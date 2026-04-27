@@ -11,11 +11,30 @@ class SetLocale implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        $locale = $request->getLocale();
+        $session = session();
+        $appConfig = config('App');
 
+        // Read language folder from cookie (e.g. 'vietnamese', 'english')
+        $cookieLang = service('request')->getCookie('site_lang');
+
+        if ($cookieLang !== null) {
+            // Validate: folder must actually exist in Language/
+            $langPath = APPPATH . 'Language/' . basename($cookieLang) . '/';
+            if (is_dir($langPath)) {
+                $session->set('lang_folder', strtolower(basename($cookieLang)));
+            }
+        }
+
+        // Fallback: use session value, then constant default
+        if (! $session->has('lang_folder')) {
+            $session->set('lang_folder', strtolower(MY_DEFAULT_LANGUAGE_NAME));
+        }
+
+        // Resolve locale abbreviation
+        $locale = service('request')->getLocale();
         $supportedLocales = ['vi'];
         if (! in_array($locale, $supportedLocales)) {
-            $locale = Services::request()->config->defaultLocale ?? 'en';
+            $locale = $appConfig->defaultLocale ?? 'vi';
         }
 
         Services::request()->setLocale($locale);

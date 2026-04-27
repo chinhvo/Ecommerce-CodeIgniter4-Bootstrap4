@@ -301,6 +301,7 @@
         <p>Page rendered in {elapsed_time} seconds using {memory_usage} MB of memory.</p>
 
         <p>Environment: <?= ENVIRONMENT ?></p>
+    <label for="editor1">Editor content</label>
     <textarea id="editor1" name="content"></textarea>
 
     </div>

@@ -15,6 +15,8 @@ class AdminController extends BaseController
     protected $activePages;
     protected $allowed_img_types;
     protected $history;
+    protected $validation;
+    protected $HomeAdminModel;
 
    
     public function __construct()

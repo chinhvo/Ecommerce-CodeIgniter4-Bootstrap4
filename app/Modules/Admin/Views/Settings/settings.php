@@ -84,6 +84,7 @@
             <?php } ?>
             <form method="POST" action="">
 						<div class="form-group">
+							<label for="contacts-page">Contacts page content</label>
 							<textarea name="contactsPage" id="contacts-page"
 								class="form-control"><?= $contactspage ?></textarea>
 						</div>
@@ -501,7 +502,7 @@
             <form method="POST" action="">
 						<input type="hidden" name="visibility"
 							value="<?= isset($cookieLawInfo['cookieInfo']['visibility']) ? $cookieLawInfo['cookieInfo']['visibility'] : '0' ?>">
-						<label>Enable:</label> <input
+						<label for="cookie_law_visibility">Enable:</label> <input id="cookie_law_visibility"
 							<?= isset($cookieLawInfo['cookieInfo']['visibility']) && $cookieLawInfo['cookieInfo']['visibility'] == 1 ? 'checked' : '' ?>
 							data-toggle="toggle" data-for-field="visibility"
 							class="toggle-changer" type="checkbox">
@@ -514,37 +515,37 @@
 
                 <?php foreach ($languages as $language) { ?>
                     <div class="form-group">
-							<label for="message-cookie-law">Message (<?= htmlspecialchars($language->name) ?>
+							<label for="message-cookie-law-<?= htmlspecialchars($language->abbr) ?>">Message (<?= htmlspecialchars($language->name) ?>
                             <img
 								src="<?= base_url('attachments/lang_flags/' . $language->flag) ?>"
 								alt="">)
 							</label> <input type="text" name="message[]"
 								value="<?= isset($cookieLawInfo['cookieTranslate'][$language->abbr]['message']) ? $cookieLawInfo['cookieTranslate'][$language->abbr]['message'] : '' ?>"
-								class="form-control" id="message-cookie-law">
+								class="form-control" id="message-cookie-law-<?= htmlspecialchars($language->abbr) ?>">
 						</div>
                 <?php } ?>
 
                 <?php foreach ($languages as $language) { ?>
                     <div class="form-group">
-							<label for="btn-cookie-law">Button Text (<?= htmlspecialchars($language->name) ?>
+							<label for="btn-cookie-law-<?= htmlspecialchars($language->abbr) ?>">Button Text (<?= htmlspecialchars($language->name) ?>
                             <img
 								src="<?= base_url('attachments/lang_flags/' . $language->flag) ?>"
 								alt="">)
 							</label> <input type="text" name="button_text[]"
 								value="<?= isset($cookieLawInfo['cookieTranslate'][$language->abbr]['button_text']) ? $cookieLawInfo['cookieTranslate'][$language->abbr]['button_text'] : '' ?>"
-								class="form-control" id="btn-cookie-law">
+								class="form-control" id="btn-cookie-law-<?= htmlspecialchars($language->abbr) ?>">
 						</div>
                 <?php } ?>
 
                 <?php foreach ($languages as $language) { ?>
                     <div class="form-group">
-							<label for="learn_more">Learn More (<?= htmlspecialchars($language->name) ?>
+							<label for="learn_more_<?= htmlspecialchars($language->abbr) ?>">Learn More (<?= htmlspecialchars($language->name) ?>
                             <img
 								src="<?= base_url('attachments/lang_flags/' . $language->flag) ?>"
 								alt="">):
 							</label> <input type="text" name="learn_more[]"
 								value="<?= isset($cookieLawInfo['cookieTranslate'][$language->abbr]['learn_more']) ? $cookieLawInfo['cookieTranslate'][$language->abbr]['learn_more'] : '' ?>"
-								class="form-control" id="learn_more">
+								class="form-control" id="learn_more_<?= htmlspecialchars($language->abbr) ?>">
 						</div>
                 <?php } ?>
 
@@ -557,7 +558,7 @@
 						</div>
 
 						<div class="form-group">
-							<label>Theme choose:</label> <input type="hidden" name="theme"
+							<label for="cookie_theme">Theme choose:</label> <input type="hidden" id="cookie_theme" name="theme"
 								value="<?= isset($cookieLawInfo['cookieInfo']['theme']) ? $cookieLawInfo['cookieInfo']['theme'] : '' ?>">
 							<div class="row cookie-law-themes bg-info p-2 rounded">
                         <?php foreach ($law_themes as $theme) { ?>

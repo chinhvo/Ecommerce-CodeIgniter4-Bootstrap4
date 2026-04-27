@@ -244,7 +244,7 @@ class PublicModel extends Model
     public function getShopCategories()
     {
         $builder = $this->db->table('shop_categories_translations');
-        $builder->select('shop_categories.sub_for, shop_categories.id, shop_categories_translations.name');
+        $builder->select('shop_categories.sub_for, shop_categories.id, shop_categories.icon, shop_categories_translations.name');
         $builder->where('abbr', MY_LANGUAGE_ABBR);
         $builder->orderBy('position', 'asc');
         $builder->join('shop_categories', 'shop_categories.id = shop_categories_translations.for_id', 'INNER');

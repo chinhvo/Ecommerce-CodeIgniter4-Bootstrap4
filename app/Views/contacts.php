@@ -48,12 +48,12 @@
                                 <div class="form-group">
                                     <label for="subject">
                                         <?= lang('subject') ?></label>
-                                    <input type="text" name="subject" class="form-control" >
+                                    <input type="text" name="subject" class="form-control" id="subject" >
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="name">
+                                    <label for="message">
                                         <?= lang('message') ?></label>
                                     <textarea name="message" id="message" class="form-control" rows="9" cols="25" required="required"
                                               placeholder="<?= lang('message') ?>"></textarea>

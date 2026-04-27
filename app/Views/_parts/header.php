@@ -33,7 +33,8 @@
                 <div class="search-box">
                     <form method="GET" id="bigger-search" class="search" action="<?= LANG_URL ?>">
                         <div class="input-group">
-                            <input type="text" id="search_in_title" value="<?= isset($_GET['search_in_title']) ? htmlspecialchars($_GET['search_in_title']) : '' ?>" class="form-control search-text-box" placeholder="<?= lang('search_for') ?>...">
+                            <label for="search_in_title" class="sr-only"><?= lang('search_for') ?></label>
+                            <input type="text" id="search_in_title" name="search_in_title" value="<?= isset($_GET['search_in_title']) ? htmlspecialchars($_GET['search_in_title']) : '' ?>" class="form-control search-text-box" placeholder="<?= lang('search_for') ?>...">
                             <span class="input-group-btn">
                                 <button class="btn btn-red cloth-bg-color search-button-btn" onclick="submitForm()" type="button">
                                     <i class="fa fa-search" aria-hidden="true"></i>
