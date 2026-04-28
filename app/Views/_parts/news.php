@@ -1,5 +1,5 @@
 <aside class="col-md-4 col-12 top-news-home">
-    <div class="top-news-card section-box top-news-tabs-wrap">
+    <div class="top-news-card top-news-tabs-wrap">
         <ul class="nav nav-tabs top-news-tabs" id="topNewsTabs" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="newstablink" data-toggle="tab" href="#newstab" role="tab" aria-controls="newstab" aria-selected="true">
@@ -22,7 +22,7 @@
                     <tbody>
                         <?php if (!empty($lastBlogs)) { ?>
                             <?php foreach ($lastBlogs as $post) { ?>
-                                <tr>
+                                <tr class="bestseller-item">
                                     <td class="product-thumbnail">
                                         <a href="<?= LANG_URL . '/blog/' . $post['url'] ?>">
                                             <img src="<?= base_url('attachments/blog_images/' . $post['image']) ?>" alt="<?= esc($post['title']) ?>" class="img-fluid">

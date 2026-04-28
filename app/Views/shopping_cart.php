@@ -29,6 +29,7 @@
                                 <td class="relative">
                                     <input type="hidden" name="id[]" value="<?= $item['id'] ?>">
                                     <input type="hidden" name="quantity[]" value="<?= $item['num_added'] ?>">
+                                    <?php $detailsUrl = \App\Libraries\Loop::buildFrontendUrl((string) ($item['url'] ?? '')); ?>
                                     
                                     <?php 
                                         $productImage = base_url('/attachments/no-image-frontend.png');
@@ -42,7 +43,7 @@
                                         <i class="fa fa-times" aria-hidden="true"></i>
                                     </a>
                                 </td>
-                                <td><a href="<?= LANG_URL . '/' . $item['url'] ?>"><?= $item['title'] ?></a></td>
+                                <td><a href="<?= esc($detailsUrl) ?>"><?= $item['title'] ?></a></td>
                                 <td>
                                     <a class="btn btn-xs btn-primary refresh-me add-to-cart <?= $item['quantity'] <= $item['num_added'] ? 'disabled' : '' ?>" data-id="<?= $item['id'] ?>" href="javascript:void(0);">
                                         <span class="fa fa-plus"></span>

@@ -11,6 +11,48 @@ class Loop
         helper(['url', 'text', 'html', 'filesystem']); // Load needed helpers
     }
 
+    public static function buildFrontendUrl(string $url, ?string $vendorUrl = null): string
+    {
+        $url = trim($url);
+        if ($url === '') {
+            return base_url();
+        }
+
+        // Normalize malformed protocol values like "http:/domain.com/path".
+        $normalizeAbsoluteUrl = static function (string $value): string {
+            $value = trim($value);
+            $value = ltrim($value, '/\\');
+
+            return (string) preg_replace('#^(https?):/*#i', '$1://', $value);
+        };
+
+        $normalizedUrl = $normalizeAbsoluteUrl($url);
+        if (filter_var($normalizedUrl, FILTER_VALIDATE_URL)) {
+            return $normalizedUrl;
+        }
+
+        $segments = [];
+        /*
+        $langUrl = defined('LANG_URL') ? trim((string) LANG_URL, '/\\') : '';
+        if ($langUrl !== '') {
+            $segments[] = $langUrl;
+        }*/
+
+        $vendorUrl = trim((string) $vendorUrl);
+        if ($vendorUrl !== '' && strtolower($vendorUrl) !== 'null') {
+            $normalizedVendorUrl = $normalizeAbsoluteUrl($vendorUrl);
+            if (filter_var($normalizedVendorUrl, FILTER_VALIDATE_URL)) {
+                return rtrim($normalizedVendorUrl, '/') . '/' . ltrim($normalizedUrl, '/\\');
+            }
+
+            $segments[] = trim($vendorUrl, '/\\');
+        }
+
+        $segments[] = ltrim($normalizedUrl, '/\\');
+
+        return base_url(implode('/', $segments));
+    }
+
     public static function getCartItems(array $cartItems)
     {
         if (!is_array($cartItems) || empty($cartItems['array'])) {
@@ -27,6 +69,7 @@ class Loop
             <?php
             foreach ($cartItems['array'] as $cartItem) {
                 $productImage = base_url('attachments/no-image-frontend.png');
+                $cartItemUrl = self::buildFrontendUrl((string) ($cartItem['url'] ?? ''));
                 if (is_file(FCPATH . 'attachments/shop_images/' . $cartItem['image'])) {
                     $productImage = base_url('attachments/shop_images/' . $cartItem['image']);
                 }
@@ -39,7 +82,7 @@ class Loop
                                 <img src="<?= esc($productImage) ?>" alt="<?= esc($cartItem['title']) ?>" />
                             </div>
                             <div class="right-side">
-                                <a href="<?= base_url(LANG_URL . '/' . $cartItem['url']) ?>" class="item-info">
+                                <a href="<?= esc($cartItemUrl) ?>" class="item-info">
                                     <span><?= esc($cartItem['title']) ?></span>
                                     <span class="prices">
                                         <?php
@@ -108,17 +151,28 @@ class Loop
         foreach ($products as $i => $article) {
             $active = ($i === 0 && $carousel) ? 'active' : '';
             $backgroundImageFile = base_url('attachments/no-image-frontend.png');
-            if (is_file(FCPATH . 'attachments/shop_images/' . $article['image'])) {
-                $backgroundImageFile = base_url('attachments/shop_images/' . $article['image']);
+            $rawImage = isset($article['image']) ? trim((string) $article['image']) : '';
+            $detailsUrl = self::buildFrontendUrl((string) ($article['url'] ?? ''), $article['vendor_url'] ?? null);
+
+            if ($rawImage !== '') {
+                // Support values stored as full relative paths or as filenames.
+                $normalizedImage = ltrim($rawImage, '/\\');
+                if (is_file(FCPATH . $normalizedImage)) {
+                    $backgroundImageFile = base_url($normalizedImage);
+                } elseif (is_file(FCPATH . 'attachments/shop_images/' . $normalizedImage)) {
+                    $backgroundImageFile = base_url('attachments/shop_images/' . $normalizedImage);
+                }
             }
             ?>
             <div class="product-list <?= $carousel ? 'item' : '' ?> <?= esc($classes) ?> <?= $active ?>">
                 <div class="inner">
                     <div class="img-container">
-                        <a href="<?= $article['vendor_url'] == null ? base_url(LANG_URL . '/' . $article['url']) : base_url(LANG_URL . '/' . $article['vendor_url'] . '/' . $article['url']) ?>" style="background-image:url('<?= esc($backgroundImageFile) ?>')"></a>
+                        <a href="<?= esc($detailsUrl) ?>" >
+                            <img src="<?= esc($backgroundImageFile) ?>" alt="<?= esc(character_limiter($article['title'], 70)) ?>" onerror="this.onerror=null;this.src='<?= esc(base_url('attachments/no-image-frontend.png')) ?>';">
+                        </a>
                     </div>
                     <h2>
-                        <a href="<?= $article['vendor_url'] == null ? base_url(LANG_URL . '/' . $article['url']) : base_url(LANG_URL . '/' . $article['vendor_url'] . '/' . $article['url']) ?>"><?= character_limiter($article['title'], 70) ?></a>
+                        <a href="<?= esc($detailsUrl) ?>"><?= character_limiter($article['title'], 70) ?></a>
                     </h2>
                     <div class="price">
                         <span class="underline"><?= lang('price') ?>: <span><?= $article['price'] != '' ? number_format($article['price'], 2) : 0 ?><?= CURRENCY ?></span></span>
@@ -138,7 +192,7 @@ class Loop
                     <?php endif; ?>
 
                     <?php if ($moreInfoBtn == 1): ?>
-                        <a href="<?= $article['vendor_url'] == null ? base_url(LANG_URL . '/' . $article['url']) : base_url(LANG_URL . '/' . $article['vendor_url'] . '/' . $article['url']) ?>" class="info-btn gradient-color">
+                        <a href="<?= esc($detailsUrl) ?>" class="info-btn gradient-color">
                             <span class="text-to-bg"><?= lang('App.info_product_list') ?></span>
                         </a>
                     <?php endif; ?>
@@ -152,12 +206,12 @@ class Loop
                                 <span class="text-to-bg"><?= lang('add_to_cart') ?></span>
                             </a>
                         </div>
-                        <div class="add-to-cart">
+                        <!-- <div class="add-to-cart">
                             <a href="javascript:void(0);" class="add-to-cart btn-add more-blue" data-goto="<?= base_url(LANG_URL . '/checkout') ?>" data-id="<?= esc($article['id']) ?>">
                                 <img class="loader" src="<?= base_url('assets/imgs/ajax-loader.gif') ?>" alt="Loading">
                                 <span class="text-to-bg"><?= lang('buy_now') ?></span>
                             </a>
-                        </div>
+                        </div> -->
                     <?php else: ?>
                         <div>Product is out of stock</div>
                     <?php endif; ?>

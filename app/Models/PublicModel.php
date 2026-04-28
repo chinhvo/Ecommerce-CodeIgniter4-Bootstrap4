@@ -76,7 +76,7 @@ class PublicModel extends Model
     public function getLastBlogs()
     {
         $builder = $this->db->table('blog_posts');
-        $builder->limit(5);
+        $builder->limit(8);
         $builder->join('blog_translations', 'blog_translations.for_id = blog_posts.id', 'left');
         $builder->where('blog_translations.abbr', MY_LANGUAGE_ABBR);
         $builder->select('blog_posts.id, blog_translations.title, blog_translations.description, blog_posts.url, blog_posts.time, blog_posts.image');

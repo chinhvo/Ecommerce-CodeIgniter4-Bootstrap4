@@ -22,6 +22,7 @@
     <link href="<?= base_url('assets/css/bootstrap-datepicker.min.css') ?>" rel="stylesheet" />
     <link href="<?= base_url('assets/css/flexslider.css') ?>" rel="stylesheet" />
     <link href="<?= base_url('templatecss/custom.css') ?>" rel="stylesheet" />
+    <link href="<?= base_url('assets/css/products.css') ?>" rel="stylesheet" />
     <link href="<?= base_url('cssloader/theme.css') ?>" rel="stylesheet" />
 
     <script src="<?= base_url('assets/js/jquery.min.js') ?>"></script>

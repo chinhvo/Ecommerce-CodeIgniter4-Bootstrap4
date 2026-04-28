@@ -18,11 +18,12 @@
                     <?php
                     $i = 0;
                     foreach ($sliderProducts as $article) {
+                        $detailsUrl = \App\Libraries\Loop::buildFrontendUrl((string) ($article['url'] ?? ''), $article['vendor_url'] ?? null);
                     ?>
                         <div class="carousel-item <?= $i == 0 ? 'active' : '' ?>">
                             <div class="absolute-texts">
                                 <h1>
-                                    <a href="<?= LANG_URL . '/' . $article['url'] ?>">
+                                    <a href="<?= esc($detailsUrl) ?>">
                                         <?= character_limiter($article['title'], 100) ?>
                                     </a>
                                 </h1>

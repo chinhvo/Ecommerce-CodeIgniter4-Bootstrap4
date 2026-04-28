@@ -225,6 +225,9 @@ header {
 .products .product-list {
   margin-bottom: 30px;
 }
+.products .product-list .img-container {
+  overflow: hidden;
+}
 .products .product-list .img-container a {
   height: 200px;
   display: inline-block;
@@ -232,6 +235,26 @@ header {
   background-size: cover;
   width: 100%;
   transition: all 0.2s linear 0s;
+}
+
+.products .product-list .img-container a img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  -webkit-transition: -webkit-transform 0.35s ease;
+  -moz-transition: -moz-transform 0.35s ease;
+  -o-transition: -o-transform 0.35s ease;
+  transition: transform 0.35s ease;
+}
+
+.products .product-list .img-container:hover a img,
+.products .product-list .img-container a:hover img {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .products .product-list h2 {
@@ -638,6 +661,8 @@ footer {
 }
 .section-box-no-padding {
   padding: 0;
+  padding-left: 1px;
+  padding-right: 1px;
 }
 
 /* =====================================================

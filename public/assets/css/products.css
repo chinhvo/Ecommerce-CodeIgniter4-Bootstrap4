@@ -1,0 +1,115 @@
+/* Product Card Compact Styles */
+.product-list {
+    max-height: 420px;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-list .inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+}
+
+.product-list .img-container {
+    height: 180px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.product-list .img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-list h2 {
+    font-size: 14px;
+    margin: 4px 0;
+}
+
+.product-list h2 a {
+    font-size: 14px;
+    margin: 4px 0;
+    text-decoration: none;
+}
+
+.product-list .price {
+    margin: 4px 0;
+}
+
+.product-list .price .underline {
+    font-size: 12px;
+}
+
+.product-list .price-discount {
+    font-size: 12px;
+    margin: 2px 0;
+}
+
+.product-list .quantity {
+    font-size: 12px;
+    margin: 2px 0;
+}
+
+.product-list .info-btn {
+    padding: 4px 8px;
+    font-size: 12px;
+    margin: 4px 0;
+}
+
+.product-list .add-to-cart {
+    margin: 2px 0;
+}
+
+.product-list .add-to-cart a {
+    font-size: 12px;
+    padding: 4px 8px;
+}
+
+/* News Section Styles */
+.row:has(.top-news-home) {
+    align-items: stretch;
+}
+
+.top-news-home,
+.top-news-home .top-news-card {
+    height: 100%;
+}
+
+.bestsellers-table tbody tr {
+    padding: 15px 0;
+}
+
+.bestsellers-table .product-thumbnail {
+    padding: 8px;
+    width: 30%;
+}
+
+.bestsellers-table .product-thumbnail img {
+    width: 100%;
+    height: auto;
+    max-height: 90px;
+    object-fit: cover;
+}
+
+.bestsellers-table .product-info {
+    padding: 8px;
+    vertical-align: middle;
+}
+
+.bestsellers-table .product-info p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.bestsellers-table .product-info a {
+    text-decoration: none;
+    color: #333;
+}
+
+.bestsellers-table .product-info a:hover {
+    color: #26c6da;
+}
