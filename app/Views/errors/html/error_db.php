@@ -56,7 +56,7 @@ p {
 </head>
 <body>
 	<div id="container">
-		<h1><?php echo $heading; ?></h1>
+		<h1><?php echo isset($heading) ? $heading : ''; ?></h1>
 		<p>There is error with the database connection.</p>
 		<p>Make sure that the configuration in <b>application/database.php</b> file is with right credentials to your database.</p>
 		<p>Check the <b>username</b>, <b>password</b> and <b>database</b> values in $db configuration array.</p>

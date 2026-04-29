@@ -47,9 +47,13 @@ $routes->get('^(\w{2})$/(:any)_(:num)', 'Home::viewProduct/$3');
 $routes->get('shop-product_(:num)', 'Home::viewProduct/$3');
 
 // Blog URL style and pagination
+$routes->get('blog', 'Blog::index');
+$routes->get('^(\w{2})$/blog', 'Blog::index');
 $routes->get('blog/(:num)', 'Blog::index/$1');
 $routes->get('blog/(:any)_(:num)', 'Blog::viewPost/$2');
 $routes->get('^(\w{2})$/blog/(:any)_(:num)', 'Blog::viewPost/$3');
+$routes->get('blog/(:segment)', 'Blog::viewPostBySlug/$1');
+$routes->get('^(\w{2})$/blog/(:segment)', 'Blog::viewPostBySlug/$2');
 
 // Shopping cart page
 $routes->get('shopping-cart', 'ShoppingCartPage::index');
@@ -58,6 +62,10 @@ $routes->get('^(\w{2})$/shopping-cart', 'ShoppingCartPage::index');
 // Shop page (greenlabel template)
 $routes->get('shop', 'Home::shop');
 $routes->get('^(\w{2})$/shop', 'Home::shop');
+
+// Contacts page
+$routes->get('contacts', 'Contacts::index');
+$routes->get('^(\w{2})$/contacts', 'Contacts::index');
 
 // Textual Pages links
 $routes->get('page/(:any)', 'Page::index/$1');
@@ -87,6 +95,10 @@ $routes->get('kirilkirkov-ecommerce-ci-bs3-platform', 'Home::platform');
 
 // Confirm link
 $routes->get('confirm/(:any)', 'Home::confirmLink/$1');
+
+// Product slug URLs (keep near bottom so specific routes like /blog are matched first)
+$routes->get('([a-z0-9-]+)', 'Home::viewProductBySlug/$1');
+$routes->get('^(\w{2})$/([a-z0-9-]+)', 'Home::viewProductBySlug/$2');
 
 /*
  * Vendor Controllers Routes

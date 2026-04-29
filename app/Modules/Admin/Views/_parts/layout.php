@@ -28,14 +28,14 @@
 <body>
 	<div id="wrapper">
 		<div id="content">
-		    <?= $this->include('\App\Modules\Admin\Views\_parts\header') ?>		
+			<?= $this->include('\App\Modules\Admin\Views\_parts\header') ?>
 			<div class="container-fluid">
 				<div class="row">
-                     <?= $this->include('\App\Modules\Admin\Views\_parts\leftSidebar') ?>
-            		 <?php if (!session()->get('logged_in')) { ?>
-                    	<?= $this->include('\App\Modules\Admin\Views\Home\login') ?>
-                     <?php } ?>   
-        		 <?php if (session()->get('logged_in') && strpos(uri_string(), "home")) { ?>
+					<?= $this->include('\App\Modules\Admin\Views\_parts\leftSidebar') ?>
+					<?php if (!session()->get('logged_in')) { ?>
+						<?= $this->include('\App\Modules\Admin\Views\Home\login') ?>
+					<?php } ?>
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "home")) { ?>
         		 	<?= $this->renderSection('home') ?>
                  <?php } ?>     
         		 <?php if (session()->get('logged_in') && strpos(uri_string(), "publish")) { ?>

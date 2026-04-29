@@ -8,6 +8,9 @@ use App\Core\AdminController;
 
 class Settings extends AdminController
 {
+    protected $homeAdminModel;
+    protected $languagesModel;
+    protected $settingsModel;
 
     public function __construct()
     {
@@ -48,7 +51,7 @@ class Settings extends AdminController
 
         // Merge $head and $data if you need them in one array for views
         echo view('\App\Modules\Admin\Views\settings\settings', array_merge($data, $head));
-            
+
         $this->saveHistory('Go to Settings Page');
     }
 
@@ -62,24 +65,43 @@ class Settings extends AdminController
     private function postChecker()
     {
         if ($this->request->getPost('uploadimage')) {
-            $config['upload_path'] = '.' . DIRECTORY_SEPARATOR . 'attachments' . DIRECTORY_SEPARATOR . 'site_logo' . DIRECTORY_SEPARATOR;
-            $config['allowed_types'] = 'gif|jpg|png';
-            $config['max_size'] = 1500;
-            $config['max_width'] = 1024;
-            $config['max_height'] = 768;
+            $uploadPath = FCPATH . 'attachments' . DIRECTORY_SEPARATOR . 'site_logo' . DIRECTORY_SEPARATOR;
+            $allowedExtensions = ['gif', 'jpg', 'jpeg', 'png'];
+            $maxSizeInBytes = 1500 * 1024;
+            $maxWidth = 1024;
+            $maxHeight = 768;
+            $logoFile = $this->request->getFile('sitelogo');
 
-            $this->load->library('upload', $config);
-
-            if (!$this->upload->do_upload('sitelogo')) {
-                session()->setFlashdata('resultSiteLogoPublish', $this->upload->display_errors());
+            if ($logoFile === null || !$logoFile->isValid()) {
+                $errorMessage = $logoFile !== null ? $logoFile->getErrorString() : 'No file was uploaded.';
+                session()->setFlashdata('resultSiteLogoPublish', $errorMessage);
             } else {
-                $data = array('upload_data' => $this->upload->data());
-                $newImage = $data['upload_data']['file_name'];
-                $this->homeAdminModel->setValueStore('sitelogo', $newImage);
-                $this->saveHistory('Change site logo');
-                session()->setFlashdata('resultSiteLogoPublish', 'New logo is set!');
+                $extension = strtolower((string) $logoFile->getExtension());
+                $imageInfo = @getimagesize($logoFile->getTempName());
+
+                if (!in_array($extension, $allowedExtensions, true)) {
+                    session()->setFlashdata('resultSiteLogoPublish', 'Only gif, jpg, jpeg, and png files are allowed.');
+                } elseif ($logoFile->getSize() > $maxSizeInBytes) {
+                    session()->setFlashdata('resultSiteLogoPublish', 'The site logo must not exceed 1500 KB.');
+                } elseif ($imageInfo === false) {
+                    session()->setFlashdata('resultSiteLogoPublish', 'The uploaded file is not a valid image.');
+                } elseif ($imageInfo[0] > $maxWidth || $imageInfo[1] > $maxHeight) {
+                    session()->setFlashdata('resultSiteLogoPublish', 'The site logo exceeds the maximum dimensions of 1024x768 pixels.');
+                } else {
+                    $newImage = $logoFile->getRandomName();
+                    $logoFile->move($uploadPath, $newImage, true);
+
+                    if (!$logoFile->hasMoved()) {
+                        session()->setFlashdata('resultSiteLogoPublish', 'The site logo could not be saved.');
+                        return redirect()->to(base_url('admin/settings'));
+                    }
+
+                    $this->homeAdminModel->setValueStore('sitelogo', $newImage);
+                    $this->saveHistory('Change site logo');
+                    session()->setFlashdata('resultSiteLogoPublish', 'New logo is set!');
+                }
             }
-            redirect()->to(base_url('admin/settings'));
+            return redirect()->to(base_url('admin/settings'));
         }
         if ($this->request->getPost('naviText')) {
             $this->homeAdminModel->setValueStore('navitext', $_POST['naviText']);

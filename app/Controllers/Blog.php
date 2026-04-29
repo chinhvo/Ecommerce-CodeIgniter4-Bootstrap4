@@ -6,6 +6,7 @@ use App\Core\MyController;
 
 class Blog extends MyController
 {
+    protected $db;
     protected $Public_model;
     protected $Blog_model;
 
@@ -72,6 +73,26 @@ class Blog extends MyController
         $head['description'] = url_title(character_limiter(strip_tags($data['article']['description']), 130));
         $head['keywords'] = str_replace(" ", ",", $data['article']['title']);
         $this->render('view_blog_post', $head, $data);
+    }
+
+    public function viewPostBySlug($slug)
+    {
+        if (empty($slug)) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $articleId = db_connect()->table('blog_posts')
+            ->select('id')
+            ->where('url', $slug)
+            ->limit(1)
+            ->get()
+            ->getRow('id');
+
+        if (empty($articleId)) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        return $this->viewPost((int) $articleId);
     }
 
     private function getBlogArchiveHtml()

@@ -2,7 +2,7 @@
 A PHP Error was encountered
 
 Severity:    <?php echo $severity, "\n"; ?>
-Message:     <?php echo $message, "\n"; ?>
+Message:     <?php echo isset($message) ? $message : '', "\n"; ?>
 Filename:    <?php echo $filepath, "\n"; ?>
 Line Number: <?php echo $line; ?>
 

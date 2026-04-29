@@ -133,10 +133,10 @@ class Home extends MyController
         $data = array();
         $head = array();
         $data['product'] = $this->Public_model->getOneProduct($id);
-        $data['sameCagegoryProducts'] = $this->Public_model->sameCagegoryProducts($data['product']['shop_categorie'], $id);
         if ($data['product'] === null) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
+        $data['sameCagegoryProducts'] = $this->Public_model->sameCategoryProducts($data['product']['shop_categorie'], $id);
         $data['publicDateAdded'] = $this->Home_admin_model->getValueStore('publicDateAdded');
         $head['title'] = $data['product']['title'];
         $description = url_title(character_limiter(strip_tags($data['product']['description']), 130));
@@ -148,6 +148,26 @@ class Home extends MyController
             $head['image'] = base_url('/attachments/shop_images/' . $data['product']['image']);
         }
         $this->render('view_product', $head, $data);
+    }
+
+    public function viewProductBySlug($slug)
+    {
+        if (empty($slug)) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $productId = db_connect()->table('products')
+            ->select('id')
+            ->where('url', $slug)
+            ->limit(1)
+            ->get()
+            ->getRow('id');
+
+        if (empty($productId)) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        return $this->viewProduct((int) $productId);
     }
 
     public function confirmLink($md5)

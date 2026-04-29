@@ -1,4 +1,4 @@
-<?php if($this->config->item('show_social_share_btns') === true) { ?>
+<?php if ((config('App')->show_social_share_btns ?? false) === true) { ?>
 <div class="social-media-product-share">
     <div><?= lang('social_share') ?></div>
     <?php 
