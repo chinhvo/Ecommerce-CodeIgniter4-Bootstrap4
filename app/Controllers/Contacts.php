@@ -2,6 +2,7 @@
 
 
 namespace App\Controllers;
+
 use App\Core\MyController;
 
 
@@ -24,14 +25,25 @@ class Contacts extends MyController
     {
         $head = array();
         $data = array();
-        if (isset($_POST['message'])) {
+        if ($this->request->getMethod() === 'POST') {
+            $rules = [
+                'name' => 'required',
+                'email' => 'required|valid_email',
+                'subject' => 'required',
+                'message' => 'required',
+            ];
+
+            if (!$this->validate($rules)) {
+                return redirect()->to(site_url('contacts'))->withInput()->with('errors', $this->validator->getErrors());
+            }
+
             $result = $this->sendEmail();
             if ($result) {
                 $this->session->setFlashdata('resultSend', 'Email is sened!');
             } else {
                 $this->session->setFlashdata('resultSend', 'Email send error!');
             }
-            redirect('contacts');
+            return redirect()->to(site_url('contacts'));
         }
         $data['googleMaps'] = $this->Home_admin_model->getValueStore('googleMaps');
         $data['googleApi'] = $this->Home_admin_model->getValueStore('googleApi');
@@ -45,17 +57,21 @@ class Contacts extends MyController
     private function sendEmail()
     {
         $myEmail = $this->Home_admin_model->getValueStore('contactsEmailTo');
-        if (filter_var($myEmail, FILTER_VALIDATE_EMAIL) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-            $this->email->from($_POST['email'], $_POST['name']);
+        $email = (string) $this->request->getPost('email');
+        $name = (string) $this->request->getPost('name');
+        $subject = (string) $this->request->getPost('subject');
+        $message = (string) $this->request->getPost('message');
+
+        if (filter_var($myEmail, FILTER_VALIDATE_EMAIL) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $this->email->from($email, $name);
             $this->email->to($myEmail);
 
-            $this->email->subject($_POST['subject']);
-            $this->email->message($_POST['message']);
+            $this->email->subject($subject);
+            $this->email->message($message);
 
             $this->email->send();
             return true;
         }
         return false;
     }
-
 }

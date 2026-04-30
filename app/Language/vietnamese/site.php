@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
 	'products' => 'Sản phẩm',
 	'sort_by' => 'Sắp xếp theo',
@@ -118,7 +118,7 @@ return [
 	'empty' => 'Thông tin trống',
 	'others' => 'Những người khác',
 	'welcome' => 'Cửa hàng quần áo trực tuyến',
-	'social' => 'Phương tiện truyền thông xã hội',
+	'social' => 'Mạng xã hội',
 	'no_sub_categories' => 'Không có danh mục phụ',
 	'bank_payment' => 'Thanh toán qua ngân hàng',
 	'bank_recipient_name' => 'Thanh toán - Tên người nhận',
@@ -251,4 +251,8 @@ return [
 	"page_content" => "Nội dung trang",
 	'all_blog_types' => 'Tất cả loại bài viết',
 	'enter_email' => 'Nhập email',
+	'select_category' => 'Chọn danh mục',
+	'selected_category' => 'Danh mục đang chọn',
+	'main_category' => 'Danh mục chính',
+
 ];

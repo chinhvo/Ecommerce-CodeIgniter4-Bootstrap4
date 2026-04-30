@@ -1,23 +1,23 @@
 <header>
-<?php if (!empty($multiVendor) && $multiVendor == 1): ?>
-    <div id="top-user-panel">
-        <div class="container">
-            <a href="<?= LANG_URL . '/vendor/register' ?>" class="btn btn-secondary"><?= lang('register_me') ?></a>
-            <form class="form-inline" method="POST" action="<?= LANG_URL . '/vendor/login' ?>">
-                <div class="form-group">
-                    <input type="email" name="u_email" class="form-control" placeholder="<?= lang('email') ?>">
-                </div>
-                <div class="form-group">
-                    <input type="password" name="u_password" class="form-control" placeholder="<?= lang('password') ?>">
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" name="remember_me"> <?= lang('remember_me') ?></label>
-                </div>
-                <button type="submit" name="login" class="btn btn-secondary"><?= lang('u_login') ?></button>
-            </form>
+    <?php if (!empty($multiVendor) && $multiVendor == 1): ?>
+        <div id="top-user-panel">
+            <div class="container">
+                <a href="<?= LANG_URL . '/vendor/register' ?>" class="btn btn-secondary"><?= lang('register_me') ?></a>
+                <form class="form-inline" method="POST" action="<?= LANG_URL . '/vendor/login' ?>">
+                    <div class="form-group">
+                        <input type="email" name="u_email" class="form-control" placeholder="<?= lang('email') ?>">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="u_password" class="form-control" placeholder="<?= lang('password') ?>">
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="remember_me"> <?= lang('remember_me') ?></label>
+                    </div>
+                    <button type="submit" name="login" class="btn btn-secondary"><?= lang('u_login') ?></button>
+                </form>
+            </div>
         </div>
-    </div>
-<?php endif; ?>
+    <?php endif; ?>
     <div class="container-fluid">
         <div id="menuHeader" class="row menu-header-row align-items-center">
             <div class="col-12 col-md-3 logo-col d-flex align-items-center">
@@ -31,7 +31,24 @@
 
             <div class="col-12 col-md-5">
                 <div class="search-box">
+                    <?php
+                    $selectedCategory = trim((string) (request()->getGet('category') ?? ''));
+                    $selectedCategoryName = '';
+
+                    if ($selectedCategory !== '' && !empty($all_categories)) {
+                        foreach ($all_categories as $category) {
+                            $categorySlug = (string) ($category['slug'] ?? $category['id']);
+                            if ((string) $category['id'] === $selectedCategory || $categorySlug === $selectedCategory) {
+                                $selectedCategoryName = (string) $category['name'];
+                                break;
+                            }
+                        }
+                    }
+                    ?>
                     <form method="GET" id="bigger-search" class="search" action="<?= LANG_URL ?>">
+                        <?php if ($selectedCategory !== '') { ?>
+                            <input type="hidden" name="category" value="<?= esc($selectedCategory) ?>">
+                        <?php } ?>
                         <div class="input-group">
                             <label for="search_in_title" class="sr-only"><?= lang('search_for') ?></label>
                             <input type="text" id="search_in_title" name="search_in_title" value="<?= isset($_GET['search_in_title']) ? htmlspecialchars($_GET['search_in_title']) : '' ?>" class="form-control search-text-box" placeholder="<?= lang('search_for') ?>...">
@@ -41,6 +58,17 @@
                                 </button>
                             </span>
                         </div>
+                        <?php if ($selectedCategory !== '') { ?>
+                            <div class="alert alert-info mt-2 mb-0 py-2 d-flex justify-content-between align-items-center" role="alert">
+                                <span>
+                                    <strong><?= lang('selected_category') ?>:</strong>
+                                    <?= esc($selectedCategoryName !== '' ? $selectedCategoryName : $selectedCategory, 'html') ?>
+                                </span>
+                                <a href="<?= base_url('/') ?>" class="btn btn-sm btn-outline-secondary">
+                                    <?= lang('clear_the_filter') ?>
+                                </a>
+                            </div>
+                        <?php } ?>
                     </form>
                 </div>
             </div>

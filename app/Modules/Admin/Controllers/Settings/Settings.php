@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Modules\Admin\Controllers\Settings;
+
 use App\Core\AdminController;
 /*
  * @Author:    Kiril Kirkov
@@ -61,7 +63,7 @@ class Settings extends AdminController
 
         return (!empty($values) && is_array($values)) ? $values : null;
     }
-    
+
     private function postChecker()
     {
         if ($this->request->getPost('uploadimage')) {
@@ -135,6 +137,7 @@ class Settings extends AdminController
             $this->homeAdminModel->setValueStore('footerSocialGooglePlus', $_POST['footerSocialGooglePlus']);
             $this->homeAdminModel->setValueStore('footerSocialPinterest', $_POST['footerSocialPinterest']);
             $this->homeAdminModel->setValueStore('footerSocialYoutube', $_POST['footerSocialYoutube']);
+            $this->homeAdminModel->setValueStore('footerSocialZalo', $_POST['footerSocialZalo']);
             session()->setFlashdata('resultfooterSocial', 'Social on footer are updated!');
             $this->saveHistory('Change footer contacts');
             redirect()->to(base_url('admin/settings'));
@@ -212,7 +215,7 @@ class Settings extends AdminController
             $this->saveHistory('Virtual products visibility changed');
             redirect()->to(base_url('admin/settings'));
         }
-        if ($this->request->getPost('showInSlider')) {    
+        if ($this->request->getPost('showInSlider')) {
             $this->homeAdminModel->setValueStore('showInSlider', $_POST['showInSlider']);
             session()->setFlashdata('showInSlider', 'In Slider products visibility changed');
             $this->saveHistory('In Slider products visibility changed');
@@ -242,6 +245,24 @@ class Settings extends AdminController
             $this->saveHistory('Option to open shopping cart after click add to cart button changed');
             redirect()->to(base_url('admin/settings'));
         }
+        if ($this->request->getPost('newProductsLimit')) {
+            $limit = (int) $this->request->getPost('newProductsLimit');
+            if ($limit > 0) {
+                $this->homeAdminModel->setValueStore('newProductsLimit', $limit);
+                session()->setFlashdata('newProductsLimit', 'New products limit updated!');
+                $this->saveHistory('Change new products limit to ' . $limit);
+            }
+            redirect()->to(base_url('admin/settings'));
+        }
+        if ($this->request->getPost('lastBlogsLimit')) {
+            $limit = (int) $this->request->getPost('lastBlogsLimit');
+            if ($limit > 0) {
+                $this->homeAdminModel->setValueStore('lastBlogsLimit', $limit);
+                session()->setFlashdata('lastBlogsLimit', 'Last blogs limit updated!');
+                $this->saveHistory('Change last blogs limit to ' . $limit);
+            }
+            redirect()->to(base_url('admin/settings'));
+        }
     }
 
     private function setCookieLaw(array $post)
@@ -253,5 +274,4 @@ class Settings extends AdminController
     {
         return $this->homeAdminModel->getCookieLaw();
     }
-
 }

@@ -202,6 +202,16 @@ return [
     'show_more_info_btn'           => "Show 'More information' button in products list",
     'show_brands_setting'          => 'Show brands',
     'show_in_slider_setting'       => 'Show in slider products to list',
+    'new_products_limit'           => 'New Products Limit (Homepage)',
+    'last_blogs_limit'             => 'Last Blog Posts Limit (Homepage)',
+    // Settings group headers
+    'settings_group_general'       => 'General',
+    'settings_group_contacts'      => 'Contacts & Pages',
+    'settings_group_shipping'      => 'Shipping',
+    'settings_group_advanced'      => 'Advanced',
+    'settings_group_products'      => 'Products',
+    'settings_group_homepage'      => 'Homepage',
+    'settings_group_legal'         => 'Legal',
     'cookie_law_notification'      => 'Cookie Law Notification',
     'virtual_products_setting'     => 'Virtual products',
     'enable_label'                 => 'Enable:',
@@ -259,4 +269,5 @@ return [
     'add_new_brand'          => 'Add new brand',
     'brand_name'             => 'Brand name',
     'add'                    => 'Add',
+    'orthers_settings'         => 'Orthers settings',
 ];

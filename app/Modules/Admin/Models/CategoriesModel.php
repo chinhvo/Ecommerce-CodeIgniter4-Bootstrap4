@@ -41,6 +41,7 @@ class CategoriesModel extends Model
             $arr[$row->for_id]['info'][] = [
                 'abbr' => $row->abbr,
                 'name' => $row->name,
+                'url' => $row->url,
                 'sub_for' => $row->sub_for
             ];
             $arr[$row->for_id]['sub'][] = $row->sub_is;
@@ -85,9 +86,12 @@ class CategoriesModel extends Model
         $id = $this->getInsertID();
 
         foreach ($post['translations'] as $i => $abbr) {
+            $name = (string) ($post['categorie_name'][$i] ?? '');
+
             $this->db->table('shop_categories_translations')->insert([
                 'abbr'   => $abbr,
-                'name'   => $post['categorie_name'][$i],
+                'name'   => $name,
+                'url'    => $this->buildCategorySlug($name, (int) $id),
                 'for_id' => $id
             ]);
         }
@@ -111,10 +115,23 @@ class CategoriesModel extends Model
 
     public function editShopCategorie(array $post): void
     {
+        $name = (string) ($post['name'] ?? '');
+        $forId = (int) ($post['for_id'] ?? 0);
+
         $this->db->table('shop_categories_translations')
             ->where('abbr', $post['abbr'])
             ->where('for_id', $post['for_id'])
-            ->update(['name' => $post['name']]);
+            ->update([
+                'name' => $name,
+                'url' => $this->buildCategorySlug($name, $forId),
+            ]);
+    }
+
+    private function buildCategorySlug(string $name, int $id): string
+    {
+        helper(['text', 'vntostr', 'except_letters']);
+
+        return vnToStr(except_letters(url_title($name, '-', true))) . '-' . $id;
     }
 
     public function editShopCategoriePosition(array $post): void

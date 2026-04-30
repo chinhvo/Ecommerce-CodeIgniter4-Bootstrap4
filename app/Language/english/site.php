@@ -248,4 +248,7 @@ return [
     "page_content" => "Page content",
     'all_blog_types' => 'All blog types',
     'enter_email' => 'Enter email',
+    'select_category' => 'Select category',
+    'selected_category' => 'Selected category',
+    'main_category' => 'Main category',
 ];

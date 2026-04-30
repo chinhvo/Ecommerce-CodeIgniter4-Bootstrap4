@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="<?= MY_LANGUAGE_ABBR ?>">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -24,6 +25,8 @@
     <link href="<?= base_url('templatecss/custom.css') ?>" rel="stylesheet" />
     <link href="<?= base_url('assets/css/products.css') ?>" rel="stylesheet" />
     <link href="<?= base_url('cssloader/theme.css') ?>" rel="stylesheet" />
+    <link href="<?= base_url('assets/css/main.css') ?>" rel="stylesheet" />
+    <link href="<?= base_url('assets/css/back-to-top.css') ?>" rel="stylesheet" />
 
     <script src="<?= base_url('assets/js/jquery.min.js') ?>"></script>
     <script src="<?= base_url('loadlanguage/all.js') ?>"></script>
@@ -46,6 +49,7 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+
 <body>
     <!-- Mobile off-canvas drawer -->
     <div id="mobile-overlay" class="mobile-overlay"></div>
@@ -55,7 +59,7 @@
             <li><a href="<?= base_url() ?>">Trang chủ</a></li>
             <?php if (!empty($nav_categories)) { ?>
                 <?php foreach ($nav_categories as $category) { ?>
-                    <li><a href="<?= base_url('?category=' . $category['id']) ?>"><?php if (! empty($category['icon'])) { ?><i class="<?= esc($category['icon']) ?>" aria-hidden="true"></i> <?php } ?><?= esc($category['name']) ?></a></li>
+                    <li><a href="<?= base_url('?category=' . rawurlencode((string) ($category['slug'] ?? $category['id']))) ?>"><?php if (! empty($category['icon'])) { ?><i class="<?= esc($category['icon']) ?>" aria-hidden="true"></i> <?php } ?><?= esc($category['name']) ?></a></li>
                 <?php } ?>
             <?php } ?>
             <li><a href="<?= base_url('blog') ?>">Blog</a></li>
@@ -70,7 +74,7 @@
                 <div class="row">
                     <?= $this->include('_parts/topMenu') ?>
                     <?php $currentUri = trim(uri_string(), '/'); ?>
-                    <?php if ($currentUri === '' || $currentUri === 'home') { ?>
+                    <?php if (strpos($currentUri, 'home') !== false || $currentUri === '') { ?>
                         <?= $this->renderSection('home') ?>
                     <?php } ?>
                     <?php if (strpos($currentUri, 'shopping-cart') !== false) { ?>
@@ -81,12 +85,19 @@
                     <?php } ?>
                     <?php if (strpos($currentUri, 'checkout') !== false) { ?>
                         <?= $this->renderSection('checkout') ?>
-                    <?php } ?>       
+                    <?php } ?>
                     <?php if (strpos($currentUri, 'blog') !== false) { ?>
                         <?= $this->renderSection('blog') ?>
-                    <?php } ?>                                  
+                    <?php } ?>
+                    <?php if (strpos($currentUri, 'contacts') !== false) { ?>
+                        <?= $this->renderSection('contacts') ?>
+                    <?php } ?>
                     <?= $this->include('_parts/brands') ?>
+                </div>
+                <div class="row">
                     <?= $this->include('_parts/categories') ?>
+                </div>
+                <div class="row">
                     <?= $this->include('_parts/bodyFooter') ?>
                 </div>
             </div>
@@ -96,7 +107,7 @@
 
     <?php if (session()->getFlashdata('emailAdded')) { ?>
         <script>
-            $(document).ready(function () {
+            $(document).ready(function() {
                 ShowNotificator('alert-info', '<?= lang('email_added') ?>');
             });
         </script>
@@ -105,6 +116,9 @@
     <?= $addJs ?>
 
     <div id="notificator" class="alert"></div>
+    <div id="back-to-top" class="scrollup" title="Lên đầu trang">
+        <i class="fa fa-chevron-up"></i>
+    </div>
 
     <script src="<?= base_url('assets/bootstrap-select/js/bootstrap-select.js') ?>"></script>
     <script src="<?= base_url('assets/js/popper.min.js') ?>"></script>
@@ -116,6 +130,8 @@
     <script src="<?= base_url('assets/js/zxcvbn.js') ?>"></script>
     <script src="<?= base_url('assets/js/zxcvbn_bootstrap3.js') ?>"></script>
     <script src="<?= base_url('assets/js/pGenerator.jquery.js') ?>"></script>
+    <script src="<?= base_url('assets/js/back-to-top.js') ?>"></script>
+
     <script>
         var variable = {
             clearShoppingCartUrl: "<?= base_url('clearShoppingCart') ?>",
@@ -126,18 +142,19 @@
     <script src="<?= base_url('assets/js/system.js') ?>"></script>
     <script src="<?= base_url('templatejs/mine.js') ?>"></script>
     <script>
-        $(document).on('click', '#m-nav', function (e) {
+        $(document).on('click', '#m-nav', function(e) {
             e.preventDefault();
             $('#mobile-drawer').addClass('open');
             $('#mobile-overlay').addClass('open');
             $('body').css('overflow', 'hidden');
         });
 
-        $(document).on('click', '#mobile-drawer-close, #mobile-overlay', function () {
+        $(document).on('click', '#mobile-drawer-close, #mobile-overlay', function() {
             $('#mobile-drawer').removeClass('open');
             $('#mobile-overlay').removeClass('open');
             $('body').css('overflow', '');
         });
     </script>
 </body>
+
 </html>

@@ -1,10 +1,10 @@
 <footer>
-    <div class="container">
-        <span class="footer-text">
+    <div class="container text-center">
+        <span class="footer-text text-primary">
             <?= $footercopyright ?>
             <br>
             <!-- Please do not remove this referention -->
-            Powered by <a href="https://github.com/kirilkirkov">Kiril Kirkov</a>
+            Source code reference from <a href="https://github.com/kirilkirkov">Kiril Kirkov</a>
         </span>
     </div>
 </footer>

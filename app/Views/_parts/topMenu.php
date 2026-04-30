@@ -3,16 +3,16 @@ $renderTopCategories = function (array $categories) {
     foreach ($categories as $category) {
         $children = $category['children'] ?? [];
         $hasChildren = ! empty($children);
-        $link = base_url('?category=' . (int) $category['id']);
+        $categorySlug = rawurlencode((string) ($category['slug'] ?? $category['id']));
+        $link = base_url('?category=' . $categorySlug);
         $name = esc($category['name'] ?? '');
         $icon = ! empty($category['icon']) ? esc($category['icon']) : null;
-        ?>
+?>
         <li class="nav-item <?= $hasChildren ? 'dropdown' : '' ?>">
             <a
                 class="nav-link <?= $hasChildren ? 'dropdown-toggle' : '' ?>"
                 href="<?= $link ?>"
-                <?= $hasChildren ? 'id="category_' . (int) $category['id'] . '" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : '' ?>
-            >
+                <?= $hasChildren ? 'id="category_' . (int) $category['id'] . '" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : '' ?>>
                 <?php if ($icon !== null) { ?>
                     <i class="<?= $icon ?>" aria-hidden="true"></i>
                 <?php } ?>
@@ -25,7 +25,8 @@ $renderTopCategories = function (array $categories) {
                         <?php foreach ($children as $childGroup) { ?>
                             <?php
                             $groupName = esc($childGroup['name'] ?? '');
-                            $groupLink = base_url('?category=' . (int) $childGroup['id']);
+                            $groupSlug = rawurlencode((string) ($childGroup['slug'] ?? $childGroup['id']));
+                            $groupLink = base_url('?category=' . $groupSlug);
                             $groupChildren = $childGroup['children'] ?? [];
                             $groupIcon = ! empty($childGroup['icon']) ? esc($childGroup['icon']) : 'fa fa-folder-open-o';
                             ?>
@@ -37,7 +38,7 @@ $renderTopCategories = function (array $categories) {
 
                                 <?php if (! empty($groupChildren)) { ?>
                                     <?php foreach ($groupChildren as $leaf) { ?>
-                                        <a class="dropdown-item menu-leaf" href="<?= base_url('?category=' . (int) $leaf['id']) ?>">
+                                        <a class="dropdown-item menu-leaf" href="<?= base_url('?category=' . rawurlencode((string) ($leaf['slug'] ?? $leaf['id']))) ?>">
                                             <?= esc($leaf['name'] ?? '') ?>
                                         </a>
                                     <?php } ?>
@@ -48,7 +49,7 @@ $renderTopCategories = function (array $categories) {
                 </div>
             <?php } ?>
         </li>
-        <?php
+<?php
     }
 };
 ?>
@@ -95,4 +96,3 @@ $renderTopCategories = function (array $categories) {
         </div>
     </nav>
 </div>
-
