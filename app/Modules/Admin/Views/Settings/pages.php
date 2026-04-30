@@ -5,10 +5,10 @@
 	class="col-sm-9 col-md-9 col-lg-10 offset-sm-3 offset-md-3 offset-lg-2  pt-2">
 	<h1 class="mb-2">
 		<img src="<?= base_url('assets/imgs/webpages.jpg') ?>"
-			class="header-img" style="margin-top: -3px;" alt=""> Pages Manager
+			class="header-img" style="margin-top: -3px;" alt=""> <?= lang('pages_manager') ?>
 	</h1>
 
-	<p class="text-muted">Here you can control which pages you want to have</p>
+	<p class="text-muted"><?= lang('pages_manager_desc') ?></p>
 	<hr>
 
 	<div class="row">
@@ -16,7 +16,7 @@
 
 			<a href="javascript:void(0);" data-toggle="modal"
 				data-target="#addPage" class="btn btn-secondary mb-2"> <i
-				class="fa fa-plus mr-1" aria-hidden="true"></i> Add page
+				class="fa fa-plus mr-1" aria-hidden="true"></i> <?= lang('add_page') ?>
 			</a>
 
     <?php if (!empty($pages)) : ?>
@@ -60,7 +60,7 @@
 
 				<form action="" method="POST">
 					<div class="modal-header">
-						<h5 class="modal-title" id="addPageLabel">Add Page</h5>
+						<h5 class="modal-title" id="addPageLabel"><?= lang('add_page_title') ?></h5>
 
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
@@ -70,18 +70,17 @@
 
 					<div class="modal-body">
 						<div class="form-group">
-							<label for="pname">Page name</label> <input type="text"
+						<label for="pname"><?= lang('page_name_label') ?></label> <input type="text"
 								name="pname" class="form-control" id="pname">
 						</div>
 
-						<div class="alert alert-warning mb-0">This page will be only
-							textually</div>
+						<div class="alert alert-warning mb-0"><?= lang('page_will_be_textual') ?></div>
 					</div>
 
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal">Cancel</button>
-						<button type="submit" class="btn btn-primary">Add</button>
+					data-dismiss="modal"><?= lang('cancel') ?></button>
+				<button type="submit" class="btn btn-primary"><?= lang('add') ?></button>
 					</div>
 				</form>
 

@@ -1,5 +1,5 @@
 <?= $this->extend('_parts/layout') ?>
-<?= $this->section('content') ?>
+<?= $this->section('blog') ?>
 <div class="container" id="blog">
     <div class="body">
         <div class="row bottom-30 eqHeight">
@@ -10,6 +10,18 @@
                 <div id="search-input-blog">
                     <div class="input-group col-md-12">
                         <form method="GET" action="">
+                            <?php if (isset($_GET['from'], $_GET['to'])): ?>
+                                <input type="hidden" name="from" value="<?= (int) $_GET['from'] ?>" />
+                                <input type="hidden" name="to" value="<?= (int) $_GET['to'] ?>" />
+                            <?php endif; ?>
+                            <select class="search-query form-control" name="type" style="margin-bottom: 8px;">
+                                <option value=""><?= lang('all_blog_types') ?></option>
+                                <?php foreach ($blogTypes as $typeId => $typeLabel): ?>
+                                    <option value="<?= (int) $typeId ?>" <?= isset($selectedBlogType) && (int) $selectedBlogType === (int) $typeId ? 'selected' : '' ?>>
+                                        <?= esc($typeLabel) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
                             <input type="text" class="search-query form-control" value="<?= isset($_GET['find']) ? htmlspecialchars($_GET['find']) : '' ?>" name="find" placeholder="<?= lang('search') ?>" />
                             <span class="input-group-btn">
                                 <button class="btn btn-danger" type="submit">

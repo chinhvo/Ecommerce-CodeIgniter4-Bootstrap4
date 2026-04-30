@@ -11,7 +11,7 @@
 					<img src="<?= base_url('assets/imgs/admin-user.png') ?>"
 						alt="Admin Vendors" class="mr-2"
 						style="height: 32px; width: auto;">
-					<h1 class="h4 mb-0">Admin Vendors List</h1>
+					<h1 class="h4 mb-0"><?= lang('admin_vendors_list') ?></h1>
 				</div>
 
 				<hr class="my-3">
@@ -21,11 +21,11 @@
     					<table class="table table-striped table-hover mb-0">
     						<thead class="thead-light">
     							<tr>
-    								<th scope="col">#ID</th>
-    								<th scope="col">Name</th>
-    								<th scope="col">Email</th>
-    								<th scope="col">Sold products amount</th>
-    								<th scope="col">Created At</th>
+									<th scope="col">#<?= lang('col_id') ?></th>
+									<th scope="col"><?= lang('col_name') ?></th>
+									<th scope="col"><?= lang('col_email') ?></th>
+									<th scope="col"><?= lang('sold_products_amount') ?></th>
+									<th scope="col"><?= lang('created_at') ?></th>
     							</tr>
     						</thead>
     
@@ -33,34 +33,19 @@
                   <?php foreach ($vendors as $vendor) { ?>
                     <tr>
 						<td><?= $vendor['id'] ?></td>
-						<td><?= isset($vendor['name']) ? $vendor['name'] : 'Vendor name is empty' ?></td>
+						<td><?= isset($vendor['name']) ? $vendor['name'] : lang('vendor_name_empty') ?></td>
 						<td><?= $vendor['email'] ?></td>
 
 						<td>
-                        <?php
-                $orders = $controller->getVendorOrders($vendor->id);
-    
-                if (! count($orders)) {
-                    ?>
-                            <span class="badge badge-danger">No orders</span>
-                            <?php
-                } else {
-                    $countSales = 0;
-    
-                    foreach ($orders as $order) {
-                        $product = unserialize($order['products']);
-                        foreach ($product as $key => $value) {
-                            $countSales += (int) $value;
-                        }
-                    }
-                    ?>
-                            <span class="badge badge-success"><?= $countSales ?></span>
-                            <?php
-                }
-                ?>
+						<?php $countSales = $vendorSalesCounts[(int) $vendor['id']] ?? 0; ?>
+						<?php if ($countSales === 0) { ?>
+							<span class="badge badge-danger"><?= lang('no_orders') ?></span>
+						<?php } else { ?>
+							<span class="badge badge-success"><?= $countSales ?></span>
+						<?php } ?>
                       </td>
     
-    								<td><?= $vendor->created_at ?></td>
+								<td><?= $vendor['created_at'] ?></td>
     							</tr>
                   <?php } ?>
                 </tbody>
@@ -69,7 +54,7 @@
         
               <?php } else { ?>
                 <hr class="my-3">
-        				<div class="alert alert-info mb-0">No vendors found!</div>
+						<div class="alert alert-info mb-0"><?= lang('no_vendors_found') ?></div>
               <?php } ?>
     
         </div>

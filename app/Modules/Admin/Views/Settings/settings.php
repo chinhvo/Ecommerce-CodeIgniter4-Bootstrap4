@@ -6,13 +6,13 @@
 
 	<h1>
 		<img src="<?= base_url('assets/imgs/settings-page.png') ?>"
-			class="header-img" style="margin-top: -3px;">Settings
+			class="header-img" style="margin-top: -3px;"><?= lang('settings_page_title') ?>
 	</h1>
 	<hr>
 	<div class="row">
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Site Logo</div>
+				<div class="card-header bg-success text-white"><?= lang('site_logo') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('resultSiteLogoPublish')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('resultSiteLogoPublish') ?></div>
@@ -24,7 +24,7 @@
 					<form accept-charset="utf-8" method="post"
 						enctype="multipart/form-data" action="">
 						<input type="file" name="sitelogo" class="form-control mb-2" /> <input
-							type="submit" value="Upload New" name="uploadimage"
+						type="submit" value="<?= lang('upload_new') ?>" name="uploadimage"
 							class="btn btn-secondary" />
 					</form>
 				</div>
@@ -33,7 +33,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Navigation Text</div>
+				<div class="card-header bg-success text-white"><?= lang('navigation_text') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('resultNaviText')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('resultNaviText') ?></div>
@@ -55,7 +55,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Footer Text</div>
+				<div class="card-header bg-success text-white"><?= lang('footer_text') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('resultFooterCopyright')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('resultFooterCopyright') ?></div>
@@ -77,20 +77,20 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Contacts page</div>
+				<div class="card-header bg-success text-white"><?= lang('contacts_page_header') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('resultContactspage')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('resultContactspage') ?></div>
             <?php } ?>
             <form method="POST" action="">
 						<div class="form-group">
-							<label for="contacts-page">Contacts page content</label>
+							<label for="contacts-page"><?= lang('contacts_page_content_label') ?></label>
 							<textarea name="contactsPage" id="contacts-page"
 								class="form-control"><?= $contactspage ?></textarea>
 						</div>
 						<div class="form-group">
 							<button class="btn btn-secondary" type="submit">
-								Update <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+								<?= lang('update') ?> <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 							</button>
 						</div>
 					</form>
@@ -104,7 +104,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Contacts footer</div>
+				<div class="card-header bg-success text-white"><?= lang('contacts_footer') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('resultfooterContacts')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('resultfooterContacts') ?></div>
@@ -139,7 +139,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Google Maps</div>
+				<div class="card-header bg-success text-white"><?= lang('google_maps_header') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('resultGoogleMaps')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('resultGoogleMaps') ?></div>
@@ -158,7 +158,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Footer about us</div>
+				<div class="card-header bg-success text-white"><?= lang('footer_about_us') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('resultFooterAboutUs')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('resultFooterAboutUs') ?></div>
@@ -180,7 +180,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Social media links</div>
+				<div class="card-header bg-success text-white"><?= lang('social_media_links') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('resultfooterSocial')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('resultfooterSocial') ?></div>
@@ -229,8 +229,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Send email from
-					contact form to:</div>
+				<div class="card-header bg-success text-white"><?= lang('email_contact_form_to') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('resultEmailTo')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('resultEmailTo') ?></div>
@@ -252,8 +251,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Free Shipping for
-					order equal or more than (Final purchase amount):</div>
+				<div class="card-header bg-success text-white"><?= lang('free_shipping_setting') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('shippingOrder')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('shippingOrder') ?></div>
@@ -275,8 +273,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Shipping amount
-					(leave 0 or empty for no shipping price):</div>
+				<div class="card-header bg-success text-white"><?= lang('shipping_amount_setting') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('shippingAmount')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('shippingAmount') ?></div>
@@ -299,8 +296,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Add google or other
-					JavaScript to site</div>
+				<div class="card-header bg-success text-white"><?= lang('add_js_to_site') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('addJs')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('addJs') ?></div>
@@ -308,7 +304,7 @@
             <form method="POST" action="">
 						<textarea style="margin-bottom: 5px;" name="addJs"
 							class="form-control"><?= $addJs ?></textarea>
-						<button class="btn btn-secondary" type="submit">Add the code</button>
+						<button class="btn btn-secondary" type="submit"><?= lang('add_the_code') ?></button>
 					</form>
 				</div>
 			</div>
@@ -316,8 +312,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Public quantity
-					visibility</div>
+				<div class="card-header bg-success text-white"><?= lang('public_quantity_visibility') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('publicQuantity')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('publicQuantity') ?></div>
@@ -336,8 +331,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Public date added
-					visibility</div>
+				<div class="card-header bg-success text-white"><?= lang('public_date_added_visibility') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('publicDateAdded')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('publicDateAdded') ?></div>
@@ -356,7 +350,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Multi-Vendor Support</div>
+				<div class="card-header bg-success text-white"><?= lang('multi_vendor_support') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('multiVendor')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('multiVendor') ?></div>
@@ -375,8 +369,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Show in list out of
-					stock products</div>
+				<div class="card-header bg-success text-white"><?= lang('show_out_of_stock') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('outOfStock')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('outOfStock') ?></div>
@@ -394,8 +387,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Hide buy button if
-					product is shown but is out of stock</div>
+				<div class="card-header bg-success text-white"><?= lang('hide_buy_out_of_stock') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('hideBuyButtonsOfOutOfStock')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('hideBuyButtonsOfOutOfStock') ?></div>
@@ -414,8 +406,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Do not open shopping
-					cart after add product to it</div>
+				<div class="card-header bg-success text-white"><?= lang('no_cart_after_add') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('refreshAfterAddToCart')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('refreshAfterAddToCart') ?></div>
@@ -434,8 +425,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Show 'More
-					information' button in products list</div>
+				<div class="card-header bg-success text-white"><?= lang('show_more_info_btn') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('moreInfoBtn')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('moreInfoBtn') ?></div>
@@ -454,7 +444,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Show brands</div>
+				<div class="card-header bg-success text-white"><?= lang('show_brands_setting') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('showBrands')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('showBrands') ?></div>
@@ -472,8 +462,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Show in slider
-					products to list</div>
+				<div class="card-header bg-success text-white"><?= lang('show_in_slider_setting') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('showInSlider')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('showInSlider') ?></div>
@@ -493,8 +482,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Cookie Law
-					Notification</div>
+				<div class="card-header bg-success text-white"><?= lang('cookie_law_notification') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('cookieNotificator')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('cookieNotificator') ?></div>
@@ -502,7 +490,7 @@
             <form method="POST" action="">
 						<input type="hidden" name="visibility"
 							value="<?= isset($cookieLawInfo['cookieInfo']['visibility']) ? $cookieLawInfo['cookieInfo']['visibility'] : '0' ?>">
-						<label for="cookie_law_visibility">Enable:</label> <input id="cookie_law_visibility"
+						<label for="cookie_law_visibility"><?= lang('enable_label') ?></label> <input id="cookie_law_visibility"
 							<?= isset($cookieLawInfo['cookieInfo']['visibility']) && $cookieLawInfo['cookieInfo']['visibility'] == 1 ? 'checked' : '' ?>
 							data-toggle="toggle" data-for-field="visibility"
 							class="toggle-changer" type="checkbox">
@@ -585,7 +573,7 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
-				<div class="card-header bg-success text-white">Virtual products</div>
+				<div class="card-header bg-success text-white"><?= lang('virtual_products_setting') ?></div>
 				<div class="card-body">
             <?php if (session()->getFlashdata('virtualProducts')) { ?>
                 <div class="alert alert-info"><?= session()->getFlashdata('virtualProducts') ?></div>

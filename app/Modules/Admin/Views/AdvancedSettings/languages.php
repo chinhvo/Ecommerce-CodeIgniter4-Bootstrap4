@@ -7,13 +7,13 @@
 		<div class="d-flex align-items-center justify-content-between mb-2">
 			<h1 class="h3 mb-0">
 				<img src="<?= base_url('assets/imgs/small-globe.png') ?>"
-					class="header-img" style="margin-top: -3px;" alt=""> Languages
+					class="header-img" style="margin-top: -3px;" alt=""> <?= lang('languages') ?>
 			</h1>
 
         <?php if (!isset($writable)) { ?>
             <a href="javascript:void(0);" data-toggle="modal"
 				data-target="#addLanguage" class="btn btn-primary btn-sm"> <strong>+</strong>
-				Add new language
+				<?= lang('add_new_language') ?>
 			</a>
         <?php } ?>
     </div>
@@ -42,11 +42,11 @@
 				<thead class="thead-light">
 					<tr>
 						<th>#ID</th>
-						<th>Image</th>
-						<th>Abbr</th>
-						<th>Name</th>
-						<th>Currency</th>
-						<th class="text-center">Action</th>
+						<th><?= lang('col_image') ?></th>
+						<th><?= lang('col_abbr') ?></th>
+						<th><?= lang('col_name') ?></th>
+						<th><?= lang('col_currency') ?></th>
+						<th class="text-center"><?= lang('col_action') ?></th>
 					</tr>
 				</thead>
 
@@ -65,17 +65,15 @@
                             <?php if (MY_DEFAULT_LANGUAGE_ABBR != $language->abbr) { ?>
                                 <a
 							href="<?= base_url('admin/languages/?delete=' . $language->id) ?>"
-							class="btn btn-danger btn-sm confirm-delete"> <!-- BS4 no glyphicons: use FA or remove icon -->
-								<!-- <i class="fa fa-times"></i> --> Delete
+								class="btn btn-danger btn-sm confirm-delete"><?= lang('delete') ?>
 						</a>
                             <?php } else { ?>
-                                <span class="text-muted">Its default</span>
+                            <span class="text-muted"><?= lang('its_default') ?></span>
                             <?php } ?>
 
                             <a
 							href="<?= base_url('admin/languages/?editLang=' . $language->name) ?>"
-							class="btn btn-info btn-sm ml-1"> <!-- <i class="fa fa-pencil-alt"></i> -->
-								Edit
+								class="btn btn-info btn-sm ml-1"><?= lang('edit') ?>
 						</a>
 						</td>
 					</tr>
@@ -85,15 +83,14 @@
 		</div>
     <?php } else { ?>
         <hr>
-		<div class="alert alert-info mb-0">No languages found!</div>
+		<div class="alert alert-info mb-0"><?= lang('no_languages_found') ?></div>
     <?php } ?>
 
     <div class="alert alert-warning mt-3">
-			<strong>How to add language in 2 easy steps</strong>
+			<strong><?= lang('language_help_title') ?></strong>
 			<ul class="mb-0">
-				<li>Add languages here (set Abbrevation, Name, and Image)</li>
-				<li>Edit added language and set values</li>
-			</ul>
+				<li><?= lang('language_step_1') ?></li>
+				<li><?= lang('language_step_2') ?></li>
 		</div>
 
     <?php if (isset($_GET['editLang'])) { ?>
@@ -102,8 +99,7 @@
 			<input type="hidden" name="goDaddyGo" value="">
 
 			<div class="alert alert-info">
-				<!-- <i class="fa fa-exclamation-triangle"></i> -->
-				Now you edit language: <strong><?= ucfirst(htmlspecialchars($_GET['editLang'])) ?></strong>
+				<?= lang('now_editing_language') ?> <strong><?= ucfirst(htmlspecialchars($_GET['editLang'])) ?></strong>
 			</div>
 
             <?php
@@ -162,7 +158,7 @@
 			</div>
             <?php } else { ?>
                 <a href="javascript:void(0);" data-form-id="saveLang"
-				class="btn btn-info btn-lg confirm-save"> Save me </a>
+				class="btn btn-info btn-lg confirm-save"> <?= lang('save_me') ?> </a>
             <?php } ?>
 
             <a href="<?= base_url('admin/languages') ?>"
@@ -178,7 +174,7 @@
 				<div class="modal-content">
 					<form action="" method="POST" enctype="multipart/form-data">
 						<div class="modal-header">
-							<h5 class="modal-title" id="addLanguageLabel">Add Language</h5>
+							<h5 class="modal-title" id="addLanguageLabel"><?= lang('add_language_title') ?></h5>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
@@ -187,22 +183,22 @@
 
 						<div class="modal-body">
 							<div class="form-group">
-								<label for="abbr">Abbrevation</label> <input type="text"
+						<label for="abbr"><?= lang('abbreviation_label') ?></label> <input type="text"
 									name="abbr" class="form-control" id="abbr">
 							</div>
 
 							<div class="form-group">
-								<label for="name">Name</label> <input type="text" name="name"
+						<label for="name"><?= lang('col_name') ?></label> <input type="text" name="name"
 									class="form-control" id="name">
 							</div>
 
 							<div class="form-group">
-								<label for="currency">Currency</label> <input type="text"
+						<label for="currency"><?= lang('col_currency') ?></label> <input type="text"
 									name="currency" class="form-control" id="currency">
 							</div>
 
 							<div class="form-group">
-								<label for="currencyKey">Currency key:</label>
+								<label for="currencyKey"><?= lang('currency_key_label') ?></label>
 								<!-- If you still use bootstrap-select, keep class="selectpicker" and its JS/CSS.
                                  If not, remove selectpicker + data-live-search, and keep form-control/custom-select. -->
 								<select class="form-control" name="currencyKey" id="currencyKey">
@@ -216,15 +212,15 @@
 							</div>
 
 							<div class="form-group">
-								<label for="userfile">Flag image</label> <input type="file"
+						<label for="userfile"><?= lang('flag_image_label') ?></label> <input type="file"
 									class="form-control-file" id="userfile" name="userfile">
 							</div>
 						</div>
 
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">Cancel</button>
-							<button type="submit" class="btn btn-primary">Save</button>
+							data-dismiss="modal"><?= lang('cancel') ?></button>
+						<button type="submit" class="btn btn-primary"><?= lang('save') ?></button>
 						</div>
 					</form>
 				</div>

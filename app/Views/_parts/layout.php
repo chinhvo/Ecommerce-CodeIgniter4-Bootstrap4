@@ -81,7 +81,10 @@
                     <?php } ?>
                     <?php if (strpos($currentUri, 'checkout') !== false) { ?>
                         <?= $this->renderSection('checkout') ?>
-                    <?php } ?>                    
+                    <?php } ?>       
+                    <?php if (strpos($currentUri, 'blog') !== false) { ?>
+                        <?= $this->renderSection('blog') ?>
+                    <?php } ?>                                  
                     <?= $this->include('_parts/brands') ?>
                     <?= $this->include('_parts/categories') ?>
                     <?= $this->include('_parts/bodyFooter') ?>

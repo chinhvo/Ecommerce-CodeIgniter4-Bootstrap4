@@ -2,6 +2,7 @@
 namespace App\Modules\Admin\Controllers\Blog;
 
 use App\Core\AdminController;
+use App\Core\BlogType;
 
 class BlogPublish extends AdminController
 {
@@ -32,10 +33,11 @@ class BlogPublish extends AdminController
         // Handle form submission
         if ($this->request->getPost('submit') != null) {
             $postData = $this->request->getPost();
+            $postData['blog_type'] = BlogType::normalize($postData['blog_type'] ?? null);
             $postData['image'] = $this->uploadImage();
             $this->Blog_model->setPost($postData, $id);
 
-            session()->setFlashdata('result_publish', 'Successful published!');
+            session()->setFlashdata('result_publish', lang('successful_published'));
             return redirect()->to('admin/blog');
         }
 
@@ -48,7 +50,8 @@ class BlogPublish extends AdminController
         $data = [
             'id'         => $id,
             'languages'  => $this->Languages_model->getLanguages(),
-            'trans_load' => $trans_load
+            'trans_load' => $trans_load,
+            'blogTypes'  => BlogType::labels(),
         ];
 
 

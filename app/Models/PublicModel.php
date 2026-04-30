@@ -85,7 +85,7 @@ class PublicModel extends Model
         return $query->getResultArray();
     }
 
-    public function getPosts(int $limit, int $page, string $search = null, array $month = null)
+    public function getPosts(int $limit, int $page, string $search = null, array $month = null, ?int $blogType = null)
     {
         $builder = $this->db->table('blog_posts');
         
@@ -102,10 +102,14 @@ class PublicModel extends Model
             $to   = intval($month['to']);
             $builder->where("time BETWEEN {$from} AND {$to}");
         }
+
+        if ($blogType !== null) {
+            $builder->where('blog_posts.blog_type', $blogType);
+        }
         
         $builder->join('blog_translations', 'blog_translations.for_id = blog_posts.id', 'left');
         $builder->where('blog_translations.abbr', MY_LANGUAGE_ABBR);
-        $builder->select('blog_posts.id, blog_translations.title, blog_translations.description, blog_posts.url, blog_posts.time, blog_posts.image');
+        $builder->select('blog_posts.id, blog_translations.title, blog_translations.description, blog_posts.url, blog_posts.time, blog_posts.image, blog_posts.blog_type');
         
         $query = $builder->get($limit, $page);
         return $query->getResultArray();

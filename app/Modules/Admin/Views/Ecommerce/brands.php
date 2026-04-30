@@ -1,8 +1,8 @@
-<h1><img src="<?= base_url('assets/imgs/brands.jpg') ?>" class="header-img" style="margin-top:-3px;"> Brands</h1>
+<h1><img src="<?= base_url('assets/imgs/brands.jpg') ?>" class="header-img" style="margin-top:-3px;"> <?= lang('brands') ?></h1>
 <hr>
 <div class="row">
     <div class="col-sm-6 col-md-4">
-        <a href="javascript:void(0);" data-toggle="modal" data-target="#addPage" class="btn btn-default" style="margin-bottom:10px;">Add brand</a>
+        <a href="javascript:void(0);" data-toggle="modal" data-target="#addPage" class="btn btn-default" style="margin-bottom:10px;"><?= lang('add_brand') ?></a>
         <?php if (!empty($brands)) {
             ?>
             <ul class="list-group list-none">
@@ -18,7 +18,7 @@
             </ul>
         <?php } else {
         ?>
-		<div class="alert alert-info">No brands added!</div>
+		<div class="alert alert-info"><?= lang('no_brands_added') ?></div>
 		<?php } ?>
     </div>
 </div>
@@ -28,17 +28,17 @@
             <form action="" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add new brand</h4>
+                    <h4 class="modal-title" id="myModalLabel"><?= lang('add_new_brand') ?></h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="name">Brand name</label>
+                        <label for="name"><?= lang('brand_name') ?></label>
                         <input type="text" name="name" class="form-control" id="name">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><?= lang('cancel') ?></button>
+                    <button type="submit" class="btn btn-primary"><?= lang('add') ?></button>
                 </div>
             </form>
         </div>

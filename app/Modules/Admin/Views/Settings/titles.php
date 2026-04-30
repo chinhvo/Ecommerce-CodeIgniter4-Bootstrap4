@@ -12,7 +12,7 @@
           style="margin-top: -3px;"
           alt=""
         >
-        Titles / Descriptions
+        <?= lang('titles_/_descriptions') ?>
       </h1>
 
       <hr>
@@ -45,7 +45,7 @@
                     <?php $titleId = 'seo_title_' . md5($page['name'] . '_' . $language->abbr); ?>
                     <div class="form-group">
                       <label class="d-block" for="<?= $titleId ?>">
-                        Title (<?= htmlspecialchars($language->name) ?>
+                        <?= lang('seo_title_label') ?> (<?= htmlspecialchars($language->name) ?>
                         <img
                           src="<?= base_url('attachments/lang_flags/' . $language->flag) ?>"
                           alt=""
@@ -67,7 +67,7 @@
                     <?php $descriptionId = 'seo_description_' . md5($page['name'] . '_' . $language->abbr); ?>
                     <div class="form-group">
                       <label class="d-block" for="<?= $descriptionId ?>">
-                        Description (<?= htmlspecialchars($language->name) ?>
+                        <?= lang('seo_description_label') ?> (<?= htmlspecialchars($language->name) ?>
                         <img
                           src="<?= base_url('attachments/lang_flags/' . $language->flag) ?>"
                           alt=""
@@ -91,7 +91,7 @@
             <?php endforeach; ?>
 
             <button type="submit" name="save" class="btn btn-secondary mb-2" value ="save" >
-              Save
+              <?= lang('save') ?>
             </button>
           </form>
 

@@ -35,7 +35,7 @@
                                 <div class="form-group">
                                     <label for="name">
                                         <?= lang('name') ?></label>
-                                    <input type="text" name="name" class="form-control" id="name" placeholder="Enter name" required="required" />
+                                    <input type="text" name="name" class="form-control" id="name" placeholder="<?= lang('please_enter_name') ?>" required="required" />
                                 </div>
                                 <div class="form-group">
                                     <label for="email">
@@ -43,7 +43,7 @@
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fa fa-envelope-o" aria-hidden="true"></i>
                                         </span>
-                                        <input type="email" name="email" class="form-control" id="email" placeholder="Enter email" required="required" /></div>
+                                        <input type="email" name="email" class="form-control" id="email" placeholder="<?= lang('enter_email') ?>" required="required" /></div>
                                 </div>
                                 <div class="form-group">
                                     <label for="subject">

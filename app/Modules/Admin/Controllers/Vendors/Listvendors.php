@@ -24,10 +24,31 @@ class Listvendors extends AdminController
         ];
 
         $id = $this->request->getGet('id');
+        $vendors = $this->vendorsModel->getVendors($id);
+        $vendorSalesCounts = [];
+
+        foreach ($vendors as $vendor) {
+            $countSales = 0;
+            $orders = $this->vendorsModel->getVendorOrders((int) $vendor['id']);
+
+            foreach ($orders as $order) {
+                $product = unserialize($order['products']);
+
+                if (! is_array($product)) {
+                    continue;
+                }
+
+                foreach ($product as $value) {
+                    $countSales += (int) $value;
+                }
+            }
+
+            $vendorSalesCounts[(int) $vendor['id']] = $countSales;
+        }
 
         $data = [
-            'vendors'    => $this->vendorsModel->getVendors($id),
-            'controller' => $this,
+            'vendors'           => $vendors,
+            'vendorSalesCounts' => $vendorSalesCounts,
         ];
 
 
@@ -36,8 +57,4 @@ class Listvendors extends AdminController
         $this->saveHistory('Go to Admin Vendors List');
     }
 
-    public function getVendorOrders($id)
-    {
-        return $this->vendorsModel->getVendorOrders($id);
-    }
 }

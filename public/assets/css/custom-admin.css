@@ -3,6 +3,54 @@ Created on : Mar 21, 2016, 3:20:16 PM
 Author     : Kiril Kirkov
 Gitgub     : https://github.com/kirilkirkov
 */
+
+/* Blog posts list */
+.blogpost-card-title {
+  height: 60px;
+  overflow: hidden;
+  font-size: 13px;
+  margin-bottom: 0;
+}
+
+.blogpost-card .card-img-top {
+  height: 120px;
+  object-fit: cover;
+}
+
+.blogpost-card .card-body {
+  padding: 8px 10px;
+}
+
+.blogpost-card .badge {
+  font-size: 11px;
+}
+
+.blogpost-th-image {
+  width: 80px;
+}
+
+.blogpost-th-type {
+  width: 130px;
+}
+
+.blogpost-th-action {
+  width: 140px;
+  white-space: nowrap;
+}
+
+.blogpost-td-action {
+  white-space: nowrap;
+}
+
+.blogpost-thumb {
+  height: 60px;
+  width: 60px;
+  object-fit: cover;
+}
+
+.blogpost-header-img {
+  margin-top: -2px;
+}
 html,
 body {
   height: 100%;

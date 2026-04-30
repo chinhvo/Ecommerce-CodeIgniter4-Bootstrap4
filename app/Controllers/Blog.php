@@ -2,6 +2,7 @@
 
 
 namespace App\Controllers;
+use App\Core\BlogType;
 use App\Core\MyController;
 
 class Blog extends MyController
@@ -49,11 +50,33 @@ class Blog extends MyController
         } else {
             $month = null;
         }
-        $data['posts'] = $this->Public_model->getPosts($this->num_rows, $page, $find, $month);
+        $blogType = isset($_GET['type']) && is_numeric($_GET['type'])
+            ? BlogType::normalize($_GET['type'])
+            : null;
+
+        $paginationBase = 'blog';
+        $queryArgs = [];
+        if (!empty($find)) {
+            $queryArgs['find'] = $find;
+        }
+        if ($month !== null) {
+            $queryArgs['from'] = (int) $month['from'];
+            $queryArgs['to'] = (int) $month['to'];
+        }
+        if ($blogType !== null) {
+            $queryArgs['type'] = $blogType;
+        }
+        if (!empty($queryArgs)) {
+            $paginationBase .= '?' . http_build_query($queryArgs);
+        }
+
+        $data['posts'] = $this->Public_model->getPosts($this->num_rows, $page, $find, $month, $blogType);
         $data['archives'] = $this->getBlogArchiveHtml();
         $data['bestSellers'] = $this->Public_model->getbestSellers();
-        $rowscount = $this->Blog_model->postsCount($find);
-        $data['links_pagination'] = pagination('blog', $rowscount, $this->num_rows, $page);
+        $rowscount = $this->Blog_model->postsCountByType($find, MY_LANGUAGE_ABBR, $blogType);
+        $data['links_pagination'] = pagination($paginationBase, $rowscount, $this->num_rows, $page);
+        $data['blogTypes'] = BlogType::labels();
+        $data['selectedBlogType'] = $blogType;
         $this->render('blog', $head, $data);
     }
 
@@ -97,6 +120,9 @@ class Blog extends MyController
 
     private function getBlogArchiveHtml()
     {
+        $selectedType = isset($_GET['type']) && is_numeric($_GET['type'])
+            ? BlogType::normalize($_GET['type'])
+            : null;
         $html = '
 		<div class="alone title cloth-bg-color">
 					<span>' . lang('archive') . '</span>
@@ -107,9 +133,12 @@ class Blog extends MyController
             $html .= '<ul class="blog-artchive">';
 
             foreach ($this->arhives as $archive) {
+                $archiveUrl = LANG_URL . '/blog?from=' . $archive['mintime'] . '&to=' . $archive['maxtime'];
+                if ($selectedType !== null) {
+                    $archiveUrl .= '&type=' . $selectedType;
+                }
                 $html .= '
-					<li class="item">» <a href="' . LANG_URL . '/blog?from='
-                        . $archive['mintime'] . '&to=' . $archive['maxtime'] . '">'
+					<li class="item">» <a href="' . $archiveUrl . '">'
                         . $archive['month'] . '</a></li>
 				';
             }

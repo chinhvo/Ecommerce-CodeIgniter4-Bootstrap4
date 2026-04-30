@@ -10,7 +10,7 @@
 
         <div class="d-flex align-items-center mb-2">
           <img src="<?= base_url('assets/imgs/admin-user.png') ?>" alt="Admin Users" class="mr-2" style="height: 32px; width: auto;">
-          <h1 class="h4 mb-0">Admin Users</h1>
+          <h1 class="h4 mb-0"><?= lang('admin_users') ?></h1>
         </div>
 
         <hr class="my-3">
@@ -41,7 +41,7 @@
                 class="btn btn-primary btn-sm float-right mb-3"
                 data-toggle="modal"
                 data-target="#add_edit_users">
-          <strong>+</strong> Add new user
+          <strong>+</strong> <?= lang('add_new_user') ?>
         </button>
 
         <div class="clearfix"></div>
@@ -52,12 +52,12 @@
               <thead class="thead-light">
                 <tr>
                   <th scope="col">#ID</th>
-                  <th scope="col">Username</th>
-                  <th scope="col">Password</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Notifications</th>
-                  <th scope="col">Last login</th>
-                  <th scope="col" class="text-center">Action</th>
+                  <th scope="col"><?= lang('col_username') ?></th>
+                  <th scope="col"><?= lang('password') ?></th>
+                  <th scope="col"><?= lang('col_email') ?></th>
+                  <th scope="col"><?= lang('col_notifications') ?></th>
+                  <th scope="col"><?= lang('col_last_login') ?></th>
+                  <th scope="col" class="text-center"><?= lang('col_action') ?></th>
                 </tr>
               </thead>
 
@@ -78,16 +78,16 @@
                     <td class="text-center">
                       <a href="<?= base_url('admin/adminusers?edit=' . (int)$user['id']) ?>"
                          class="btn btn-outline-secondary btn-sm mr-1">
-                        Edit
+                        <?= lang('edit') ?>
                       </a>
 
                       <form action="<?= base_url('admin/adminusers/delete/' . (int)$user['id']) ?>"
                             method="post"
                             class="d-inline"
-                            onsubmit="return confirm('Delete this user?');">
+                            onsubmit="return confirm('<?= lang('delete_user_confirm') ?>')">
                         <?= csrf_field() ?>
                         <button type="submit" class="btn btn-outline-danger btn-sm">
-                          Delete
+                          <?= lang('delete') ?>
                         </button>
                       </form>
                     </td>
@@ -98,7 +98,7 @@
           </div>
         <?php else : ?>
           <hr class="my-3">
-          <div class="alert alert-info mb-0">No users found!</div>
+          <div class="alert alert-info mb-0"><?= lang('no_users_found') ?></div>
         <?php endif; ?>
 
         <!-- Add/Edit Users Modal -->
@@ -111,7 +111,7 @@
 
                 <div class="modal-header">
                   <h5 class="modal-title" id="addEditUsersLabel">
-                    <?= !empty($editUser) ? 'Edit Administrator' : 'Add Administrator' ?>
+                    <?= !empty($editUser) ? lang('edit_administrator') : lang('add_administrator') ?>
                   </h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -122,7 +122,7 @@
                   <input type="hidden" name="id" value="<?= esc(old('id', $editUser['id'] ?? 0)) ?>">
 
                   <div class="form-group">
-                    <label for="username">Username</label>
+                    <label for="username"><?= lang('col_username') ?></label>
                     <input type="text"
                            name="username"
                            id="username"
@@ -131,19 +131,19 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password"><?= lang('password') ?></label>
                     <input type="password"
                            name="password"
                            id="password"
                            class="form-control"
                            value="">
                     <?php if (!empty($editUser)) : ?>
-                      <small class="text-muted">Leave blank to keep current password.</small>
+                      <small class="text-muted"><?= lang('keep_current_password') ?></small>
                     <?php endif; ?>
                   </div>
 
                   <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email"><?= lang('col_email') ?></label>
                     <input type="text"
                            name="email"
                            id="email"
@@ -152,19 +152,19 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="notify">Notifications</label>
+                    <label for="notify"><?= lang('col_notifications') ?></label>
                     <input type="text"
                            name="notify"
                            id="notify"
                            class="form-control"
-                           placeholder="Get notifications by email: 1 / 0 (yes or no)"
+                           placeholder="<?= lang('notifications_placeholder') ?>"
                            value="<?= esc(old('notify', $editUser['notify'] ?? '0')) ?>">
                   </div>
                 </div>
 
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                  <button type="submit" class="btn btn-primary">Save</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal"><?= lang('cancel') ?></button>
+                  <button type="submit" class="btn btn-primary"><?= lang('save') ?></button>
                 </div>
               </form>
 

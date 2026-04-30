@@ -16,7 +16,7 @@
             foreach ($page as $p) {
                 ?>
                 <div class="form-group">
-                    <label for="description<?= $i ?>">Page content (<?= $p['lname'] ?><img src="<?= base_url('attachments/lang_flags/' . $p['flag']) ?>" alt="">)</label>
+                    <label for="description<?= $i ?>"><?= lang('page_content') ?> (<?= $p['lname'] ?><img src="<?= base_url('attachments/lang_flags/' . $p['flag']) ?>" alt="">)</label>
                     <textarea name="description[]" id="description<?= $i ?>" rows="200" class="form-control"><?= $p['description'] ?></textarea>
                     <script>
                         CKEDITOR.replace('description<?= $i ?>');
@@ -27,7 +27,7 @@
                 $i++;
             }
             ?>
-            <button type="submit" name="updatePage" class="btn btn-lg btn-default">Update</button>
+            <button type="submit" name="updatePage" class="btn btn-lg btn-default"><?= lang('update') ?></button>
         </form>
     </div>
 </div>

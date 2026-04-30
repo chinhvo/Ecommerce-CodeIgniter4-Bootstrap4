@@ -2,9 +2,11 @@
 namespace App\Modules\Admin\Controllers\Blog;
 
 use App\Core\AdminController;
+use App\Core\BlogType;
 
 class Blog extends AdminController
 {
+    protected $Blog_model;
     private $num_rows = 10;
 
     public function __construct()
@@ -30,11 +32,26 @@ class Blog extends AdminController
         ];
 
         $search = $this->request->getGet('search') ?? null;
+        $blogTypeRaw = $this->request->getGet('blog_type');
+        $blogType = is_numeric($blogTypeRaw) ? BlogType::normalize($blogTypeRaw) : null;
 
-        $rowscount = $this->Blog_model->postsCount($search);
-        $data['posts'] = $this->Blog_model->getPosts(null, $this->num_rows, $page, $search);
-        $data['links_pagination'] = pagination('admin/blog', $rowscount, $this->num_rows, 3);
+        $paginationBase = 'admin/blog';
+        if ($blogType !== null) {
+            $paginationBase .= '?blog_type=' . $blogType;
+            if (!empty($search)) {
+                $paginationBase .= '&search=' . urlencode($search);
+            }
+        } elseif (!empty($search)) {
+            $paginationBase .= '?search=' . urlencode($search);
+        }
+
+        $rowscount = $this->Blog_model->postsCountByType($search, MY_DEFAULT_LANGUAGE_ABBR, $blogType);
+        $data['posts'] = $this->Blog_model->getPosts(null, $this->num_rows, $page, $search, null, $blogType);
+        $data['links_pagination'] = pagination($paginationBase, $rowscount, $this->num_rows, 3);
         $data['page'] = $page;
+        $data['num_rows'] = $this->num_rows;
+        $data['blogTypes'] = BlogType::labels();
+        $data['selectedBlogType'] = $blogType;
 
         echo view('\App\Modules\Admin\Views\Blog\blogposts', array_merge($data, $head));
         

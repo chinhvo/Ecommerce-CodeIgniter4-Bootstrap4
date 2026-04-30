@@ -5,7 +5,7 @@
 	class="col-sm-9 col-md-9 col-lg-10 offset-sm-3 offset-md-3 offset-lg-2  pt-2">
 	<h1 class="mb-3">
 		<img src="<?= base_url('assets/imgs/timer.png') ?>" class="header-img"
-			style="margin-top: -3px;" alt=""> History
+			style="margin-top: -3px;" alt=""> <?= lang('history') ?>
 	</h1>
 
 	<hr>
@@ -21,9 +21,9 @@
 		<table class="table table-sm table-bordered table-striped custab">
 			<thead>
 				<tr>
-					<th>User</th>
-					<th>Action</th>
-					<th>Time</th>
+					<th><?= lang('col_user') ?></th>
+					<th><?= lang('col_action') ?></th>
+					<th><?= lang('col_time') ?></th>
 				</tr>
 			</thead>
 
@@ -38,7 +38,7 @@
         <?php endforeach; ?>
       <?php else: ?>
         <tr>
-					<td colspan="3" class="text-center">No history found!</td>
+					<td colspan="3" class="text-center"><?= lang('no_history_found') ?></td>
 				</tr>
       <?php endif; ?>
     </tbody>

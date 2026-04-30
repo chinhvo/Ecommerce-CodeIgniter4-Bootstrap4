@@ -5,10 +5,10 @@
 	class="col-sm-9 col-md-9 col-lg-10 offset-sm-3 offset-md-3 offset-lg-2  pt-2">
 	<h1 class="mb-2">
 		<img src="<?= base_url('assets/imgs/email.png') ?>" class="header-img"
-			style="margin-top: -3px;" alt=""> Subscribed
+			style="margin-top: -3px;" alt=""> <?= lang('subscribed_title') ?>
 	</h1>
 
-	<p class="text-muted">Here are all subscribed emails of users</p>
+	<p class="text-muted"><?= lang('subscribed_desc') ?></p>
 	<hr>
 
 <?php if (session()->getFlashdata('emailDeleted')): ?>
@@ -22,11 +22,11 @@
 		<table class="table table-sm table-bordered table-striped custab">
 			<thead>
 				<tr>
-					<th>Email</th>
-					<th>Browser</th>
-					<th>Ip</th>
-					<th>Time</th>
-					<th style="width: 100px;">Action</th>
+					<th><?= lang('col_email') ?></th>
+					<th><?= lang('col_browser') ?></th>
+					<th><?= lang('col_ip') ?></th>
+					<th><?= lang('col_time') ?></th>
+					<th style="width: 100px;"><?= lang('col_action') ?></th>
 				</tr>
 			</thead>	
 			<tbody>
@@ -44,7 +44,7 @@
                   <?php endforeach; ?>
                 <?php else: ?>
                   <tr>
-                					<td colspan="5" class="text-center">No emails found!</td>
+                					<td colspan="5" class="text-center"><?= lang('no_emails_found') ?></td>
                 				</tr>
                 <?php endif; ?>
                 </tbody>
@@ -54,7 +54,7 @@
 
 <?php if (!empty($emails)): ?>
   <form method="POST" class="mt-2">
-		<button type="submit" name="export" class="btn btn-secondary">Export</button>
+		<button type="submit" name="export" class="btn btn-secondary"><?= lang('export') ?></button>
 	</form>
 <?php endif; ?>
 

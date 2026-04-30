@@ -15,7 +15,7 @@
 	<h1>
 		<img src="<?= base_url('assets/imgs/pages-styling.png') ?>"
 			class="header-img align-middle mr-2" style="margin-top: -3px;">
-		Styling
+		<?= lang('styling') ?>
 	</h1>
 	<hr>
 	<div class="alert alert-info">

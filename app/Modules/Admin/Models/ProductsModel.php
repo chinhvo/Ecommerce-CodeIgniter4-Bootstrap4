@@ -146,7 +146,7 @@ class ProductsModel extends Model
             $id = $this->db->insertID();
 
             if (!$this->db->table('products')->where('id', $id)->update([
-                'url' => except_letters($_POST['title'][$myTranslationNum]) . '_' . $id
+                'url' => vnToStr(except_letters($_POST['title'][$myTranslationNum])) . '_' . $id
             ])) {
                 log_message('error', print_r($this->db->error(), true));
             }

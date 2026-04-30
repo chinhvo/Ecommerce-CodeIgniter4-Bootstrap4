@@ -4,8 +4,8 @@
 
 <div class="col-sm-9 col-md-9 col-lg-10 offset-sm-3 offset-md-3 offset-lg-2 pt-2">
     <h1>
-        <img src="<?= base_url('assets/imgs/blogger.png') ?>" class="header-img" style="margin-top:-2px;"> 
-        Publish post
+        <img src="<?= base_url('assets/imgs/blogger.png') ?>" class="header-img blogpost-header-img">
+        <?= lang('publish_post') ?>
     </h1>
     <hr>
 
@@ -29,6 +29,18 @@
             <form method="POST" enctype="multipart/form-data">
                 <?= csrf_field() ?>
 
+                <div class="form-group mb-3">
+                    <label for="blog_type"><?= lang('blog_type_label') ?></label>
+                    <select name="blog_type" id="blog_type" class="form-control" required>
+                        <?php $currentBlogType = isset($_POST['blog_type']) ? (int) $_POST['blog_type'] : 4; ?>
+                        <?php foreach ($blogTypes as $typeId => $typeLabel): ?>
+                            <option value="<?= (int) $typeId ?>" <?= $currentBlogType === (int) $typeId ? 'selected' : '' ?>>
+                                <?= esc($typeLabel) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
                 <!-- Hidden translations -->
                 <?php foreach ($languages as $language): ?>
                     <input type="hidden" name="translations[]" value="<?= esc($language->abbr) ?>">
@@ -38,7 +50,7 @@
                 <?php $titleIndex = 0; foreach ($languages as $language): ?>
                     <div class="form-group mb-3">
                         <label for="title<?= $titleIndex ?>">
-                            Title (<?= esc($language->name) ?> 
+                            <?= lang('title') ?> (<?= esc($language->name) ?> 
                             <img src="<?= base_url('attachments/lang_flags/' . $language->flag) ?>" alt="">
                             )
                         </label>
@@ -55,7 +67,7 @@
                 <?php $i = 0; foreach ($languages as $language): ?>
                     <div class="form-group mb-3">
                         <label for="description<?= $i ?>">
-                            Description (<?= esc($language->name) ?> 
+                            <?= lang('description') ?> (<?= esc($language->name) ?> 
                             <img src="<?= base_url('attachments/lang_flags/' . $language->flag) ?>" alt="">
                             )
                         </label>
@@ -87,18 +99,18 @@
                                  src="<?= base_url('attachments/blog_images/' . esc($_POST['image'])) ?>" 
                                  alt="Post image">
                         </div>
-                        <label for="userfile">Choose another image:</label>
+                        <label for="userfile"><?= lang('choose_another_image') ?>:</label>
                     <?php else: ?>
-                        <label for="userfile">Upload image:</label>
+                        <label for="userfile"><?= lang('upload_image') ?>:</label>
                     <?php endif; ?>
                     <input type="file" id="userfile" name="userfile" class="form-control-file">
                 </div>
 
                 <!-- Buttons -->
                 <div class="d-flex gap-2">
-                    <button type="submit" name="submit" class="btn btn-primary mr-2" value="save">Publish</button>
+                    <button type="submit" name="submit" class="btn btn-primary mr-2" value="save"><?= lang('publish') ?></button>
                     <?php if ($id > 0): ?>
-                        <a href="<?= base_url('admin/blog') ?>" class="btn btn-secondary">Cancel</a>
+                        <a href="<?= base_url('admin/blog') ?>" class="btn btn-secondary"><?= lang('cancel') ?></a>
                     <?php endif; ?>
                 </div>
             </form>

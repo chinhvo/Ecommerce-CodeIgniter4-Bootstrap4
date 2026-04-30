@@ -6,16 +6,16 @@
 		<h1>
 			<img src="<?= base_url('assets/imgs/orders.png') ?>"
 				class="header-img" style="margin-top: -2px;">
-        Orders <?= service('request')->getGet('settings') ? ' / Settings' : '' ?>
+		<?= lang('orders') ?><?= service('request')->getGet('settings') ? ' / ' . lang('SETTINGS') : '' ?>
     </h1>
     <?php if (!service('request')->getGet('settings')): ?>
         <a href="?settings=true" class="btn btn-link orders-settings"> <i
-			class="fa fa-cog"></i> Settings
+			class="fa fa-cog"></i> <?= lang('SETTINGS') ?>
 		</a>
     <?php else: ?>
         <a href="<?= base_url('admin/orders') ?>"
 			class="btn btn-link orders-settings"> <i class="fa fa-angle-left"></i>
-			Back
+			<?= lang('back') ?>
 		</a>
     <?php endif; ?>
     </div>
@@ -30,22 +30,22 @@ if (! $request->getGet('settings')) :
         <div class="mb-2">
 		<select class="selectpicker changeOrder">
 			<option <?= $request->getGet('order_by') == 'id' ? 'selected' : '' ?>
-				value="id">Order by new</option>
+				value="id"><?= lang('order_by_new') ?></option>
 			<option
 				<?= ($request->getGet('order_by') == 'processed') || !$request->getGet('order_by') ? 'selected' : '' ?>
-				value="processed">Order by not processed</option>
+				value="processed"><?= lang('order_by_not_processed') ?></option>
 		</select>
 	</div>
 	<div class="table-responsive">
 		<table class="table table-sm table-bordered table-striped">
 			<thead>
 				<tr>
-					<th>Order ID</th>
-					<th>Date</th>
-					<th>Name</th>
-					<th>Phone</th>
-					<th class="text-center">Status</th>
-					<th class="text-center">Preview</th>
+					<th><?= lang('order_id') ?></th>
+					<th><?= lang('date') ?></th>
+					<th><?= lang('col_name') ?></th>
+					<th><?= lang('phone') ?></th>
+					<th class="text-center"><?= lang('status') ?></th>
+					<th class="text-center"><?= lang('preview') ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -54,13 +54,13 @@ if (! $request->getGet('settings')) :
         foreach ($orders as $tr) :
             if ($tr['processed'] == 0) {
                 $class = 'bg-danger';
-                $type = 'No processed';
+				$type = lang('not_processed');
             } elseif ($tr['processed'] == 1) {
                 $class = 'bg-success';
-                $type = 'Processed';
+				$type = lang('processed');
             } else {
                 $class = 'bg-warning';
-                $type = 'Rejected';
+				$type = lang('rejected');
             }
             ?>
                         <tr>
@@ -70,16 +70,15 @@ if (! $request->getGet('settings')) :
                                     <div
 							id="new-order-alert-<?= esc($tr['id']) ?>">
 							<img src="<?= base_url('assets/imgs/new-blinking.gif') ?>"
-								style="width: 100px;" alt="blinking">
+								style="width: 100px;" alt="<?= lang('new_order') ?>">
 						</div>
                                 <?php endif; ?>
                                 <div class="confirm-result">
                                     <?php if ($tr['confirmed'] == '1') : ?>
                                         <span
-								class="badge badge-success">Confirmed by email</span>
+							class="badge badge-success"><?= lang('confirmed_by_email') ?></span>
                                     <?php else : ?>
-                                        <span class="badge badge-danger">Not
-								Confirmed</span>
+										<span class="badge badge-danger"><?= lang('not_confirmed') ?></span>
                                     <?php endif; ?>
                                 </div>
 					</td>
@@ -94,85 +93,86 @@ if (! $request->getGet('settings')) :
 						<div class="mb-1">
 							<a href="javascript:void(0);"
 								onclick="changeOrdersOrderStatus(<?= $tr['id'] ?>, 1, '<?= esc($tr['products']) ?>', '<?= esc($tr['email']) ?>')"
-								class="btn btn-success btn-sm">Processed</a>
+								class="btn btn-success btn-sm"><?= lang('processed') ?></a>
 						</div>
 						<div class="mb-1">
 							<a href="javascript:void(0);"
 								onclick="changeOrdersOrderStatus(<?= $tr['id'] ?>, 0)"
-								class="btn btn-danger btn-sm">No processed</a>
+								class="btn btn-danger btn-sm"><?= lang('not_processed') ?></a>
 						</div>
 						<div class="mb-1">
 							<a href="javascript:void(0);"
 								onclick="changeOrdersOrderStatus(<?= $tr['id'] ?>, 2)"
-								class="btn btn-warning btn-sm">Rejected</a>
+								class="btn btn-warning btn-sm"><?= lang('rejected') ?></a>
 						</div>
 					</td>
 					<td class="text-center"><a href="javascript:void(0);"
 						class="btn btn-secondary more-info" data-toggle="modal"
 						data-target="#modalPreviewMoreInfo" style="margin-top: 10%;"
-						data-more-info="<?= esc($tr['order_id']) ?>"> More Info <i
+						data-more-info="<?= esc($tr['order_id']) ?>"> <?= lang('more_info') ?> <i
 							class="fa fa-info-circle"></i>
 					</a> <a href="<?= base_url('/admin/orders/delete/'. $tr['id']) ?>"
-						onclick="return confirm('Are you sure want to delete this order?')"
-						class="btn btn-danger mt-2"> Delete <i class="fa fa-remove"></i>
+						onclick="return confirm('<?= esc(lang('delete_order_confirmation'), 'js') ?>')"
+						class="btn btn-danger mt-2"> <?= lang('delete') ?> <i class="fa fa-remove"></i>
 					</a></td>
 					<td class="d-none" id="order-id-<?= esc($tr['order_id']) ?>">
 						<div class="table-responsive">
 							<table class="table more-info-purchase">
 								<tbody>
 									<tr>
-										<td><b>Email</b></td>
+										<td><b><?= lang('email') ?></b></td>
 										<td><a href="mailto:<?= esc($tr['email']) ?>"><?= esc($tr['email']) ?></a></td>
 									</tr>
 									<tr>
-										<td><b>City</b></td>
+										<td><b><?= lang('city') ?></b></td>
 										<td><?= esc($tr['city']) ?></td>
 									</tr>
 									<tr>
-										<td><b>Address</b></td>
+										<td><b><?= lang('address') ?></b></td>
 										<td><?= esc($tr['address']) ?></td>
 									</tr>
 									<tr>
-										<td><b>Postcode</b></td>
+										<td><b><?= lang('postcode') ?></b></td>
 										<td><?= esc($tr['post_code']) ?></td>
 									</tr>
 									<tr>
-										<td><b>Notes</b></td>
+										<td><b><?= lang('notes') ?></b></td>
 										<td><?= esc($tr['notes']) ?></td>
 									</tr>
 									<tr>
-										<td><b>Come from site</b></td>
+										<td><b><?= lang('come_from_site') ?></b></td>
 										<td>
                                                     <?php if ($tr['referrer'] != 'Direct') : ?>
                                                         <a
 											target="_blank" href="<?= esc($tr['referrer']) ?>"
 											class="orders-referral"><?= esc($tr['referrer']) ?></a>
                                                     <?php else : ?>
-                                                        Direct traffic or referrer is not visible
+														<?= lang('direct_traffic_or_referrer_not_visible') ?>
                                                     <?php endif; ?>
                                                 </td>
 									</tr>
 									<tr>
-										<td><b>Payment Type</b></td>
+										<td><b><?= lang('payment_type') ?></b></td>
 										<td><?= esc($tr['payment_type']) ?></td>
 									</tr>
 									<tr>
-										<td><b>Discount</b></td>
+										<td><b><?= lang('discount') ?></b></td>
 										<td><?= $tr['discount_type'] == 'float' ? '-'.$tr['discount_amount'] : '-'.$tr['discount_amount'].'%' ?></td>
 									</tr>
                                             <?php if ($tr['payment_type'] == 'PayPal') : ?>
                                                 <tr>
-										<td><b>PayPal Status</b></td>
+										<td><b><?= lang('paypal_status') ?></b></td>
 										<td><?= esc($tr['paypal_status']) ?></td>
 									</tr>
                                             <?php endif; ?>
                                             <tr>
-										<td colspan="2"><b>Products</b></td>
+										<td colspan="2"><b><?= lang('products') ?></b></td>
 									</tr>
 									<tr>
 										<td colspan="2">
                                                     <?php
             $arr_products = unserialize($tr['products']);
+			$total_amount = 0.0;
             foreach ($arr_products as $product) :
                 $total_amount = (float) str_replace([
                     ' ',
@@ -187,28 +187,28 @@ if (! $request->getGet('settings')) :
 												<div>
 													<img
 														src="<?= base_url('attachments/shop_images/' . $product['product_info']['image']) ?>"
-														alt="Product" style="width: 100px; margin-right: 10px;"
+														alt="<?= lang('product') ?>" style="width: 100px; margin-right: 10px;"
 														class="img-fluid">
 												</div>
-												<a data-toggle="tooltip" title="Click to preview"
+												<a data-toggle="tooltip" title="<?= lang('click_to_preview') ?>"
 													target="_blank"
 													href="<?= base_url($product['product_info']['url']) ?>">
                                                                 <?= base_url($product['product_info']['url']) ?>
                                                                 <div
 														class="bg-light rounded px-2 py-1">
-														<b>Quantity:</b> <?= esc($product['product_quantity']) ?> /
-                                                                    <b>Price: <?= esc($product['product_info']['price']).' '.$currency ?></b>
+														<b><?= lang('quantity') ?>:</b> <?= esc($product['product_quantity']) ?> /
+																<b><?= lang('price') ?>: <?= esc($product['product_info']['price']).' '.$currency ?></b>
 													</div>
 												</a>
 												<div>
-													<b>Vendor:</b> <a
+													<b><?= lang('vendor') ?>:</b> <a
 														href="<?= base_url('admin/listvendors?id=' . $product['product_info']['vendor_id']) ?>">
-                                                                    <?= $product['product_info']['vendor_name'] ?? '-Vendor name is missing-' ?>
+																<?= $product['product_info']['vendor_name'] ?? lang('vendor_name_missing') ?>
                                                                 </a>
 												</div>
 												<div class="clearfix"></div>
 											</div>
-											<div class="pt-2" style="font-size: 16px;">Total amount of products: <?= $total_amount.' '.$currency ?></div>
+											<div class="pt-2" style="font-size: 16px;"><?= lang('total_amount_of_products') ?>: <?= $total_amount.' '.$currency ?></div>
 											<hr>
                                                     <?php endforeach; ?>
                                                 </td>
@@ -221,7 +221,7 @@ if (! $request->getGet('settings')) :
             if ((int) $shippingAmount > 0 && ((int) $shippingOrder > $total_parsed)) :
                 ?>
                                                 <tr>
-										<td><b>Shipping amount is</b></td>
+										<td><b><?= lang('shipping_amount_is') ?></b></td>
 										<td><?= (int)$shippingAmount.' '.$currency ?></td>
 									</tr>
                                             <?php endif; ?>
@@ -236,17 +236,17 @@ if (! $request->getGet('settings')) :
 	</div>
         <?= $links_pagination ?>
     <?php else : ?>
-        <div class="alert alert-info">No orders to the moment!</div>
+		<div class="alert alert-info"><?= lang('no_orders_at_the_moment') ?></div>
     <?php endif; ?>
     <hr>
 <?php endif; ?>
 
 <?php if (service('request')->getGet('settings')): ?>
-    <h3>Cash On Delivery</h3>
+    <h3><?= lang('cash_on_delivery') ?></h3>
 	<div class="row">
 		<div class="col-sm-4">
 			<div class="card">
-				<div class="card-header">Change visibility of this purchase option</div>
+				<div class="card-header"><?= lang('change_visibility_of_this_purchase_option') ?></div>
 				<div class="card-body">
                     <?php if (session()->getFlashdata('cashondelivery_visibility')): ?>
                         <div class="alert alert-info">
@@ -257,10 +257,10 @@ if (! $request->getGet('settings')) :
                     <form method="POST" action="">  
                      	<?= csrf_field() ?>                
                         <input type="hidden" name="cashondelivery_visibility" value="<?= htmlspecialchars($cashondelivery_visibility) ?>">
-												<label for="cashondelivery_visibility_switch" class="sr-only">Cash on delivery visibility</label>
+											<label for="cashondelivery_visibility_switch" class="sr-only"><?= lang('cash_on_delivery_visibility') ?></label>
                         <input id="cashondelivery_visibility_switch" <?= $cashondelivery_visibility == 1 ? 'checked' : '' ?> data-toggle="toggle" data-for-field="cashondelivery_visibility" class="toggle-changer" type="checkbox" >
                         <button class="btn btn-secondary" value="" type="submit">
-                            Save
+							<?= lang('save') ?>
                         </button>
                     </form>
 				</div>
@@ -269,12 +269,12 @@ if (! $request->getGet('settings')) :
 	</div>
 	<hr>
 
-	<h3>Paypal Account Settings</h3>
+	<h3><?= lang('paypal_account_settings') ?></h3>
 	<div class="row">
 		<!-- Sandbox Mode -->
 		<div class="col-sm-6">
 			<div class="card">
-				<div class="card-header">Paypal sandbox mode (use for account tests)</div>
+				<div class="card-header"><?= lang('paypal_sandbox_mode_use_for_account_tests') ?></div>
 				<div class="card-body">
                     <?php if (session()->getFlashdata('paypal_sandbox')): ?>
                         <div class="alert alert-info">
@@ -285,9 +285,9 @@ if (! $request->getGet('settings')) :
                     <form method="post" action="" id="paypal_sandbox">
                         <?= csrf_field() ?>
            				<input type="hidden" name="paypal_sandbox" value="<?= htmlspecialchars($paypal_sandbox) ?>">
-						<label for="paypal_sandbox_switch" class="sr-only">Paypal sandbox mode</label>
+						<label for="paypal_sandbox_switch" class="sr-only"><?= lang('paypal_sandbox_mode') ?></label>
                         <input id="paypal_sandbox_switch" <?= $paypal_sandbox == 1 ? 'checked' : '' ?> data-toggle="toggle" data-for-field="paypal_sandbox" class="toggle-changer" type="checkbox">   
-						<button class="btn btn-secondary" type="submit">Save</button>
+						<button class="btn btn-secondary" type="submit"><?= lang('save') ?></button>
 					</form>
 				</div>
 			</div>
@@ -296,7 +296,7 @@ if (! $request->getGet('settings')) :
 		<!-- Paypal Email -->
 		<div class="col-sm-6">
 			<div class="card">
-				<div class="card-header">Paypal business email</div>
+				<div class="card-header"><?= lang('paypal_business_email') ?></div>
 				<div class="card-body">
                     <?php if (session()->getFlashdata('paypal_email')): ?>
                         <div class="alert alert-info">
@@ -308,7 +308,7 @@ if (! $request->getGet('settings')) :
                         <?= csrf_field() ?>
                         <div class="input-group">
 							<input class="form-control"
-								placeholder="Leave empty for no paypal available method"
+								placeholder="<?= lang('leave_empty_for_no_paypal_available_method') ?>"
 								name="paypal_email" value="<?= esc($paypal_email) ?>"
 								type="text">
 							<div class="input-group-append">
@@ -324,7 +324,7 @@ if (! $request->getGet('settings')) :
 	</div>
 	<hr>
 
-	<h3>Bank Account Settings</h3>
+	<h3><?= lang('bank_account_settings') ?></h3>
 	<div class="row">
 		<div class="col-sm-6">
             <?php if (session()->getFlashdata('bank_account')): ?>
@@ -339,40 +339,40 @@ if (! $request->getGet('settings')) :
 					<table class="table table-bordered">
 						<tbody>
 							<tr>
-								<td colspan="2"><b>Pay to - Recipient name/ltd</b></td>
+								<td colspan="2"><b><?= lang('pay_to_recipient_name_ltd') ?></b></td>
 							</tr>
 							<tr>
 								<td colspan="2"><input type="text" name="name"
 									value="<?= $bank_account ? esc($bank_account['name']) : '' ?>"
-									class="form-control" placeholder="Example: BoxingTeam Ltd."></td>
+									class="form-control" placeholder="<?= lang('recipient_name_example') ?>"></td>
 							</tr>
 							<tr>
-								<td><b>IBAN</b></td>
-								<td><b>BIC</b></td>
+								<td><b><?= lang('iban') ?></b></td>
+								<td><b><?= lang('bic') ?></b></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="form-control"
 									value="<?= $bank_account ? esc($bank_account['iban']) : '' ?>"
-									name="iban" placeholder="Example: BG11FIBB329291923912301230">
+									name="iban" placeholder="<?= lang('iban_example') ?>">
 								</td>
 								<td><input type="text" class="form-control"
 									value="<?= $bank_account ? esc($bank_account['bic']) : '' ?>"
-									name="bic" placeholder="Example: FIBBGSF"></td>
+									name="bic" placeholder="<?= lang('bic_example') ?>"></td>
 							</tr>
 							<tr>
-								<td colspan="2"><b>Bank</b></td>
+								<td colspan="2"><b><?= lang('bank') ?></b></td>
 							</tr>
 							<tr>
 								<td colspan="2"><input type="text"
 									value="<?= $bank_account ? esc($bank_account['bank']) : '' ?>"
 									name="bank" class="form-control"
-									placeholder="Example: First Investment Bank"></td>
+									placeholder="<?= lang('bank_example') ?>"></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<input type="submit" class="btn btn-primary btn-block"
-					value="Save Bank Account Settings">
+					value="<?= lang('save_bank_account_settings') ?>">
 			</form>
 		</div>
 	</div>
@@ -385,7 +385,7 @@ if (! $request->getGet('settings')) :
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="modalLabel">
-						Preview <b id="client-name"></b>
+						<?= lang('preview') ?> <b id="client-name"></b>
 					</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
@@ -395,7 +395,7 @@ if (! $request->getGet('settings')) :
 				<div class="modal-body" id="preview-info-body"></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Close</button>
+						data-dismiss="modal"><?= lang('close') ?></button>
 				</div>
 			</div>
 		</div>

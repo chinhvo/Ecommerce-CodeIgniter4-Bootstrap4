@@ -8,7 +8,7 @@
 
 	<h1>
 		<img src="<?= base_url('assets/imgs/admin-home.png') ?>"
-			class="header-img" style="margin-top: -3px;"> Home
+			class="header-img" style="margin-top: -3px;"> <?= lang('home') ?>
 	</h1>
 	<hr>
 
@@ -18,7 +18,7 @@
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item active"><i class="fa fa-dashboard"></i>
-							Dashboard - Statistics Overview</li>
+						<?= lang('dashboard_overview') ?></li>
 					</ol>
 				</nav>
 			</div>
@@ -36,13 +36,13 @@
 							<div class="col-9 text-right">
 								<div style="font-size: 25px;"><?= date('d.m.Y', session()->get('last_login')) ?></div>
 								<div style="font-size: 16px;"><?= date('H:i:s', session()->get('last_login')) ?></div>
-								<div>Last login!</div>
+								<div><?= lang('last_login_label') ?></div>
 							</div>
 						</div>
 					</div>
 					<a href="<?= base_url('admin/adminusers') ?>"
 						class="card-footer text-white clearfix small z-1 d-flex justify-content-between align-items-center">
-						<span>View Details</span> <i class="fa fa-arrow-circle-right"></i>
+						<span><?= lang('view_details') ?></span> <i class="fa fa-arrow-circle-right"></i>
 					</a>
 				</div>
 			</div>
@@ -56,13 +56,13 @@
 							</div>
 							<div class="col-9 text-right">
 								<div class="display-4"><?= $lastSubscribed ?></div>
-								<div>New subscribed!</div>
+								<div><?= lang('new_subscribed') ?></div>
 							</div>
 						</div>
 					</div>
 					<a href="<?= base_url('admin/emails') ?>"
 						class="card-footer text-white clearfix small z-1 d-flex justify-content-between align-items-center">
-						<span>View Details</span> <i class="fa fa-arrow-circle-right"></i>
+						<span><?= lang('view_details') ?></span> <i class="fa fa-arrow-circle-right"></i>
 					</a>
 				</div>
 			</div>
@@ -76,13 +76,13 @@
 							</div>
 							<div class="col-9 text-right">
 								<div class="display-4"><?= $newOrdersCount ?></div>
-								<div>New Orders!</div>
+								<div><?= lang('new_orders_label') ?></div>
 							</div>
 						</div>
 					</div>
 					<a href="<?= base_url('admin/orders') ?>"
 						class="card-footer text-dark clearfix small z-1 d-flex justify-content-between align-items-center">
-						<span>View Details</span> <i class="fa fa-arrow-circle-right"></i>
+						<span><?= lang('view_details') ?></span> <i class="fa fa-arrow-circle-right"></i>
 					</a>
 				</div>
 			</div>
@@ -96,15 +96,13 @@
 							</div>
 							<div class="col-9 text-right">
 								<div class="display-4"><?= $lowQuantity ?></div>
-								<div>
-									Low Quantity Products!<br>(lower than 5)
-								</div>
+								<div><?= lang('low_quantity_products') ?><br><?= lang('lower_than_5') ?></div>
 							</div>
 						</div>
 					</div>
 					<a href="<?= base_url('admin/products?orderby=quantity=asc') ?>"
 						class="card-footer text-white clearfix small z-1 d-flex justify-content-between align-items-center">
-						<span>View Details</span> <i class="fa fa-arrow-circle-right"></i>
+						<span><?= lang('view_details') ?></span> <i class="fa fa-arrow-circle-right"></i>
 					</a>
 				</div>
 			</div>
@@ -115,8 +113,7 @@
 			<div class="col-lg-12 mb-4">
 				<div class="card">
 					<div class="card-header">
-						<i class="fa fa-bar-chart-o fa-fw"></i> Area Chart - Orders By
-						Month
+						<i class="fa fa-bar-chart-o fa-fw"></i> <?= lang('orders_by_month_chart') ?>
 					</div>
 					<div class="card-body">
 						<div id="container-by-month"
@@ -128,8 +125,7 @@
 			<div class="col-lg-12 mb-4">
 				<div class="card">
 					<div class="card-header">
-						<i class="fa fa-bar-chart-o fa-fw"></i> Area Chart - Orders From
-						Referrer
+						<i class="fa fa-bar-chart-o fa-fw"></i> <?= lang('orders_from_referrer_chart') ?>
 					</div>
 					<div class="card-body">
 						<div id="container-by-referrer"
@@ -145,16 +141,15 @@
 			<div class="col-lg-4 mb-4">
 				<div class="card">
 					<div class="card-header">
-						<i class="fa fa-long-arrow-right fa-fw"></i> Most Orders By
-						Payment Type
+						<i class="fa fa-long-arrow-right fa-fw"></i> <?= lang('most_orders_by_payment') ?>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
 							<table class="table table-bordered table-hover table-striped">
 								<thead>
 									<tr>
-										<th>Payment type</th>
-										<th>Num Orders</th>
+									<th><?= lang('payment_type') ?></th>
+									<th><?= lang('num_orders') ?></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -167,7 +162,7 @@
                                     <?php endforeach ?>
                                 <?php else: ?>
                                     <tr>
-										<td colspan="2">No Orders</td>
+											<td colspan="2"><?= lang('no_orders') ?></td>
 									</tr>
                                 <?php endif ?>
                             </tbody>
@@ -181,15 +176,15 @@
 			<div class="col-lg-4 mb-4">
 				<div class="card">
 					<div class="card-header">
-						<i class="fa fa-clock-o fa-fw"></i> Last Activity Log
+						<i class="fa fa-clock-o fa-fw"></i> <?= lang('last_activity_log') ?>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
 							<table class="table table-bordered table-hover table-striped">
 								<thead>
 									<tr>
-										<th>User</th>
-										<th>Action</th>
+									<th><?= lang('col_user') ?></th>
+									<th><?= lang('col_action') ?></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -202,14 +197,14 @@
                                     <?php endforeach ?>
                                 <?php else: ?>
                                     <tr>
-										<td colspan="2">No history found!</td>
+											<td colspan="2"><?= lang('no_history_found') ?></td>
 									</tr>
                                 <?php endif ?>
                             </tbody>
 							</table>
 						</div>
 						<div class="text-right">
-							<a href="<?= base_url('admin/history') ?>">View All Activity <i
+						<a href="<?= base_url('admin/history') ?>"><?= lang('view_all_activity') ?> <i
 								class="fa fa-arrow-circle-right"></i></a>
 						</div>
 					</div>
@@ -220,15 +215,15 @@
 			<div class="col-lg-4 mb-4">
 				<div class="card">
 					<div class="card-header">
-						<i class="fa fa-money fa-fw"></i> Most Sold
+						<i class="fa fa-money fa-fw"></i> <?= lang('most_sold') ?>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
 							<table class="table table-bordered table-hover table-striped">
 								<thead>
 									<tr>
-										<th>Sales</th>
-										<th>Url</th>
+									<th><?= lang('col_sales') ?></th>
+									<th><?= lang('col_url') ?></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -241,16 +236,15 @@
                                     <?php endforeach ?>
                                 <?php else: ?>
                                     <tr>
-										<td colspan="2">No Orders</td>
-									</tr>
+											<td colspan="2"><?= lang('no_orders') ?></td>
+										</tr>
                                 <?php endif ?>
                             </tbody>
-							</table>
-						</div>
-						<div class="text-right">
-							<a
-								href="<?= base_url('admin/products?orderby=procurement=desc') ?>">View
-								All Products <i class="fa fa-arrow-circle-right"></i>
+						</table>
+					</div>
+					<div class="text-right">
+						<a
+							href="<?= base_url('admin/products?orderby=procurement=desc') ?>"><?= lang('view_all_products') ?> <i class="fa fa-arrow-circle-right"></i>
 							</a>
 						</div>
 					</div>

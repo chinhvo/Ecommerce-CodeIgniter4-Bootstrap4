@@ -9,7 +9,7 @@ class BlogModel extends Model
 {
     protected $table         = 'blog_posts';
     protected $primaryKey    = 'id';
-    protected $allowedFields = ['image', 'time', 'url'];
+    protected $allowedFields = ['image', 'time', 'url', 'blog_type'];
     protected $returnType    = 'array';
     protected $useTimestamps = false;
 
@@ -43,6 +43,29 @@ class BlogModel extends Model
     }
 
     /**
+     * Count posts with optional search and type filter
+     */
+    public function postsCountByType(
+        ?string $search = null,
+        string $lang = MY_DEFAULT_LANGUAGE_ABBR,
+        ?int $blogType = null
+    ): int {
+        $builder = $this->db->table('blog_posts')
+            ->join('blog_translations', 'blog_translations.for_id = blog_posts.id', 'left')
+            ->where('blog_translations.abbr', $lang);
+
+        if ($search) {
+            $builder->like('blog_translations.title', $search);
+        }
+
+        if ($blogType !== null) {
+            $builder->where('blog_posts.blog_type', $blogType);
+        }
+
+        return $builder->countAllResults();
+    }
+
+    /**
      * Get posts with filters
      */
     public function getPosts(
@@ -50,10 +73,11 @@ class BlogModel extends Model
         ?int $limit = null,
         ?int $offset = null,
         ?string $search = null,
-        ?array $month = null
+        ?array $month = null,
+        ?int $blogType = null
     ): array {
         $builder = $this->db->table('blog_posts')
-            ->select('blog_posts.id, blog_translations.title, blog_translations.description, blog_posts.url, blog_posts.time, blog_posts.image')
+            ->select('blog_posts.id, blog_translations.title, blog_translations.description, blog_posts.url, blog_posts.time, blog_posts.image, blog_posts.blog_type')
             ->join('blog_translations', 'blog_translations.for_id = blog_posts.id', 'left')
             ->where('blog_translations.abbr', $lang ?? MY_DEFAULT_LANGUAGE_ABBR);
 
@@ -69,6 +93,10 @@ class BlogModel extends Model
                     ->where('time <=', $month['to']);
         }
 
+        if ($blogType !== null) {
+            $builder->where('blog_posts.blog_type', $blogType);
+        }
+
         return $builder->get($limit, $offset)->getResultArray();
     }
 
@@ -82,19 +110,21 @@ class BlogModel extends Model
         if ($id > 0) {
             // Update
             $data = [
-                'image' => $post['image'] ?? $post['old_image'] ?? null
+                'image'     => $post['image'] ?? $post['old_image'] ?? null,
+                'blog_type' => isset($post['blog_type']) ? (int) $post['blog_type'] : 4,
             ];
             $this->db->table('blog_posts')->update($data, ['id' => $id]);
         } else {
             // Insert new
             $myTranslationNum = array_search(MY_DEFAULT_LANGUAGE_ABBR, $post['translations']);
             $this->db->table('blog_posts')->insert([
-                'image' => $post['image'],
-                'time'  => time()
+                'image'     => $post['image'],
+                'time'      => time(),
+                'blog_type' => isset($post['blog_type']) ? (int) $post['blog_type'] : 4,
             ]);
             $id = $this->db->insertID();
 
-            $url = url_title($post['title'][$myTranslationNum] . '_' . $id, '-', true);
+            $url = vnToStr(except_letters(url_title($post['title'][$myTranslationNum] . '_' . $id, '-', true)));
             $this->db->table('blog_posts')->update(['url' => $url], ['id' => $id]);
         }
 

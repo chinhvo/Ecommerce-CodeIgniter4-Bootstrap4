@@ -20,9 +20,9 @@
         <div class="avatar"></div>
         <div class="form-box">
             <form action="<?= base_url() ?>admin/login" method="POST">
-                <input type="text" name="username" placeholder="username">
-                <input type="password" name="password" placeholder="password">
-                <button class="btn btn-info btn-block login" type="submit">Login</button>
+                <input type="text" name="username" placeholder="<?= lang('username') ?>">
+                <input type="password" name="password" placeholder="<?= lang('password') ?>">
+                <button class="btn btn-info btn-block login" type="submit"><?= lang('login') ?></button>
             </form>
         </div>
     </div>

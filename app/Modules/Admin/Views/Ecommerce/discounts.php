@@ -4,24 +4,24 @@
 	class="col-sm-9 col-md-9 col-lg-10 offset-sm-3 offset-md-3 offset-lg-2  pt-2">
 	<h1>
 		<img src="<?= base_url('assets/imgs/discount.png') ?>"
-			class="header-img" style="margin-top: -3px;"> Discount Codes
+			class="header-img" style="margin-top: -3px;"> <?= lang('discount_codes') ?>
 	</h1>
 	<hr>
 
 	<div class="mb-3">
 		<a href="javascript:void(0);"
 			id="toogleAddDiscountCode" class="btn btn-primary float-left"> <b>+</b>
-			Add discount code
+			<?= lang('add_discount_code') ?>
 		</a>
 
 		<form method="POST" action="" class="float-right form-inline">
-			<label class="mr-2" for="codeDiscountsSwitch">Code discounts</label> 
+			<label class="mr-2" for="codeDiscountsSwitch"><?= lang('code_discounts') ?></label> 
 			<input type="hidden"
 				name="codeDiscounts" value="<?= htmlspecialchars($codeDiscounts) ?>">
 			<input id="codeDiscountsSwitch" <?= $codeDiscounts == 1 ? 'checked' : '' ?>
 				data-toggle="toggle" data-for-field="codeDiscounts"
 				class="toggle-changer" type="checkbox">
-			<button class="btn btn-secondary ml-2" type="submit" name = "saveCodeDiscounts" value="save">Save</button>
+			<button class="btn btn-secondary ml-2" type="submit" name = "saveCodeDiscounts" value="save"><?= lang('save') ?></button>
 		</form>
 
 		<div class="clearfix"></div>
@@ -35,11 +35,11 @@
 		<table class="table table-bordered table-striped">
 			<thead class="thead-light">
 				<tr>
-					<th>Code</th>
-					<th>Amount</th>
-					<th>Valid from</th>
-					<th>Valid to</th>
-					<th>Status</th>
+					<th><?= lang('code_label') ?></th>
+					<th><?= lang('amount') ?></th>
+					<th><?= lang('valid_from') ?></th>
+					<th><?= lang('valid_to') ?></th>
+					<th><?= lang('status') ?></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -57,16 +57,16 @@
                         </td>
 					<td class="text-center"><a
 						href="<?= base_url('admin/discounts?codeid='.(int)$code['id'].'&tostatus='.(int)$tostatus) ?>">
-                                <?=(int) $code['status'] == 1 ? '<span class="badge badge-success">Enabled</span>' : '<span class="badge badge-danger">Disabled</span>'?>
+								<?=(int) $code['status'] == 1 ? '<span class="badge badge-success">' . lang('enabled') . '</span>' : '<span class="badge badge-danger">' . lang('disabled') . '</span>'?>
                             </a></td>
 					<td class="text-center"><a
 						href="<?= base_url('admin/discounts?edit='.(int)$code['id']) ?>"
-						class="btn btn-primary btn-sm">Edit</a></td>
+						class="btn btn-primary btn-sm"><?= lang('edit') ?></a></td>
 				</tr>
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
-					<td colspan="6">No discount codes added</td>
+					<td colspan="6"><?= lang('no_discount_codes_added') ?></td>
 				</tr>
             <?php endif; ?>
             </tbody>
@@ -85,7 +85,7 @@
 						value="<?= isset($_POST['update']) ? (int)$_POST['update'] : '0' ?>">
 
 					<div class="modal-header">
-						<h5 class="modal-title" id="myModalLabel">Add discount code</h5>
+						<h5 class="modal-title" id="myModalLabel"><?= lang('add_discount_code') ?></h5>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -98,19 +98,19 @@
                         <?php endif; ?>
 
                         <div class="form-group">
-							<label for="discount_type">Type of discount</label> <select class="form-control"
+							<label for="discount_type"><?= lang('type_of_discount') ?></label> <select class="form-control"
 								name="type" id="discount_type">
 								<option
 									<?= (isset($_POST['type']) && $_POST['type'] == 'percent') || !isset($_POST['percent']) ? 'selected' : '' ?>
 									value="percent">%</option>
 								<option
 									<?= isset($_POST['type']) && $_POST['type'] == 'float' ? 'selected' : '' ?>
-									value="float">Float</option>
+									value="float"><?= lang('float_label') ?></option>
 							</select>
 						</div>
 
 						<div class="form-group">
-							<label for="discount_amount">Discount value</label> <input class="form-control"
+							<label for="discount_amount"><?= lang('discount_value') ?></label> <input class="form-control"
 								id="discount_amount"
 								name="amount"
 								value="<?= isset($_POST['amount']) ? htmlspecialchars($_POST['amount']) : '' ?>"
@@ -118,36 +118,36 @@
 						</div>
 
 						<div class="form-group position-relative">
-							<label for="discount_code">Discount code</label> <input class="form-control"
+							<label for="discount_code"><?= lang('discount_code') ?></label> <input class="form-control"
 								id="discount_code"
 								name="code"
 								value="<?= isset($_POST['code']) ? htmlspecialchars($_POST['code']) : '' ?>"
 								type="text">
 							<div class="position-absolute" style="right: 5px; top: 28px;">
 								<input type="text" data-toggle="tooltip"
-									title="Set length of code"
+									title="<?= lang('set_length_of_code') ?>"
 									class="codeLength form-control d-inline-block" value="6"
 									readonly
 									style="width: 40px; text-align: center; display: inline-block;">
 								<a href="javascript:void(0);" onclick="generateDiscountCode()"
-									class="btn btn-secondary btn-sm mb-1">Generate</a>
+									class="btn btn-secondary btn-sm mb-1"><?= lang('generate') ?></a>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="valid_from_date">Valid from date</label> <input
+							<label for="valid_from_date"><?= lang('valid_from_date') ?></label> <input
 								id="valid_from_date"
 								class="form-control datepicker" name="valid_from_date"
-								placeholder="yyyy/mm/dd"
+								placeholder="<?= lang('date_format_placeholder') ?>"
 								value="<?= isset($_POST['valid_from_date']) ? htmlspecialchars($_POST['valid_from_date']) : '' ?>"
 								type="text">
 						</div>
 
 						<div class="form-group">
-							<label for="valid_to_date">Valid to date</label> <input
+							<label for="valid_to_date"><?= lang('valid_to_date') ?></label> <input
 								id="valid_to_date"
 								class="form-control datepicker" name="valid_to_date"
-								placeholder="yyyy/mm/dd"
+								placeholder="<?= lang('date_format_placeholder') ?>"
 								value="<?= isset($_POST['valid_to_date']) ? htmlspecialchars($_POST['valid_to_date']) : '' ?>"
 								type="text">
 						</div>
@@ -156,8 +156,8 @@
 					<div class="modal-footer">
 						<button type="button"
 							onclick="location.href='<?= base_url('admin/discounts') ?>';"
-							class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-						<button type="submit" name="submit" class="btn btn-primary" value ="save" id="saveDiscount">Save</button>
+							class="btn btn-secondary" data-dismiss="modal"><?= lang('cancel') ?></button>
+						<button type="submit" name="submit" class="btn btn-primary" value ="save" id="saveDiscount"><?= lang('save') ?></button>
 					</div>
 
 				</form>
@@ -198,7 +198,7 @@
         function generateDiscountCode() {
             var length = $('.codeLength').val();
             if (length < 3 || length == '') {
-                alert('Too short discount code!');
+				alert('<?= esc(lang('too_short_discount_code'), 'js') ?>');
             } else {
                 var text = "";
                 var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

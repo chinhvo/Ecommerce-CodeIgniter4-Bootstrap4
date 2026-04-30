@@ -6,7 +6,7 @@
 		<h1>
 			<img src="<?= base_url('assets/imgs/categories.jpg') ?>"
 				class="header-img" style="margin-top: -2px;">
-			Shop Categories
+			<?= lang('shop_categories') ?>
 		</h1>
 		<hr>
 
@@ -37,8 +37,7 @@
 		<a href="javascript:void(0);" data-toggle="modal"
 			data-target="#add_edit_articles"
 			class="btn btn-primary btn-sm float-right mb-2">
-			<b>+</b> Add shop
-			category
+			<b>+</b> <?= lang('add_shop_category') ?>
 		</a>
 
 		<div class="clearfix"></div>
@@ -48,12 +47,12 @@
 			<table class="table table-striped custab">
 				<thead>
 					<tr>
-						<th>#ID</th>
-						<th>Name</th>
-						<th>Icon</th>
-						<th>Subcategory for</th>
-						<th>Position</th>
-						<th class="text-center">Action</th>
+						<th>#<?= lang('col_id') ?></th>
+						<th><?= lang('col_name') ?></th>
+						<th><?= lang('icon') ?></th>
+						<th><?= lang('col_subcategory_for') ?></th>
+						<th><?= lang('position') ?></th>
+						<th class="text-center"><?= lang('col_action') ?></th>
 					</tr>
 				</thead>
 				<?php
@@ -61,7 +60,7 @@
 				foreach ($shop_categories as $key_cat => $shop_categorie):
 					$catName = '';
 					foreach ($shop_categorie['info'] as $ff) {
-						$catName .= '<div>' . '<a href="javascript:void(0);" class="editCategorie" data-indic="' . $i . '" data-parent_id"' . $ff['sub_for'] . '" data-for-id="' . $key_cat . '"  data-abbr="' . $ff['abbr'] . '" data-toggle="tooltip" data-placement="top" title="Edit this category">' . '<i class="fa fa-pencil"></i>' . '</a> ' . '[' . $ff['abbr'] . ']<span id="indic-' . $i . '">' . $ff['name'] . '</span>' . '</div>';
+						$catName .= '<div>' . '<a href="javascript:void(0);" class="editCategorie" data-indic="' . $i . '" data-parent_id"' . $ff['sub_for'] . '" data-for-id="' . $key_cat . '"  data-abbr="' . $ff['abbr'] . '" data-toggle="tooltip" data-placement="top" title="' . lang('edit') . '">' . '<i class="fa fa-pencil"></i>' . '</a> ' . '[' . $ff['abbr'] . ']<span id="indic-' . $i . '">' . $ff['name'] . '</span>' . '</div>';
 						$i++;
 					}
 					?>
@@ -98,7 +97,7 @@
 						<a
 						href="<?= base_url('admin/shopcategories/?delete=' . $key_cat) ?>"
 						class="btn btn-danger btn-sm confirm-delete">
-							<i class="fa fa-trash"></i> Delete
+							<i class="fa fa-trash"></i> <?= lang('delete') ?>
 						</a>
 					</td>
 				</tr>
@@ -109,7 +108,7 @@
 		<?php else: ?>
 			<div class="clearfix"></div>
 		<hr>
-		<div class="alert alert-info">No shop categories found!</div>
+		<div class="alert alert-info"><?= lang('no_shop_categories_found') ?></div>
 		<?php endif; ?>
 
         <!-- add/edit category modal -->
@@ -119,7 +118,7 @@
 				<div class="modal-content">
 					<form action="<?= base_url() ?>admin/shopcategories" method="POST">
 						<div class="modal-header">
-							<h5 class="modal-title" id="myModalLabel">Add Category</h5>
+							<h5 class="modal-title" id="myModalLabel"><?= lang('add_category') ?></h5>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
@@ -133,7 +132,7 @@
 
 						<?php foreach ($languages as $language): ?>
 							<div class="form-group">
-								<label for="categorie_name_<?= esc($language->abbr) ?>">Name (<?= esc($language->name) ?> <img
+								<label for="categorie_name_<?= esc($language->abbr) ?>"><?= lang('col_name') ?> (<?= esc($language->name) ?> <img
 									src="<?= base_url('attachments/lang_flags/' . $language->flag) ?>"
 									alt="">)
 								</label> <input type="text" name="categorie_name[]"
@@ -142,17 +141,16 @@
 						<?php endforeach; ?>
 
 						<div class="form-group">
-								<label for="icon">Icon class (Font Awesome)</label>
+								<label for="icon"><?= lang('icon_class_font_awesome') ?></label>
 								<input type="text" name="icon" class="form-control" id="icon"
 									placeholder="fa fa-leaf">
 						</div>
 
 						<div class="form-group">
-								<label for="sub_for">Parent <small class="text-muted">this category will be a
-										subcategory of parent</small>:
+								<label for="sub_for"><?= lang('parent') ?> <small class="text-muted"><?= lang('subcategory_of_parent') ?></small>:
 								</label>
 								<select class="form-control" name="sub_for" id="sub_for">
-									<option value="0">None</option>
+									<option value="0"><?= lang('none') ?></option>
 									<?php
 									foreach ($shop_categories as $key_cat => $shop_categorie):
 										$aa = '';
@@ -167,9 +165,9 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">Cancel</button>
+								data-dismiss="modal"><?= lang('cancel') ?></button>
 							<button type="submit" name="submit" class="btn btn-primary"
-								value="save">Save</button>
+								value="save"><?= lang('save') ?></button>
 						</div>
 					</form>
 				</div>
@@ -195,7 +193,7 @@
 			<select
 				class="form-control" name="newSubIs">
 				<option value=""></option>
-				<option value="0">None</option>
+				<option value="0"><?= lang('none') ?></option>
 				<?php
 
 				foreach ($shop_categories as $key_cat => $shop_categorie):
