@@ -38,28 +38,6 @@ class MyController extends BaseController
         // Load shared variables
         $shared = $this->loadVars();
 
-        // Get categories from model
-        $publicModel = model(\App\Models\PublicModel::class);
-
-        $all_categories = $publicModel->getShopCategories();
-
-        // Build category tree
-        $buildTree = function (array $elements, $parentId = 0) use (&$buildTree) {
-            $branch = [];
-            foreach ($elements as $element) {
-                if ($element['sub_for'] == $parentId) {
-                    $children = $buildTree($elements, $element['id']);
-                    if ($children) {
-                        $element['children'] = $children;
-                    }
-                    $branch[] = $element;
-                }
-            }
-            return $branch;
-        };
-
-        $head['nav_categories'] = $buildTree($all_categories);
-
         // In CI4: we merge data instead of $this->load->vars()
         $head   = array_merge((array) $shared, (array) $head);
         $data   = array_merge((array) $shared, (array) $data);
@@ -86,6 +64,9 @@ class MyController extends BaseController
         // Load from PublicModel
         $publicModel = model(\App\Models\PublicModel::class);
         $vars['footerCategories'] = $publicModel->getFooterCategories();
+        $vars['all_categories'] = $publicModel->getShopCategories();
+        $vars['home_categories'] = $this->buildCategoryTree($vars['all_categories']);
+        $vars['nav_categories'] = $vars['home_categories'];
 
         // Load from SettingsModel
         $settingsModel = model(\App\Modules\Admin\Models\SettingsModel::class);
@@ -105,6 +86,23 @@ class MyController extends BaseController
         $vars['multiVendor'] = isset($vars['multiVendor']) ? (int) $vars['multiVendor'] : 0;
 
         return $vars;
+    }
+
+    private function buildCategoryTree(array $elements, int $parentId = 0): array
+    {
+        $branch = [];
+
+        foreach ($elements as $element) {
+            if ((int) $element['sub_for'] === $parentId) {
+                $children = $this->buildCategoryTree($elements, (int) $element['id']);
+                if (!empty($children)) {
+                    $element['children'] = $children;
+                }
+                $branch[] = $element;
+            }
+        }
+
+        return $branch;
     }
 
     /*

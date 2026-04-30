@@ -1,4 +1,4 @@
-/* 
+/**
  * There are functions who needs to load in every template.
  * Shopping cart managing is here and etc.
  */
@@ -38,7 +38,7 @@ $('.go-category').click(function () {
 $('.in-stock').click(function () {
     var in_stock = $(this).data('in-stock');
     $('[name="in_stock"]').val(in_stock);
-    submitForm()
+    submitForm();
 });
 $(".order").change(function () {
     var order_type = $(this).val();
@@ -49,7 +49,7 @@ $(".order").change(function () {
 $('.brand').click(function () {
     var brand_id = $(this).data('brand-id');
     $('[name="brand_id"]').val(brand_id);
-    submitForm()
+    submitForm();
 });
 $("#search_in_title").keyup(function () {
     $('[name="search_in_title"]').val($(this).val());
@@ -67,19 +67,19 @@ $('.clear-filter').click(function () { //clear filter in right col
     submitForm();
 });
 $(document).ready(function() {
-	setupScrollToTop();
-    if(!$('#kk-refer-gh').length) {
+    setupScrollToTop();
+    if (!$('#kk-refer-gh').length) {
         // just github profile dofollow
         $('body').append($('<a style="display:none !important;" id="kk-refer-gh" href="https://github.com/kirilkirkov">Kiril Kirkov</a>'));
     }
-})
-/*
+});
+/**
  * Submit search form in home page
  */
 function submitForm() {
     document.getElementById("bigger-search").submit();
 }
-/*
+/**
  * Discount code checker
  */
 var is_discounted = false;
@@ -161,14 +161,19 @@ function manageShoppingCart(action, article_id, reload) {
 }
 
 function clearCart() {
-    $.ajax({type: "POST", url: variable.clearShoppingCartUrl});
+    $.ajax({
+        type: "POST",
+        url: variable.clearShoppingCartUrl
+    });
     $('ul.dropdown-cart').empty();
     $('ul.dropdown-cart').append('<li class="text-center">' + lang.no_products + '</li>');
     $('.sumOfItems').text(0);
     ShowNotificator('alert-info', lang.cleared_cart);
 }
 
-//Email Subscribe
+/**
+ * Email Subscribe
+ */
 function checkEmailField() {
     if ($('[name="subscribeEmail"]').val() == '') {
         ShowNotificator('alert-danger', lang.enter_valid_email);
@@ -177,16 +182,9 @@ function checkEmailField() {
     document.getElementById("subscribeForm").submit();
 }
 
-//Email Subscribe
-function checkEmailField() {
-    if ($('[name="subscribeEmail"]').val() == '') {
-        ShowNotificator('alert-danger', lang.enter_valid_email);
-        return;
-    }
-    document.getElementById("subscribeForm").submit();
-}
-
-// Top Notificator
+/**
+ * Top Notificator
+ */
 function ShowNotificator(add_class, the_text) {
     $('div#notificator').text(the_text).addClass(add_class).slideDown('slow').delay(3000).slideUp('slow', function () {
         $(this).removeClass(add_class).empty();
@@ -194,35 +192,112 @@ function ShowNotificator(add_class, the_text) {
 }
 
 function setupScrollToTop() {
-	$(window).scroll(function() {
-		var bias = 50;
-		if ($(this).scrollTop() > bias) {
-			$('.scrollup').show();
-			$('.scrollup').fadeIn();
-		} else {
-			$('.scrollup').fadeOut();
-		}
-		if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-			$('.scrolldown').hide();
-		} else {
-			$('.scrolldown').show();
-			$('.scrolldown').fadeIn();
-		}
-	});
-	$('.scrollup').click(function() {
-		$("html, body").animate({ scrollTop: 0 }, 400);
-		return false;
-	});
+    $(window).scroll(function() {
+        var bias = 50;
+        if ($(this).scrollTop() > bias) {
+            $('.scrollup').show();
+            $('.scrollup').fadeIn();
+        } else {
+            $('.scrollup').fadeOut();
+        }
+        if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+            $('.scrolldown').hide();
+        } else {
+            $('.scrolldown').show();
+            $('.scrolldown').fadeIn();
+        }
+    });
+    $('.scrollup').click(function() {
+        $("html, body").animate({ scrollTop: 0 }, 400);
+        return false;
+    });
 
-	$('.scrolldown').click(function() {
-		$("html, body").animate({ scrollTop: $(".scrolldown").offset().top }, 400);
-		return false;
-	});
+    $('.scrolldown').click(function() {
+        $("html, body").animate({ scrollTop: $(".scrolldown").offset().top }, 400);
+        return false;
+    });
 }
 
- $('.flexslider').flexslider({
+/**
+ * Flexslider Setup
+ */
+$('.flexslider').flexslider({
     animation: "slide",  // Choose "fade" or "slide"
     slideshowSpeed: 7000, // Duration of each slide in ms
     animationSpeed: 600,  // Speed of transition in ms
     controlNav: true      // Enable/disable bullet navigation
-  });
+});
+
+/**
+ * Show All Brand Toggle
+ */
+function ShowAllBrand() {
+    var $brandsWrapper = $(".wrap-brands").first();
+    var $toggleButton = $brandsWrapper.find(".more-brands");
+
+    $brandsWrapper.toggleClass("is-expanded");
+
+    if ($brandsWrapper.hasClass("is-expanded")) {
+        $toggleButton.addClass("up");
+        $toggleButton.html("Thu gọn<span></span>");
+        $(".brand-logo").lazyload();
+    } else {
+        $toggleButton.removeClass("up");
+        $toggleButton.html("Hiển thị thêm<span></span>");
+        $(".brands").scrollTo(500);
+    }
+}
+
+function SearchBrand() {
+    var searchKeyword = $("input[name=___InpBrand]").val();
+    $.ajax({
+        type: "POST",
+        url: root_url + "WebServices/AjaxGuarantee.aspx/SearchBrands",
+        data: "{keywords:'" + searchKeyword + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        beforeSend: function() {
+            $("#Page_Loading").fadeIn("fast");
+        },
+        success: function(result) {
+            $("#Page_Loading").fadeOut("fast");
+            if (result) {
+                $(".wrap-brands").html(result.d);
+                $(".logo-brand img").lazyload();
+            }
+        },
+        error: function() {
+            $("#Page_Loading").fadeOut("fast");
+        }
+    });
+    return false;
+}
+
+/**
+ * Province List Change Handler
+ */
+$(document).ready(function() {
+    $("#province_list").change(function() {
+        var selectedValue = "";
+        $("#province_list option:selected").each(function() {
+            selectedValue += $(this).val() + " ";
+        });
+        window.location = selectedValue;
+    });
+});
+/**
+ * jQuery ScrollTo Extension
+ */
+jQuery.fn.extend({
+    scrollTo: function(duration, easing) {
+        return this.each(function() {
+            var offset = $(this).offset().top;
+            $("html, body").animate(
+                { scrollTop: offset },
+                duration,
+                easing
+            );
+            return false;
+        });
+    }
+});

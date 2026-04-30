@@ -227,6 +227,10 @@ header {
 }
 .products .product-list .img-container {
   overflow: hidden;
+  position: relative;
+  overflow: hidden;
+  padding: 10px;
+  display: block;
 }
 .products .product-list .img-container a {
   height: 200px;
@@ -403,29 +407,30 @@ footer {
 .bag-info ul.dropdown-cart .go-checkout {
   display: inline-block;
   margin-bottom: 7px;
-  background: #ffffff;
+  background: #f93131;
   background: -moz-linear-gradient(
     top,
-    #ffffff 0%,
-    #f3f3f3 50%,
-    #ededed 51%,
-    #ffffff 100%
+    #ff6868 0%,
+    #f93131 50%,
+    #eb2e2e 51%,
+    #cc2424 100%
   );
   background: -webkit-linear-gradient(
     top,
-    #ffffff 0%,
-    #f3f3f3 50%,
-    #ededed 51%,
-    #ffffff 100%
+    #ff6868 0%,
+    #f93131 50%,
+    #eb2e2e 51%,
+    #cc2424 100%
   );
   background: linear-gradient(
     to bottom,
-    #ffffff 0%,
-    #f3f3f3 50%,
-    #ededed 51%,
-    #ffffff 100%
+    #ff6868 0%,
+    #f93131 50%,
+    #eb2e2e 51%,
+    #cc2424 100%
   );
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff6868', endColorstr='#cc2424',GradientType=0 );
+  color: #fff;
 }
 .bag-info ul.dropdown-cart .item-x-absolute {
   position: absolute;
@@ -676,8 +681,8 @@ footer {
 }
 .highlighted-products-grid .product-list .img-container a {
   height: auto;
-  min-height: 180px;
-  aspect-ratio: 4 / 3;
+  /* min-height: 180px;
+  aspect-ratio: 4 / 3; */
 }
 
 /* =====================================================
@@ -1463,3 +1468,13 @@ body {
       opacity: 1;
   }
 
+
+  /* =====================================================
+   product style refinements
+   ===================================================== */
+  .product-title{
+    margin: 10px 0 5px;
+    color: #1f2228;
+    font-weight: bold;
+    font-size: 12px;
+  }

@@ -39,16 +39,24 @@ class Loop
         }*/
 
         $vendorUrl = trim((string) $vendorUrl);
+        $normalizedPath = trim($normalizedUrl, '/\\');
         if ($vendorUrl !== '' && strtolower($vendorUrl) !== 'null') {
             $normalizedVendorUrl = $normalizeAbsoluteUrl($vendorUrl);
             if (filter_var($normalizedVendorUrl, FILTER_VALIDATE_URL)) {
-                return rtrim($normalizedVendorUrl, '/') . '/' . ltrim($normalizedUrl, '/\\');
+                return rtrim($normalizedVendorUrl, '/') . '/' . $normalizedPath;
             }
 
             $segments[] = trim($vendorUrl, '/\\');
+            $segments[] = $normalizedPath;
+
+            return base_url(implode('/', $segments));
         }
 
-        $segments[] = ltrim($normalizedUrl, '/\\');
+        if (!preg_match('#^product/#i', $normalizedPath)) {
+            $normalizedPath = 'product/' . $normalizedPath;
+        }
+
+        $segments[] = $normalizedPath;
 
         return base_url(implode('/', $segments));
     }
@@ -62,7 +70,7 @@ class Loop
             ?>
             <li class="cleaner text-right">
                 <a href="javascript:void(0);" class="btn-blue-round" onclick="clearCart()">
-                    <?= lang('App.clear_all') ?>
+                    <?= lang('clear_all') ?>
                 </a>
             </li>
             <li class="divider"></li>
@@ -111,12 +119,12 @@ class Loop
             ?>
             <li class="divider"></li>
             <li class="text-center">
-                <a class="go-checkout btn btn-default btn-sm" href="<?= base_url(LANG_URL . '/checkout') ?>">
+                <a class="go-checkout btn btn-default btn-sm" href="<?= base_url('/checkout') ?>">
                     <?php
                     if (!empty($cartItems['array'])) {
-                        echo '<i class="fa fa-check"></i> ' . lang('App.checkout') . ' - <span class="finalSum">' . esc($cartItems['finalSum']) . '</span>' . CURRENCY;
+                        echo '<i class="fa fa-check"></i> ' . lang('checkout') . ' - <span class="finalSum">' . esc($cartItems['finalSum']) . '</span>' . CURRENCY;
                     } else {
-                        echo '<span class="no-for-pay">' . lang('App.no_for_pay') . '</span>';
+                        echo '<span class="no-for-pay">' . lang('no_for_pay') . '</span>';
                     }
                     ?>
                 </a>
@@ -124,7 +132,7 @@ class Loop
             <?php
         } else {
             ?>
-            <li class="text-center"><?= lang('App.no_products') ?></li>
+            <li class="text-center"><?= lang('no_products') ?></li>
             <?php
         }
     }
@@ -171,11 +179,11 @@ class Loop
                             <img src="<?= esc($backgroundImageFile) ?>" alt="<?= esc(character_limiter($article['title'], 70)) ?>" onerror="this.onerror=null;this.src='<?= esc(base_url('attachments/no-image-frontend.png')) ?>';">
                         </a>
                     </div>
-                    <h2>
+                    <h6 class="product-title">
                         <a href="<?= esc($detailsUrl) ?>"><?= character_limiter($article['title'], 70) ?></a>
-                    </h2>
+                    </h6>
                     <div class="price">
-                        <span class="underline"><?= lang('price') ?>: <span><?= $article['price'] != '' ? number_format($article['price'], 2) : 0 ?><?= CURRENCY ?></span></span>
+                        <span class="underline"><?= lang('new_price') ?>: <span><?= format_currency($article['price']) ?></span></span>
                         <?php if ($article['old_price'] && $article['price']) {
                             $percent_friendly = number_format((($article['old_price'] - $article['price']) / $article['old_price']) * 100) . '%';
                             ?>
@@ -183,17 +191,17 @@ class Loop
                         <?php } ?>
                     </div>
                     <div class="price-discount <?= empty($article['old_price']) ? 'invisible' : '' ?>">
-                        <?= lang('old_price') ?>: <span><?= $article['old_price'] ? number_format($article['old_price'], 2) . CURRENCY : '' ?></span>
+                        <?= lang('old_price') ?>: <span><?= $article['old_price'] ? format_currency($article['old_price']) : '' ?></span>
                     </div>
                     <?php if ($publicQuantity == 1): ?>
                         <div class="quantity">
-                            <?= lang('App.in_stock') ?>: <span><?= esc($article['quantity']) ?></span>
+                            <?= lang('in_stock') ?>: <span><?= esc($article['quantity']) ?></span>
                         </div>
                     <?php endif; ?>
 
                     <?php if ($moreInfoBtn == 1): ?>
                         <a href="<?= esc($detailsUrl) ?>" class="info-btn gradient-color">
-                            <span class="text-to-bg"><?= lang('App.info_product_list') ?></span>
+                            <span class="text-to-bg"><?= lang('info_product_list') ?></span>
                         </a>
                     <?php endif; ?>
 
@@ -201,13 +209,13 @@ class Loop
                         $hasRefresh = ($refreshAfterAddToCart == 1);
                         ?>
                         <div class="add-to-cart">
-                            <a href="javascript:void(0);" class="add-to-cart btn-add <?= $hasRefresh ? 'refresh-me' : '' ?>" data-goto="<?= base_url(LANG_URL . '/shopping-cart') ?>" data-id="<?= esc($article['id']) ?>">
+                            <a href="javascript:void(0);" class="add-to-cart btn-add <?= $hasRefresh ? 'refresh-me' : '' ?>" data-goto="<?= base_url('/shopping-cart') ?>" data-id="<?= esc($article['id']) ?>">
                                 <img class="loader" src="<?= base_url('assets/imgs/ajax-loader.gif') ?>" alt="Loading">
                                 <span class="text-to-bg"><?= lang('add_to_cart') ?></span>
                             </a>
                         </div>
                         <!-- <div class="add-to-cart">
-                            <a href="javascript:void(0);" class="add-to-cart btn-add more-blue" data-goto="<?= base_url(LANG_URL . '/checkout') ?>" data-id="<?= esc($article['id']) ?>">
+                            <a href="javascript:void(0);" class="add-to-cart btn-add more-blue" data-goto="<?= base_url('/checkout') ?>" data-id="<?= esc($article['id']) ?>">
                                 <img class="loader" src="<?= base_url('assets/imgs/ajax-loader.gif') ?>" alt="Loading">
                                 <span class="text-to-bg"><?= lang('buy_now') ?></span>
                             </a>

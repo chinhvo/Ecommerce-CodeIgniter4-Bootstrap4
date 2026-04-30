@@ -26,9 +26,6 @@ class Home extends MyController
         $head['title'] = @$arrSeo['title'];
         $head['description'] = @$arrSeo['description'];
         $head['keywords'] = $head['title'] !== null ? str_replace(" ", ",", $head['title']) : '';
-        $all_categories = $this->Public_model->getShopCategories();
-        $data['home_categories'] = $this->getHomeCategories($all_categories);
-        $data['all_categories'] = $all_categories;
         $data['countQuantities'] = $this->Public_model->getCountQuantities();
         $data['bestSellers'] = $this->Public_model->getbestSellers();
         $data['newProducts'] = $this->Public_model->getNewProducts();
@@ -58,10 +55,7 @@ class Home extends MyController
         $head['title'] = @$arrSeo['title'];
         $head['description'] = @$arrSeo['description'];
         $head['keywords'] = $head['title'] !== null ? str_replace(" ", ",", $head['title']) : '';
-        $all_categories = $this->Public_model->getShopCategories();
-        $data['home_categories'] = $this->getHomeCategories($all_categories);
         $data['countQuantities'] = $this->Public_model->getCountQuantities();
-        $data['all_categories'] = $all_categories;
         $data['showBrands'] = $this->Home_admin_model->getValueStore('showBrands');
         $data['brands'] = $this->Brands_model->getBrands();
         $data['showOutOfStock'] = $this->Home_admin_model->getValueStore('outOfStock');
@@ -70,31 +64,6 @@ class Home extends MyController
         $rowscount = $this->Public_model->productsCount($_GET);
         $data['links_pagination'] = pagination('home', $rowscount, $this->num_rows, $page);
         $this->render('shop', $head, $data);
-    }
-
-    private function getHomeCategories($categories)
-    {
-
-        /*
-         * Tree Builder for categories menu
-         */
-
-        function buildTree(array $elements, $parentId = 0)
-        {
-            $branch = array();
-            foreach ($elements as $element) {
-                if ($element['sub_for'] == $parentId) {
-                    $children = buildTree($elements, $element['id']);
-                    if ($children) {
-                        $element['children'] = $children;
-                    }
-                    $branch[] = $element;
-                }
-            }
-            return $branch;
-        }
-
-        return buildTree($categories);
     }
 
     /*
@@ -117,57 +86,20 @@ class Home extends MyController
 
     public function removeFromCart()
     {
-        $backTo = $_GET['back-to'];
+        $backTo = (string) ($this->request->getGet('back-to') ?? 'shopping-cart');
+        if ($backTo !== 'checkout' && $backTo !== 'shopping-cart') {
+            $backTo = 'shopping-cart';
+        }
+
         $this->shoppingcart->removeFromCart();
         $this->session->setFlashdata('deleted', lang('deleted_product_from_cart'));
-        redirect(LANG_URL . '/' . $backTo);
+
+        return redirect()->to(base_url($backTo));
     }
 
     public function clearShoppingCart()
     {
         $this->shoppingcart->clearShoppingCart();
-    }
-
-    public function viewProduct($id)
-    {
-        $data = array();
-        $head = array();
-        $data['product'] = $this->Public_model->getOneProduct($id);
-        if ($data['product'] === null) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
-        $data['sameCagegoryProducts'] = $this->Public_model->sameCategoryProducts($data['product']['shop_categorie'], $id);
-        $data['publicDateAdded'] = $this->Home_admin_model->getValueStore('publicDateAdded');
-        $head['title'] = $data['product']['title'];
-        $description = url_title(character_limiter(strip_tags($data['product']['description']), 130));
-        $description = str_replace("-", " ", $description) . '..';
-        $head['description'] = $description;
-        $head['keywords'] = str_replace(" ", ",", $data['product']['title']);
-        $head['image'] = null;
-        if(isset($data['product']['image'])) {
-            $head['image'] = base_url('/attachments/shop_images/' . $data['product']['image']);
-        }
-        $this->render('view_product', $head, $data);
-    }
-
-    public function viewProductBySlug($slug)
-    {
-        if (empty($slug)) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
-
-        $productId = db_connect()->table('products')
-            ->select('id')
-            ->where('url', $slug)
-            ->limit(1)
-            ->get()
-            ->getRow('id');
-
-        if (empty($productId)) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
-
-        return $this->viewProduct((int) $productId);
     }
 
     public function confirmLink($md5)

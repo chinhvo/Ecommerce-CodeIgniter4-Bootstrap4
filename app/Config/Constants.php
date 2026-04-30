@@ -178,5 +178,5 @@ defined('MY_LANGUAGE_FULL_NAME')      || define('MY_LANGUAGE_FULL_NAME', 'Vietna
 defined('MY_LANGUAGE_ABBR')           || define('MY_LANGUAGE_ABBR', 'vi');
 defined('MY_DEFAULT_LANGUAGE_ABBR')   || define('MY_DEFAULT_LANGUAGE_ABBR', 'vi');
 defined('MY_DEFAULT_LANGUAGE_NAME')   || define('MY_DEFAULT_LANGUAGE_NAME', 'Vietnamese');
-defined('CURRENCY')                   || define('CURRENCY', '$');
-defined('CURRENCY_KEY')               || define('CURRENCY_KEY', 'USD');
+defined('CURRENCY')                   || define('CURRENCY', '₫');
+defined('CURRENCY_KEY')               || define('CURRENCY_KEY', '₫');

@@ -11,6 +11,14 @@ $routes->get('/', 'Home::index');
 $routes->get('^(\w{2})$', 'Home::index', ['filter' => 'setlocale']);
 
 //Checkout
+$routes->get('checkout', 'Checkout::index');
+$routes->post('checkout', 'Checkout::index');
+$routes->get('checkout/successcash', 'Checkout::successPaymentCashOnD');
+$routes->get('checkout/successbank', 'Checkout::successPaymentBank');
+$routes->get('checkout/paypalpayment', 'Checkout::paypalPayment');
+$routes->get('checkout/order-error', 'Checkout::orderError');
+$routes->get('^(\w{2})$/checkout', 'Checkout::index');
+$routes->post('^(\w{2})$/checkout', 'Checkout::index');
 $routes->get('^(\w{2})$/checkout/successcash', 'Checkout::successPaymentCashOnD');
 $routes->get('^(\w{2})$/checkout/successbank', 'Checkout::successPaymentBank');
 $routes->get('^(\w{2})$/checkout/paypalpayment', 'Checkout::paypalPayment');
@@ -22,6 +30,11 @@ $routes->post('^(\w{2})$/manageShoppingCart', 'Home::manageShoppingCart');
 
 $routes->post('clearShoppingCart', 'Home::clearShoppingCart');
 $routes->post('^(\w{2})$/clearShoppingCart', 'Home::clearShoppingCart');
+
+$routes->get('removeFromCart', 'Home::removeFromCart');
+$routes->get('home/removeFromCart', 'Home::removeFromCart');
+$routes->get('^(\w{2})$/removeFromCart', 'Home::removeFromCart');
+$routes->get('^(\w{2})$/home/removeFromCart', 'Home::removeFromCart');
 
 $routes->post('discountCodeChecker', 'Home::discountCodeChecker');
 $routes->post('^(\w{2})$/discountCodeChecker', 'Home::discountCodeChecker');
@@ -42,9 +55,13 @@ $routes->get('templatecss/(:any)', 'Loader::templateCss/$1');
 $routes->get('templatejs/(:any)', 'Loader::templateJs/$1');
 
 // Products URL style
-$routes->get('(:any)_(:num)', 'Home::viewProduct/$2');
-$routes->get('^(\w{2})$/(:any)_(:num)', 'Home::viewProduct/$3');
-$routes->get('shop-product_(:num)', 'Home::viewProduct/$3');
+$routes->get('product/([a-z0-9-]+)', 'Product::viewProductBySlug/$1');
+$routes->get('^(\w{2})$/product/([a-z0-9-]+)', 'Product::viewProductBySlug/$2');
+$routes->get('product/(:any)_(:num)', 'Product::viewProduct/$2');
+$routes->get('^(\w{2})$/product/(:any)_(:num)', 'Product::viewProduct/$3');
+$routes->get('(:any)_(:num)', 'Product::viewProduct/$2');
+$routes->get('^(\w{2})$/(:any)_(:num)', 'Product::viewProduct/$3');
+$routes->get('shop-product_(:num)', 'Product::viewProduct/$3');
 
 // Blog URL style and pagination
 $routes->get('blog', 'Blog::index');
@@ -96,10 +113,6 @@ $routes->get('kirilkirkov-ecommerce-ci-bs3-platform', 'Home::platform');
 // Confirm link
 $routes->get('confirm/(:any)', 'Home::confirmLink/$1');
 
-// Product slug URLs (keep near bottom so specific routes like /blog are matched first)
-$routes->get('([a-z0-9-]+)', 'Home::viewProductBySlug/$1');
-$routes->get('^(\w{2})$/([a-z0-9-]+)', 'Home::viewProductBySlug/$2');
-
 /*
  * Vendor Controllers Routes
  */
@@ -131,6 +144,10 @@ $routes->get('api/products/(:alpha)/get', 'Api\Products::all/$1');
 $routes->get('api/product/(:alpha)/(:num)/get', 'Api\Products::one/$1/$2');
 $routes->post('api/product/set', 'Api\Products::set');
 $routes->delete('api/product/(:alpha)/delete', 'Api\Products::productDel/$1');
+
+// Product slug URLs (must stay below module routes so /admin, /vendor, etc. match first)
+$routes->get('([a-z0-9-]+)', 'Product::viewProductBySlug/$1');
+$routes->get('^(\w{2})$/([a-z0-9-]+)', 'Product::viewProductBySlug/$2');
 
 // Error & translation settings
 $routes->set404Override();

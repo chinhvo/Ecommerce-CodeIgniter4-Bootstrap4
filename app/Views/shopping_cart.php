@@ -1,5 +1,5 @@
 <?= $this->extend('_parts/layout') ?>
-<?= $this->section('content') ?>
+<?= $this->section('shopping_cart') ?>
 <div class="container" id="shopping-cart">
     <div class="body">
         <h1><?= lang('shopping_cart') ?></h1>

@@ -120,3 +120,32 @@ function currencies()
         "ZWD" => "Zimbabwe Dollar"
     );
 }
+
+if (!function_exists('format_number')) {
+    function format_number($value, $decimals = 0, $decimalPoint = '.', $thousandsSeparator = ',')
+    {
+        if ($value === '' || $value === null || $value === false) {
+            $value = 0;
+        }
+
+        if (!is_numeric($value)) {
+            $value = preg_replace('/[^0-9.\-]/', '', (string) $value);
+            if ($value === '' || !is_numeric($value)) {
+                $value = 0;
+            }
+        }
+
+        return number_format((float) $value, (int) $decimals, $decimalPoint, $thousandsSeparator);
+    }
+}
+
+if (!function_exists('format_currency')) {
+    function format_currency($value, $decimals = 0, $currency = null, $decimalPoint = '.', $thousandsSeparator = ',')
+    {
+        if ($currency === null) {
+            $currency = defined('CURRENCY') ? CURRENCY : '';
+        }
+
+        return format_number($value, $decimals, $decimalPoint, $thousandsSeparator) . $currency;
+    }
+}

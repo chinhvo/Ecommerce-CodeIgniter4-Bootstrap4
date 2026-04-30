@@ -69,7 +69,22 @@
             <div class="container-fluid">
                 <div class="row">
                     <?= $this->include('_parts/topMenu') ?>
-                    <?= $this->renderSection('content') ?>
+                    <?php $currentUri = trim(uri_string(), '/'); ?>
+                    <?php if ($currentUri === '' || $currentUri === 'home') { ?>
+                        <?= $this->renderSection('home') ?>
+                    <?php } ?>
+                    <?php if (strpos($currentUri, 'shopping-cart') !== false) { ?>
+                        <?= $this->renderSection('shopping-cart') ?>
+                    <?php } ?>
+                    <?php if (strpos($currentUri, 'product') !== false) { ?>
+                        <?= $this->renderSection('product-detail') ?>
+                    <?php } ?>
+                    <?php if (strpos($currentUri, 'checkout') !== false) { ?>
+                        <?= $this->renderSection('checkout') ?>
+                    <?php } ?>                    
+                    <?= $this->include('_parts/brands') ?>
+                    <?= $this->include('_parts/categories') ?>
+                    <?= $this->include('_parts/bodyFooter') ?>
                 </div>
             </div>
         </div>

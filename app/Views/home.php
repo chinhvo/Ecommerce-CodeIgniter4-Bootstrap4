@@ -1,5 +1,5 @@
 <?= $this->extend('_parts/layout') ?>
-<?= $this->section('content') ?>
+<?= $this->section('home') ?>
 
 <div class="container-fluid body">
     <?= $this->include('_parts/top_slider') ?>
@@ -8,9 +8,6 @@
         <?= $this->include('_parts/news') ?>
     </div>
     <?= $this->include('_parts/product_grid') ?>
-    <?= $this->include('_parts/categories') ?>
-    <?= $this->include('_parts/brands') ?> 
-    <?= $this->include('_parts/bodyFooter') ?>
 </div>
 
 <?= $this->endSection() ?>

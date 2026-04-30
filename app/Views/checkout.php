@@ -1,11 +1,11 @@
 <?= $this->extend('_parts/layout') ?>
-<?= $this->section('content') ?>
+<?= $this->section('checkout') ?>
 <link href="<?= base_url('assets/css/nice-select.css') ?>" rel="stylesheet">
 <div class="container" id="checkout-page">
     <div class="body">
-        <?php if (isset($cartItems['array']) && $cartItems['array'] != null) { 
-            
-            if ($shippingOrder != 0 && $shippingOrder != null) { ?>
+        <?php if (isset($cartItems['array']) && $cartItems['array'] != null) { ?>
+
+            <?php if ($shippingOrder != 0 && $shippingOrder != null) { ?>
                 <div style="padding: 20px 0;">
                     <div style="color:red">
                         <strong><?= lang('promo') ?></strong> - <?= str_replace(array('%price%', '%currency%'), array($shippingOrder, CURRENCY), lang('freeShipping')) ?>!
@@ -24,9 +24,12 @@
                         if (session()->getFlashdata('submit_error')) {
                             ?>
                             <hr>
-                            <div class="alert alert-danger"><h4><span class="fa fa-exclamation-triangle"></span> <?= lang('finded_errors') ?></h4><?php
-                            foreach (session()->getFlashdata('submit_error') as $error)
+                            <div class="alert alert-danger">
+                                <h4><span class="fa fa-exclamation-triangle"></span> <?= lang('finded_errors') ?></h4>
+                                <?php
+                                foreach (session()->getFlashdata('submit_error') as $error) {
                                     echo $error . '<br>';
+                                }
                                 ?>
                             </div>
                             <hr>
@@ -39,9 +42,11 @@
                                 <select class="payment-type" data-style="btn-blue" name="payment_type">
                                     <?php if ($cashondelivery_visibility == 1) { ?>
                                         <option value="cashOnDelivery"><?= lang('cash_on_delivery') ?> </option>
-                                    <?php } if (filter_var($paypal_email, FILTER_VALIDATE_EMAIL)) { ?>
+                                    <?php }
+                                    if (filter_var($paypal_email, FILTER_VALIDATE_EMAIL)) { ?>
                                         <option value="PayPal"><?= lang('paypal') ?> </option>
-                                    <?php } if (isset($bank_account['iban']) && $bank_account['iban'] != null) { ?>
+                                    <?php }
+                                    if (isset($bank_account['iban']) && $bank_account['iban'] != null) { ?>
                                         <option value="Bank"><?= lang('bank_payment') ?> </option>
                                     <?php } ?>
                                 </select>
@@ -106,15 +111,15 @@
                                                 <input type="hidden" name="id[]" value="<?= $item['id'] ?>">
                                                 <input type="hidden" name="quantity[]" value="<?= $item['num_added'] ?>">
                                                 <?php $detailsUrl = \App\Libraries\Loop::buildFrontendUrl((string) ($item['url'] ?? '')); ?>
-                                                
-                                                <?php 
+
+                                                <?php
                                                     $productImage = base_url('/attachments/no-image-frontend.png');
-                                                    if(is_file('attachments/shop_images/' . $item['image'])) {
+                                                    if (is_file('attachments/shop_images/' . $item['image'])) {
                                                         $productImage = base_url('/attachments/shop_images/' . $item['image']);
                                                     }
                                                 ?>
                                                 <img class="product-image" src="<?= $productImage ?>" alt="">
-                                                
+
                                                 <a href="<?= base_url('home/removeFromCart?delete-product=' . $item['id'] . '&back-to=checkout') ?>" class="btn btn-xs btn-danger remove-product">
                                                     <i class="fa fa-times" aria-hidden="true"></i>
                                                 </a>
@@ -127,18 +132,18 @@
                                                 <span class="quantity-num">
                                                     <?= $item['num_added'] ?>
                                                 </span>
-                                                <a class="btn  btn-xs btn-danger" onclick="removeProduct(<?= $item['id'] ?>, true)" href="javascript:void(0);">
+                                                <a class="btn btn-xs btn-danger" onclick="removeProduct(<?= $item['id'] ?>, true)" href="javascript:void(0);">
                                                     <span class="fa fa-minus"></span>
                                                 </a>
                                             </td>
-                                            <td><?= $item['price'] . CURRENCY ?></td>
-                                            <td><?= $item['sum_price'] . CURRENCY ?></td>
+                                            <td><?= format_currency($item['price']) ?></td>
+                                            <td><?= format_currency($item['sum_price']) ?></td>
                                         </tr>
                                     <?php } ?>
                                     <tr>
                                         <td colspan="4" class="text-right"><?= lang('total') ?></td>
                                         <td>
-                                            <span class="final-amount"><?= $cartItems['finalSum'] ?></span><?= CURRENCY ?>
+                                            <span class="final-amount"><?= format_currency($cartItems['finalSum']) ?></span>
                                             <input type="hidden" class="final-amount" name="final_amount" value="<?= $cartItems['finalSum'] ?>">
                                             <input type="hidden" name="amount_currency" value="<?= CURRENCY ?>">
                                             <input type="hidden" name="discountAmount" value="">
@@ -147,14 +152,14 @@
 
                                     <?php
                                     $total_parsed = str_replace(' ', '', str_replace(',', '', $cartItems['finalSum']));
-                                    if((int)$shippingAmount > 0 && ((int)$shippingOrder > $total_parsed)) {
+                                    if ((int) $shippingAmount > 0 && ((int) $shippingOrder > $total_parsed)) {
                                     ?>
-                                    <tr>
-                                        <td colspan="4" class="text-right"><?= lang('shipping') ?></td>
-                                        <td>
-                                            <span class="final-amount"><?= (int)$shippingAmount ?></span><?= CURRENCY ?>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="4" class="text-right"><?= lang('shipping') ?></td>
+                                            <td>
+                                                <span class="final-amount"><?= (int) $shippingAmount ?></span><?= CURRENCY ?>
+                                            </td>
+                                        </tr>
                                     <?php } ?>
 
                                 </tbody>
@@ -174,7 +179,7 @@
                         <div class="clearfix"></div>
                     </div>
                 </div>
-                <div class="col-sm-3"> 
+                <div class="col-sm-3">
                     <div class="filter-sidebar">
                         <div class="title cloth-bg-color">
                             <span><?= lang('best_sellers') ?></span>
@@ -196,18 +201,20 @@
 <?php
 if (session()->getFlashdata('deleted')) {
     ?>
-<script>
-$(document).ready(function () {
-    ShowNotificator('alert-info', '<?= session()->getFlashdata('deleted') ?>');
-});
-</script>
-<?php } if ($codeDiscounts == 1 && isset($_POST['discountCode'])) {
+    <script>
+    $(document).ready(function () {
+        ShowNotificator('alert-info', '<?= session()->getFlashdata('deleted') ?>');
+    });
+    </script>
+<?php }
+
+if ($codeDiscounts == 1 && isset($_POST['discountCode'])) {
     ?>
-<script>
-$(document).ready(function () {
-    checkDiscountCode();
-});
-</script>
+    <script>
+    $(document).ready(function () {
+        checkDiscountCode();
+    });
+    </script>
 <?php } ?>
 <script src="<?= base_url('assets/js/jquery.nice-select.min.js') ?>"></script>
 <script>

@@ -26,8 +26,8 @@ class Language
         $config = config('App'); // or your own Config class
         $defaultLanguageName = $language = $config->defaultLocale;
         $defaultLanguageAbbr = $myLanguage = strtolower($config->languageAbbr ?? 'en');
-        $currency     = $config->currency ?? 'USD';
-        $currencyKey  = $config->currencyKey ?? '$';
+        $currency     = $config->currency ?? 'VND';
+        $currencyKey  = $config->currencyKey ?? '₫';
         $langLinkStart = '';
 
         // If selecting default language, redirect to base URL
@@ -42,7 +42,8 @@ class Language
             $language   = $myLang['name'];
             $currency   = $myLang['currency'];
             $currencyKey = $myLang['currencyKey'];
-            $langLinkStart = $myLanguage . '/';
+            // $langLinkStart = $myLanguage . '/';
+            $langLinkStart = '/';
         }
 
         // Load language file

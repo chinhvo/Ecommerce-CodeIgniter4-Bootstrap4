@@ -36,62 +36,62 @@
 						<?= $this->include('\App\Modules\Admin\Views\Home\login') ?>
 					<?php } ?>
 					<?php if (session()->get('logged_in') && strpos(uri_string(), "home")) { ?>
-        		 	<?= $this->renderSection('home') ?>
-                 <?php } ?>     
-        		 <?php if (session()->get('logged_in') && strpos(uri_string(), "publish")) { ?>
-        		 	<?= $this->renderSection('publish-product') ?>
-                 <?php } ?>    
-        		 <?php if (session()->get('logged_in') && strpos(uri_string(), "shopcategories")) { ?>
-        		 	<?= $this->renderSection('shop-categories') ?>
-                 <?php } ?>     
-        		 <?php if (session()->get('logged_in') && strpos(uri_string(), "products")) { ?>
-        		 	<?= $this->renderSection('products') ?>
-                 <?php } ?>  
-        		 <?php if (session()->get('logged_in') && strpos(uri_string(), "orders")) { ?>
-        		 	<?= $this->renderSection('orders') ?>
-                 <?php } ?>     
-        		 <?php if (session()->get('logged_in') && strpos(uri_string(), "discounts")) { ?>
-        		 	<?= $this->renderSection('discounts') ?>
-                 <?php } ?>     
-        		 <?php if (session()->get('logged_in') && strpos(uri_string(), "blogpublish")) { ?>
-        		 	<?= $this->renderSection('blogpublish') ?>
-                 <?php } ?>   
-        		 <?php if (session()->get('logged_in') && strpos(uri_string(), "blog")) { ?>
-        		 	<?= $this->renderSection('blogposts') ?>
-                 <?php } ?>     
-        		 <?php if (session()->get('logged_in') && strpos(uri_string(), "settings")) { ?>
-        		 	<?= $this->renderSection('settings') ?>
-                 <?php } ?>    
-        		 <?php if (session()->get('logged_in') && strpos(uri_string(), "styling")) { ?>
-        		 	<?= $this->renderSection('styling') ?>
-                 <?php } ?>           
-        		 <?php if (session()->get('logged_in') && strpos(uri_string(), "templates")) { ?>
-        		 	<?= $this->renderSection('templates') ?>
-                 <?php } ?>    
-        		 <?php if (session()->get('logged_in') && strpos(uri_string(), "titles")) { ?>
-        		 	<?= $this->renderSection('titles') ?>
-                 <?php } ?>   
-        		 <?php if (session()->get('logged_in') && strpos(uri_string(), "pages")) { ?>
-        		 	<?= $this->renderSection('pages') ?>
-                 <?php } ?>  
-        		 <?php if (session()->get('logged_in') && strpos(uri_string(), "emails")) { ?>
-        		 	<?= $this->renderSection('emails') ?>
-                 <?php } ?> 
-        		 <?php if (session()->get('logged_in') && strpos(uri_string(), "history")) { ?>
-        		 	<?= $this->renderSection('history') ?>
-                 <?php } ?>      
-        		 <?php if (session()->get('logged_in') && strpos(uri_string(), "languages")) { ?>
-        		 	<?= $this->renderSection('languages') ?>
-                 <?php } ?>   
-        		 <?php if (session()->get('logged_in') && strpos(uri_string(), "filemanager")) { ?>
-        		 	<?= $this->renderSection('filemanager') ?>
-                 <?php } ?>   
-        		 <?php if (session()->get('logged_in') && strpos(uri_string(), "adminusers")) { ?>
-        		 	<?= $this->renderSection('adminusers') ?>
-                 <?php } ?>   
-        		 <?php if (session()->get('logged_in') && strpos(uri_string(), "listvendors")) { ?>
-        		 	<?= $this->renderSection('listvendors') ?>
-                 <?php } ?>                                                                                                                                                                                                                                                                                                     
+						<?= $this->renderSection('home') ?>
+					<?php } ?>     
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "publish")) { ?>
+						<?= $this->renderSection('publish-product') ?>
+					<?php } ?>    
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "shopcategories")) { ?>
+						<?= $this->renderSection('shop-categories') ?>
+					<?php } ?>     
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "products")) { ?>
+						<?= $this->renderSection('products') ?>
+					<?php } ?>  
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "orders")) { ?>
+						<?= $this->renderSection('orders') ?>
+					<?php } ?>     
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "discounts")) { ?>
+						<?= $this->renderSection('discounts') ?>
+					<?php } ?>     
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "blogpublish")) { ?>
+						<?= $this->renderSection('blogpublish') ?>
+					<?php } ?>   
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "blog")) { ?>
+						<?= $this->renderSection('blogposts') ?>
+					<?php } ?>     
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "settings")) { ?>
+						<?= $this->renderSection('settings') ?>
+					<?php } ?>    
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "styling")) { ?>
+						<?= $this->renderSection('styling') ?>
+					<?php } ?>           
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "templates")) { ?>
+						<?= $this->renderSection('templates') ?>
+					<?php } ?>    
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "titles")) { ?>
+						<?= $this->renderSection('titles') ?>
+					<?php } ?>   
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "pages")) { ?>
+						<?= $this->renderSection('pages') ?>
+					<?php } ?>  
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "emails")) { ?>
+						<?= $this->renderSection('emails') ?>
+					<?php } ?> 
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "history")) { ?>
+						<?= $this->renderSection('history') ?>
+					<?php } ?>      
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "languages")) { ?>
+						<?= $this->renderSection('languages') ?>
+					<?php } ?>   
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "filemanager")) { ?>
+						<?= $this->renderSection('filemanager') ?>
+					<?php } ?>   
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "adminusers")) { ?>
+						<?= $this->renderSection('adminusers') ?>
+					<?php } ?>   
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "listvendors")) { ?>
+						<?= $this->renderSection('listvendors') ?>
+					<?php } ?>                                                                                                                                                                                                                                                                                                     
                 </div>
 			</div>                
 		</div>

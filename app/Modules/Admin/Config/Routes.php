@@ -9,7 +9,7 @@ use CodeIgniter\Router\RouteCollection;
 */
 $routes->group('admin', ['namespace' => 'App\Modules\Admin\Controllers'], function($routes) {    
 	// HOME / LOGIN
-	$routes->get('/', 'Home\Login::index');
+	$routes->get('', 'Home\Login::index');
 	$routes->get('home', 'Home\Home::index');
 	$routes->get('login', 'Home\Login::index');
 	$routes->post('login', 'Home\Login::index');
