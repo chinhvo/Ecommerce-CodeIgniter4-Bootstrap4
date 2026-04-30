@@ -91,7 +91,13 @@
 					<?php } ?>   
 					<?php if (session()->get('logged_in') && strpos(uri_string(), "listvendors")) { ?>
 						<?= $this->renderSection('listvendors') ?>
+					<?php } ?>
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "sliders")) { ?>
+						<?= $this->renderSection('sliders') ?>
 					<?php } ?>                                                                                                                                                                                                                                                                                                     
+					<?php if (session()->get('logged_in') && strpos(uri_string(), "showrooms")) { ?>
+						<?= $this->renderSection('showrooms') ?>
+					<?php } ?>
                 </div>
 			</div>                
 		</div>

@@ -254,5 +254,9 @@ return [
 	'select_category' => 'Chọn danh mục',
 	'selected_category' => 'Danh mục đang chọn',
 	'main_category' => 'Danh mục chính',
+	'showroom_section_title' => 'Địa chỉ các Showroom',
+	'showroom_address_label' => 'Địa chỉ',
+	'showroom_contact_label' => 'Liên hệ',
+	'showroom_view_google_map' => 'Xem Google Map',
 
 ];

@@ -1910,3 +1910,44 @@ body {
     z-index: 99999;
     right: 0;
 }
+
+/* region: Follow popup (first visit prompt) */
+#onesignal-slidedown-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1060;
+  display: none;
+  background: #ffffff;
+  border-bottom: 1px solid #dee2e6;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+#onesignal-slidedown-dialog .slidedown-body-icon img {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+}
+
+#onesignal-slidedown-dialog .slidedown-body,
+#onesignal-slidedown-dialog .slidedown-footer {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 10px 15px;
+}
+
+#onesignal-slidedown-dialog .slidedown-footer {
+  border-top: 1px solid #f1f3f5;
+}
+
+@media (max-width: 575.98px) {
+  #onesignal-slidedown-dialog .slidedown-footer {
+    justify-content: center !important;
+  }
+
+  #onesignal-slidedown-dialog .slidedown-button {
+    min-width: 120px;
+  }
+}
+/* endregion: Follow popup (first visit prompt) */

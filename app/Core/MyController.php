@@ -80,6 +80,10 @@ class MyController extends BaseController
             }
         }
 
+        // Showrooms configured in admin panel
+        $showroomModel = model(\App\Modules\Admin\Models\ShowroomModel::class);
+        $vars['showrooms'] = $showroomModel->getActiveShowrooms();
+
         $vars['allLanguages'] = $this->getAllLangs();
         $vars['load'] = $this->loop;
         $vars['cookieLaw'] = $publicModel->getCookieLaw();

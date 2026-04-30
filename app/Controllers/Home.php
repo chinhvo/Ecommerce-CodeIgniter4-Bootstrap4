@@ -30,6 +30,7 @@ class Home extends MyController
         $data['bestSellers'] = $this->Public_model->getbestSellers();
         $data['newProducts'] = $this->Public_model->getNewProducts();
         $data['sliderProducts'] = $this->Public_model->getSliderProducts();
+        $data['sliders'] = model(\App\Modules\Admin\Models\SliderModel::class)->getActiveSliders();
         $data['highlightedProducts'] = $this->Public_model->getHighlightedProducts($_GET);
         $data['lastBlogs'] = $this->Public_model->getLastBlogs();
         $data['products'] = $this->Public_model->getProducts($this->num_rows, $page, $_GET);

@@ -1,60 +1,49 @@
 
 <div class="row content">
 	<section class="col-md-8 col-12 border px-0 d-md-flex">
+		<?php if (!empty($sliders)) : ?>
 		<section class="sidebar-slider">
 			<div id="sidebarCarousel" class="carousel slide" data-ride="carousel">
 				<!-- Indicators -->
 				<ol class="carousel-indicators">
-					<li data-target="#sidebarCarousel" data-slide-to="0" class=""></li>
-					<li data-target="#sidebarCarousel" data-slide-to="1" class="active"></li>
-					<li data-target="#sidebarCarousel" data-slide-to="2" class=""></li>
+					<?php foreach ($sliders as $i => $slide) : ?>
+						<li data-target="#sidebarCarousel"
+							data-slide-to="<?= $i ?>"
+							class="<?= $i === 0 ? 'active' : '' ?>"></li>
+					<?php endforeach; ?>
 				</ol>
 				<!-- Slides -->
 				<div class="carousel-inner">
-					<div class="carousel-item">
-						<a href="#"
-							title="Mua xe đạp điện, xe máy điện chỉ với 3.000.000đ"
-							rel="nofollow"> <img class="d-block w-100"
-							src="/attachments/flexslider/mua-xe-dap-dien-xe-may-dien-chi-voi-3000000d348.jpg"
-							alt="Mua xe đạp điện, xe máy điện chỉ với 3.000.000đ">
-						</a>
-					</div>
-					<div class="carousel-item active">
-						<a href="#" title="Nhượng quyền Thế Giới Xe Chạy Điện"
-							rel="nofollow"> <img class="d-block w-100"
-							src="/attachments/flexslider/nhuong-quyen-the-gioi-xe-chay-dien791.jpg"
-							alt="Nhượng quyền Thế Giới Xe Chạy Điện">
-						</a>
-					</div>
-					<div class="carousel-item">
-						<a href="#"
-							title="Thay bình ắc quy xe đạp điện, xe máy điện tại nhà"
-							rel="nofollow"> <img class="d-block w-100"
-							src="/attachments/flexslider/thay-binh-ac-quy-xe-dap-dien-xe-may-dien-tai-nha220.jpg"
-							alt="Thay bình ắc quy xe đạp điện, xe máy điện tại nhà">
-						</a>
-					</div>
-					<div class="carousel-item">
-						<a href="#"
-							title="Dich vụ sửa chữa xe đạp điện, xe máy điện tại nhà"
-							rel="nofollow"> <img class="d-block w-100"
-							src="/attachments/flexslider/drxgreen1.jpg"
-							alt="Dich vụ sửa chữa xe đạp điện, xe máy điện tại nhà">
-						</a>
-					</div>
+					<?php foreach ($sliders as $i => $slide) : ?>
+						<div class="carousel-item <?= $i === 0 ? 'active' : '' ?>">
+							<?php if (!empty($slide['link'])) : ?>
+								<a href="<?= esc($slide['link']) ?>"
+								   title="<?= esc($slide['name']) ?>"
+								   rel="nofollow">
+							<?php endif; ?>
+							<img class="d-block w-100"
+								 src="<?= base_url(esc($slide['image'])) ?>"
+								 alt="<?= esc($slide['name']) ?>">
+							<?php if (!empty($slide['link'])) : ?>
+								</a>
+							<?php endif; ?>
+						</div>
+					<?php endforeach; ?>
 				</div>
 				<!-- Controls -->
 				<a class="carousel-control-prev" href="#sidebarCarousel"
-					role="button" data-slide="prev"> <span
-					class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-					class="sr-only">Previous</span>
-				</a> <a class="carousel-control-next" href="#sidebarCarousel"
-					role="button" data-slide="next"> <span
-					class="carousel-control-next-icon" aria-hidden="true"></span> <span
-					class="sr-only">Next</span>
+					role="button" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				</a>
+				<a class="carousel-control-next" href="#sidebarCarousel"
+					role="button" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
 				</a>
 			</div>
 		</section>
+		<?php endif; ?>
 	</section>
 	<aside class="sidebar-banner sidebar-banner-home col-md-4 col-12"
 		style="padding-right: 0px; padding-left: 10px;">

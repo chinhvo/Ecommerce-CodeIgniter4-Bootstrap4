@@ -71,6 +71,18 @@ $routes->group('admin', ['namespace' => 'App\Modules\Admin\Controllers'], functi
 	$routes->post('uploadOthersImages', 'Ecommerce\Publish::do_upload_others_images');
 	$routes->get('loadOthersImages', 'Ecommerce\Publish::loadOthersImages');
 
+	// SLIDERS
+	$routes->get('sliders', 'Settings\Sliders::index');
+	$routes->get('sliders/(:num)', 'Settings\Sliders::index/$1');
+	$routes->post('sliders/save', 'Settings\Sliders::save');
+	$routes->get('sliders/delete/(:num)', 'Settings\Sliders::delete/$1');
+
+	// SHOWROOMS
+	$routes->get('showrooms', 'Settings\Showrooms::index');
+	$routes->get('showrooms/(:num)', 'Settings\Showrooms::index/$1');
+	$routes->post('showrooms/save', 'Settings\Showrooms::save');
+	$routes->add('showrooms/delete/(:num)', 'Settings\Showrooms::delete/$1');
+
 	// VENDORS
 	$routes->get('listvendors', 'Vendors\Listvendors::index');
 });

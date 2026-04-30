@@ -95,6 +95,9 @@
                     <?= $this->include('_parts/brands') ?>
                 </div>
                 <div class="row">
+                    <?= $this->include('_parts/showrooms') ?>
+                </div>                
+                <div class="row">
                     <?= $this->include('_parts/categories') ?>
                 </div>
                 <div class="row">
@@ -103,6 +106,7 @@
             </div>
         </div>
         <?= $this->include('_parts/footer') ?>
+        <?= $this->include('_parts/follow_page') ?>
     </div>
 
     <?php if (session()->getFlashdata('emailAdded')) { ?>

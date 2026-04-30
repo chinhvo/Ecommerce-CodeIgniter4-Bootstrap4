@@ -251,4 +251,8 @@ return [
     'select_category' => 'Select category',
     'selected_category' => 'Selected category',
     'main_category' => 'Main category',
+    'showroom_section_title' => 'Showroom Locations',
+    'showroom_address_label' => 'Address',
+    'showroom_contact_label' => 'Contact',
+    'showroom_view_google_map' => 'View on Google Maps',
 ];

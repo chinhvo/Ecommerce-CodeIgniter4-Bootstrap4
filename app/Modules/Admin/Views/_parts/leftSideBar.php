@@ -126,6 +126,18 @@
         </li>
 
         <li>
+            <a href="<?= base_url('admin/sliders') ?>" class="<?= strpos(urldecode(uri_string()), 'admin/sliders') !== false ? 'active font-weight-bold' : '' ?>">
+                <i class="fa fa-picture-o"></i> <?= lang('sliders') ?>
+            </a>
+        </li>
+
+        <li>
+            <a href="<?= base_url('admin/showrooms') ?>" class="<?= strpos(urldecode(uri_string()), 'admin/showrooms') !== false ? 'active font-weight-bold' : '' ?>">
+                <i class="fa fa-building"></i> <?= lang('showrooms') ?>
+            </a>
+        </li>
+
+        <li>
             <a href="<?= base_url('admin/styling') ?>" class="<?= urldecode(uri_string()) == 'admin/styling' ? 'active font-weight-bold' : '' ?>">
                 <i class="fa fa-laptop"></i> <?= lang('styling') ?>
             </a>
