@@ -2,7 +2,7 @@
     <div class="main-content col-lg-12 col-md-12 col-sm-12">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 p-0">
-                <div class="section-box section-box-no-padding">
+                <div class=".section-box-no-border section-box-no-padding">
                     <h4 class="part-label mb-4"><?= lang('best_sellers') ?></h4>
                     <div class="row products">
                         <?php

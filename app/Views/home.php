@@ -3,7 +3,7 @@
 
 <div class="container-fluid body">
     <?= $this->include('_parts/top_slider') ?>
-    <div class="row content border rounded">
+    <div class="row content rounded divider">
         <?= $this->include('_parts/highlighted_product') ?>
         <?= $this->include('_parts/news') ?>
     </div>

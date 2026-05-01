@@ -31,7 +31,7 @@ $('.btn-publish').click(function (e) {
     var shop_category = $('[name="shop_categorie"]').val();
     if (shop_category == null) {
         e.preventDefault();
-        alert('There is no create and selected shop category!');
+        alert(i18n.noShopCategorySelected);
     }
 });
 
@@ -39,14 +39,14 @@ $("a.confirm-delete").click(function (e) {
     e.preventDefault();
     var lHref = $(this).attr('href');
     bootbox.confirm({
-        message: "Are you sure want to delete?",
+        message: i18n.confirmDelete,
         buttons: {
             confirm: {
-                label: 'Yes',
+                label: i18n.yes,
                 className: 'btn-success'
             },
             cancel: {
-                label: 'No',
+                label: i18n.no,
                 className: 'btn-danger'
             }
         },
@@ -62,14 +62,14 @@ $("a.confirm-save").click(function (e) {
     e.preventDefault();
     var formId = $(this).data('form-id');
     bootbox.confirm({
-        message: "Are you sure want to save?",
+        message: i18n.confirmSave,
         buttons: {
             confirm: {
-                label: 'Yes',
+                label: i18n.yes,
                 className: 'btn-success'
             },
             cancel: {
-                label: 'No',
+                label: i18n.no,
                 className: 'btn-danger'
             }
         },
@@ -291,13 +291,25 @@ function getPositionRelativeToParent(element, parentId) {
 var indicEditCategorie;
 var forIdEditCategorie;
 var abbrEditCategorie;
+var editCategorieMode = 'name';
 $('.editCategorie').click(function () {
+    editCategorieMode = 'name';
     indicEditCategorie = $(this).data('indic');
     forIdEditCategorie = $(this).data('for-id');
     abbrEditCategorie = $(this).data('abbr');
     var position = getPositionRelativeToParent(this, "#languages");
     $('#categorieEditor').css({top: position.top, left: position.left + 15, display: 'block'});
     $('#categorieEditor input').val($('#indic-' + indicEditCategorie).text());
+});
+
+$('.editCategorieIcon').click(function () {
+    editCategorieMode = 'icon';
+    indicEditCategorie = null;
+    forIdEditCategorie = $(this).data('for-id');
+    abbrEditCategorie = null;
+    var position = getPositionRelativeToParent(this, "#languages");
+    $('#categorieEditor').css({top: position.top, left: position.left + 15, display: 'block'});
+    $('#categorieEditor input').val($(this).data('icon') || '');
 });
 
 $('.closeEditCategorie').click(function () {
@@ -307,16 +319,42 @@ $('.closeEditCategorie').click(function () {
 $('.saveEditCategorie').click(function () {
     $('#categorieEditor .noSaveEdit').hide();
     $('#categorieEditor .yesSaveEdit').css({display: 'inline-block'});
-    var newValueFromEdit = $('[name="new_value"]').val();
+    var newValueFromEdit = $.trim($('[name="new_value"]').val());
+    var postData = {for_id: forIdEditCategorie, type: 'shop_categorie', edit_type: editCategorieMode};
+    if (editCategorieMode === 'icon') {
+        postData.icon = newValueFromEdit;
+    } else {
+        postData.abbr = abbrEditCategorie;
+        postData.name = newValueFromEdit;
+    }
+
     $.ajax({
         type: "POST",
         url: urls.editShopCategorie,
-        data: {for_id: forIdEditCategorie, abbr: abbrEditCategorie, type: 'shop_categorie', name: newValueFromEdit}
+        data: postData
     }).done(function (data) {
         $('#categorieEditor .noSaveEdit').show();
         $('#categorieEditor .yesSaveEdit').hide();
         $('#categorieEditor').hide();
-        $('#indic-' + indicEditCategorie).text(newValueFromEdit);
+
+        if (editCategorieMode === 'icon') {
+            var iconPreview = $('#icon-preview-' + forIdEditCategorie);
+            var iconValue = $('#icon-value-' + forIdEditCategorie);
+            var iconEmpty = $('#icon-empty-' + forIdEditCategorie);
+
+            $('.editCategorieIcon[data-for-id="' + forIdEditCategorie + '"]').data('icon', newValueFromEdit);
+            if (newValueFromEdit.length > 0) {
+                iconPreview.attr('class', newValueFromEdit).removeClass('d-none');
+                iconValue.text(newValueFromEdit);
+                iconEmpty.addClass('d-none');
+            } else {
+                iconPreview.attr('class', 'd-none');
+                iconValue.text('');
+                iconEmpty.removeClass('d-none');
+            }
+        } else {
+            $('#indic-' + indicEditCategorie).text(newValueFromEdit);
+        }
     });
 });
 
@@ -399,7 +437,7 @@ var password_login = $("input[name=password]");
 $('button[type="submit"]').click(function (e) {
     if (username_login.val() == "" || password_login.val() == "") {
         e.preventDefault();
-        $("#output").addClass("alert alert-danger animated fadeInUp").html("Please.. enter all fields ;)");
+        $("#output").addClass("alert alert-danger animated fadeInUp").html(i18n.pleaseEnterAllFields);
     }
 });
 
@@ -474,20 +512,20 @@ function changeOrdersOrderStatus(id, to_status, products, userEmail) {
     $.post(urls.changeOrdersOrderStatus, {the_id: id, to_status: to_status, products: products, userEmail: userEmail}, function (data) {
         if (data == '1') {
             if (to_status == 0) {
-                $('[data-action-id="' + id + '"] div.status b').text('No processed');
+                $('[data-action-id="' + id + '"] div.status b').text(i18n.orderStatusNotProcessed);
                 $('[data-action-id="' + id + '"]').removeClass().addClass('bg-danger text-center');
             }
             if (to_status == 1) {
-                $('[data-action-id="' + id + '"] div.status b').text('Processed');
+                $('[data-action-id="' + id + '"] div.status b').text(i18n.orderStatusProcessed);
                 $('[data-action-id="' + id + '"]').removeClass().addClass('bg-success  text-center');
             }
             if (to_status == 2) {
-                $('[data-action-id="' + id + '"] div.status b').text('Rejected');
+                $('[data-action-id="' + id + '"] div.status b').text(i18n.orderStatusRejected);
                 $('[data-action-id="' + id + '"]').removeClass().addClass('bg-warning  text-center');
             }
             $('#new-order-alert-' + id).remove();
         } else {
-            alert('Error with status change. Please check logs!');
+            alert(i18n.errorStatusChange);
         }
     });
 }
@@ -501,18 +539,18 @@ function changeProductStatus(id) {
     }).done(function (data) {
         if (data == '1') {
             if (to_status == 1) {
-                $('[data-article-id="' + id + '"] .staus-is').text('Visible');
+                $('[data-article-id="' + id + '"] .staus-is').text(i18n.visibilityVisible);
                 $('[data-article-id="' + id + '"] .status-is-icon').html('<i class="fa fa-unlock"></i>');
                 $('[data-article-id="' + id + '"]').removeClass('invisible-status');
                 $("#to-status").val(0);
             } else {
-                $('[data-article-id="' + id + '"] .staus-is').text('Invisible');
+                $('[data-article-id="' + id + '"] .staus-is').text(i18n.visibilityInvisible);
                 $('[data-article-id="' + id + '"]').addClass('invisible-status');
                 $('[data-article-id="' + id + '"] .status-is-icon').html('<i class="fa fa-lock"></i>');
                 $("#to-status").val(1)
             }
         } else {
-            alert('Error change status!');
+            alert(i18n.errorProductStatusChange);
         }
     });
 }
@@ -528,11 +566,11 @@ function changePass() {
             if (data == '1') {
                 $("#pass_result").fadeIn(500).delay(2000).fadeOut(500);
             } else {
-                alert('Password cant change!');
+                alert(i18n.errorPasswordChange);
             }
         });
     } else {
-        alert('Too short pass!');
+        alert(i18n.errorPasswordTooShort);
     }
 }
 

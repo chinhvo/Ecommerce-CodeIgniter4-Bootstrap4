@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Admin\Models;
 
 use CodeIgniter\Model;
@@ -63,8 +64,8 @@ class CategoriesModel extends Model
 
         $this->db->table('shop_categories')
             ->groupStart()
-                ->where('id', $id)
-                ->orWhere('sub_for', $id)
+            ->where('id', $id)
+            ->orWhere('sub_for', $id)
             ->groupEnd()
             ->delete();
 
@@ -115,16 +116,40 @@ class CategoriesModel extends Model
 
     public function editShopCategorie(array $post): void
     {
-        $name = (string) ($post['name'] ?? '');
+        $editType = (string) ($post['edit_type'] ?? 'name');
         $forId = (int) ($post['for_id'] ?? 0);
 
+        if ($forId <= 0) {
+            return;
+        }
+
+        if ($editType === 'icon') {
+            $icon = $this->sanitizeIconClass((string) ($post['icon'] ?? ''));
+            $this->update($forId, ['icon' => $icon]);
+            return;
+        }
+
+        $name = (string) ($post['name'] ?? '');
+        $abbr = (string) ($post['abbr'] ?? '');
+        if ($abbr === '') {
+            return;
+        }
+
         $this->db->table('shop_categories_translations')
-            ->where('abbr', $post['abbr'])
-            ->where('for_id', $post['for_id'])
+            ->where('abbr', $abbr)
+            ->where('for_id', $forId)
             ->update([
                 'name' => $name,
                 'url' => $this->buildCategorySlug($name, $forId),
             ]);
+    }
+
+    private function sanitizeIconClass(string $icon): string
+    {
+        $icon = trim($icon);
+        $icon = preg_replace('/[^a-z0-9_\-\s]/i', '', $icon) ?? '';
+
+        return preg_replace('/\s+/', ' ', $icon) ?? '';
     }
 
     private function buildCategorySlug(string $name, int $id): string

@@ -793,6 +793,11 @@ footer {
   padding: 10px 0;
 }
 
+.section-box-no-border {
+  background: #fff;
+  padding: 10px;
+}
+
 .section-box {
   background: #fff;
   border: 1px solid #dee2e6;
@@ -822,6 +827,9 @@ footer {
   aspect-ratio: 4 / 3; */
 }
 
+.divider  {
+  border-bottom: solid 1px #e5e5e5;
+}
 /* =====================================================
    Top news tabs + bestsellers table
    ===================================================== */
@@ -1056,6 +1064,17 @@ footer {
 .blog-list h5 {
   height: 40px;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#blog .blog-card {
+  max-width: 17rem;
+}
+
+#blog .blog-card-img {
+  height: 150px;
+  object-fit: cover;
 }
 
 #search-input-blog {
@@ -1421,7 +1440,6 @@ a.right.carousel-control,
 }
 
 .brands {
-  margin-left: -10px;
   margin-bottom: 20px;
   padding-top: 30px;
 }

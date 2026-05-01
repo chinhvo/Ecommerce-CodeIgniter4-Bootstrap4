@@ -21,7 +21,6 @@
                 </div>
             </div>
         </div>
-        <?= $this->include('_parts/bodyFooter') ?>
     </div>
 </div>
 <?= $this->endSection() ?>

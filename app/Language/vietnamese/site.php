@@ -272,5 +272,6 @@ return [
 	'showroom_contact_label' => 'Liên hệ',
 	'showroom_view_google_map' => 'Xem Google Map',
 	'showroom_empty_message' => 'Hiện chưa có thông tin showroom.',
+	'contact_via_zalo' => 'Liên hệ qua Zalo',
 
 ];

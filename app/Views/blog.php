@@ -1,20 +1,20 @@
 <?= $this->extend('_parts/layout') ?>
 <?= $this->section('blog') ?>
-<div class="container" id="blog">
-    <div class="body">
-        <div class="row bottom-30 eqHeight">
-            <div class="col-sm-4 col-md-3">
-                <div class="blog-home-left-categ">
-                    <?= $archives ?>
-                </div>
-                <div id="search-input-blog">
-                    <div class="input-group col-md-12">
-                        <form method="GET" action="">
-                            <?php if (isset($_GET['from'], $_GET['to'])): ?>
-                                <input type="hidden" name="from" value="<?= (int) $_GET['from'] ?>" />
-                                <input type="hidden" name="to" value="<?= (int) $_GET['to'] ?>" />
-                            <?php endif; ?>
-                            <select class="search-query form-control" name="type" style="margin-bottom: 8px;">
+<div id="blog" class="body">
+    <div class="row bottom-30 eqHeight">
+        <div class="col-sm-4 col-md-3">
+            <div class="blog-home-left-categ">
+                <?= $archives ?>
+            </div>
+            <div id="search-input-blog">
+                <div class="w-100">
+                    <form method="GET" action="" class="mb-3">
+                        <?php if (isset($_GET['from'], $_GET['to'])): ?>
+                            <input type="hidden" name="from" value="<?= (int) $_GET['from'] ?>" />
+                            <input type="hidden" name="to" value="<?= (int) $_GET['to'] ?>" />
+                        <?php endif; ?>
+                        <div class="form-group mb-2">
+                            <select class="search-query form-control" name="type">
                                 <option value=""><?= lang('all_blog_types') ?></option>
                                 <?php foreach ($blogTypes as $typeId => $typeLabel): ?>
                                     <option value="<?= (int) $typeId ?>" <?= isset($selectedBlogType) && (int) $selectedBlogType === (int) $typeId ? 'selected' : '' ?>>
@@ -22,66 +22,70 @@
                                     </option>
                                 <?php endforeach; ?>
                             </select>
+                        </div>
+                        <div class="input-group">
                             <input type="text" class="search-query form-control" value="<?= isset($_GET['find']) ? htmlspecialchars($_GET['find']) : '' ?>" name="find" placeholder="<?= lang('search') ?>" />
-                            <span class="input-group-btn">
+                            <div class="input-group-append">
                                 <button class="btn btn-danger" type="submit">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                 </button>
-                            </span>
-                        </form>
-                    </div>
-                </div>
-                <div class="filter-sidebar">
-                    <div class="title cloth-bg-color">
-                        <span><?= lang('best_sellers') ?></span>
-                    </div>
-                    <?= $load::getProducts($bestSellers, '', true) ?>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="col-sm-8 col-md-9">
-                <div class="alone title cloth-bg-color">
-                    <span><?= lang('latest_blog') ?></span>
+            <div class="filter-sidebar">
+                <div class="title cloth-bg-color">
+                    <span><?= lang('best_sellers') ?></span>
                 </div>
-                <div class="row">
-                    <?php
-                    if (!empty($posts)) {
-                        foreach ($posts as $post) {
-                            ?>
-                            <div class="col-md-6 blog-col">
-                                <div class="thumbnail blog-list">
-                                    <a href="<?= LANG_URL . '/blog/' . $post['url'] ?>" class="img-container">
-                                        <img src="<?= base_url('attachments/blog_images/' . $post['image']) ?>" alt="<?= $post['title'] ?>">
-                                    </a>
-                                    <div class="caption">
-                                        <h5>
-                                            <?= character_limiter($post['title'], 85) ?>
-                                        </h5>
-                                        <small>
-                                            <span>
-                                                <i class="fa fa-clock-o"></i>
-                                                <?= date('M d, y', $post['time']) ?>
-                                            </span>
-                                        </small>
-                                        <p class="description"><?= character_limiter(strip_tags($post['description']), 300) ?></p>
-                                        <a class="btn btn-blog cloth-bg-color float-right" href="<?= LANG_URL . '/blog/' . $post['url'] ?>">
+                <?= $load::getProducts($bestSellers, '', true) ?>
+            </div>
+        </div>
+        <div class="col-sm-8 col-md-9">
+            <div class="alone title cloth-bg-color">
+                <span><?= lang('latest_blog') ?></span>
+            </div>
+            <div class="row">
+                <?php
+                if (!empty($posts)) {
+                    foreach ($posts as $post) {
+                ?>
+                        <div class="col-sm-6 col-md-6 col-lg-4 blog-col mb-4 d-flex">
+                            <div class="card blog-list blog-card h-100 shadow-sm w-100 mx-auto">
+                                <a href="<?= LANG_URL . '/blog/' . $post['url'] ?>" class="d-block">
+                                    <img src="<?= base_url('attachments/blog_images/' . $post['image']) ?>" class="card-img-top blog-card-img" alt="<?= $post['title'] ?>">
+                                </a>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">
+                                        <?= character_limiter($post['title'], 60) ?>
+                                    </h5>
+                                    <small class="text-muted d-block mb-2">
+                                        <span>
+                                            <i class="fa fa-clock-o"></i>
+                                            <?= date('M d, y', $post['time']) ?>
+                                        </span>
+                                    </small>
+                                    <p class="card-text description mb-2"><?= character_limiter(strip_tags($post['description']), 120) ?></p>
+                                    <div class="mt-auto text-right">
+                                        <a class="btn btn-primary" href="<?= LANG_URL . '/blog/' . $post['url'] ?>">
                                             <i class="fa fa-long-arrow-right"></i>
                                             <?= lang('read_mode') ?>
                                         </a>
-                                        <div class="clearfix"></div>
                                     </div>
                                 </div>
                             </div>
-                            <?php
-                        }
-                    } else {
-                        ?>
-                        <div class="alert alert-info"><?= lang('no_posts') ?></div>
-                    <?php } ?>
-                </div>
-                <?= $links_pagination ?>
+                        </div>
+                    <?php
+                    }
+                } else {
+                    ?>
+                    <div class="col-12">
+                        <div class="alert alert-info mb-0"><?= lang('no_posts') ?></div>
+                    </div>
+                <?php } ?>
             </div>
+            <?= $links_pagination ?>
         </div>
-        <?= $this->include('_parts/bodyFooter') ?>
     </div>
 </div>
 <?= $this->endSection() ?>

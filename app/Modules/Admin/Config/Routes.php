@@ -25,6 +25,7 @@ $routes->group('admin', ['namespace' => 'App\Modules\Admin\Controllers'], functi
 	$routes->post('productStatusChange', 'Ecommerce\Products::productStatusChange');
 	$routes->add('shopcategories', 'Ecommerce\ShopCategories::index');
 	$routes->get('shopcategories/(:num)', 'Ecommerce\ShopCategories::index/$1');
+	$routes->post('shopcategories/(:num)', 'Ecommerce\ShopCategories::index/$1');
 	$routes->post('editshopcategorie', 'Ecommerce\ShopCategories::editShopCategorie');
 	$routes->add('orders', 'Ecommerce\Orders::index');
 	$routes->get('orders/(:num)', 'Ecommerce\Orders::index/$1');

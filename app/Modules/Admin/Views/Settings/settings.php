@@ -500,6 +500,24 @@
 
 		<div class="col-sm-6 col-md-4">
 			<div class="card border-success col-h">
+				<div class="card-header bg-success text-white"><?= lang('show_product_price_setting') ?></div>
+				<div class="card-body">
+					<?php if (session()->getFlashdata('showProductPrice')) { ?>
+						<div class="alert alert-info"><?= session()->getFlashdata('showProductPrice') ?></div>
+					<?php } ?>
+					<form method="POST" action="">
+						<input type="hidden" name="showProductPrice" value="<?= isset($showProductPrice) ? $showProductPrice : '1' ?>">
+						<input <?= !isset($showProductPrice) || (int)$showProductPrice === 1 ? 'checked' : '' ?>
+							data-toggle="toggle" data-for-field="showProductPrice"
+							class="toggle-changer" type="checkbox">
+						<button class="btn btn-secondary" type="submit">Save</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-6 col-md-4">
+			<div class="card border-success col-h">
 				<div class="card-header bg-success text-white"><?= lang('show_in_slider_setting') ?></div>
 				<div class="card-body">
 					<?php if (session()->getFlashdata('showInSlider')) { ?>

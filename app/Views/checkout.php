@@ -22,7 +22,7 @@
                         </div>
                         <?php
                         if (session()->getFlashdata('submit_error')) {
-                            ?>
+                        ?>
                             <hr>
                             <div class="alert alert-danger">
                                 <h4><span class="fa fa-exclamation-triangle"></span> <?= lang('finded_errors') ?></h4>
@@ -33,7 +33,7 @@
                                 ?>
                             </div>
                             <hr>
-                            <?php
+                        <?php
                         }
                         ?>
                         <div class="row payment-type-box">
@@ -113,10 +113,10 @@
                                                 <?php $detailsUrl = \App\Libraries\Loop::buildFrontendUrl((string) ($item['url'] ?? '')); ?>
 
                                                 <?php
-                                                    $productImage = base_url('/attachments/no-image-frontend.png');
-                                                    if (is_file('attachments/shop_images/' . $item['image'])) {
-                                                        $productImage = base_url('/attachments/shop_images/' . $item['image']);
-                                                    }
+                                                $productImage = base_url('/attachments/no-image-frontend.png');
+                                                if (is_file('attachments/shop_images/' . $item['image'])) {
+                                                    $productImage = base_url('/attachments/shop_images/' . $item['image']);
+                                                }
                                                 ?>
                                                 <img class="product-image" src="<?= $productImage ?>" alt="">
 
@@ -168,11 +168,11 @@
                     </form>
                     <div>
                         <a href="<?= LANG_URL ?>" class="btn cloth-bg-color go-shop">
-                            <i class="fa fa-angle-left" aria-hidden="true"></i> 
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
                             <?= lang('back_to_shop') ?>
                         </a>
                         <a href="javascript:void(0);" class="btn cloth-bg-color go-order" onclick="document.getElementById('goOrder').submit();">
-                            <?= lang('custom_order') ?> 
+                            <?= lang('custom_order') ?>
                             <i class="fa fa-angle-right" aria-hidden="true"></i>
                         </a>
                         <div class="d-block d-sm-none bottom-30"></div>
@@ -188,38 +188,37 @@
                     </div>
                 </div>
             </div>
-            <?php
-            echo $this->include('_parts/bodyFooter');
+        <?php
         } else {
-            ?>
+        ?>
             <div class="alert alert-info"><?= lang('no_products_in_cart') ?></div>
-            <?php
+        <?php
         }
         ?>
     </div>
 </div>
 <?php
 if (session()->getFlashdata('deleted')) {
-    ?>
+?>
     <script>
-    $(document).ready(function () {
-        ShowNotificator('alert-info', '<?= session()->getFlashdata('deleted') ?>');
-    });
+        $(document).ready(function() {
+            ShowNotificator('alert-info', '<?= session()->getFlashdata('deleted') ?>');
+        });
     </script>
 <?php }
 
 if ($codeDiscounts == 1 && isset($_POST['discountCode'])) {
-    ?>
+?>
     <script>
-    $(document).ready(function () {
-        checkDiscountCode();
-    });
+        $(document).ready(function() {
+            checkDiscountCode();
+        });
     </script>
 <?php } ?>
 <script src="<?= base_url('assets/js/jquery.nice-select.min.js') ?>"></script>
 <script>
-$(document).ready(function () {
-    $('select').niceSelect();
-});
+    $(document).ready(function() {
+        $('select').niceSelect();
+    });
 </script>
 <?= $this->endSection() ?>

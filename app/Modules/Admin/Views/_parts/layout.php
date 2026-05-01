@@ -133,6 +133,24 @@
 			loadOthersImages: '<?= base_url('admin/loadOthersImages') ?>',
 			editPositionCategorie: '<?= base_url('admin/changePosition') ?>'
 		};
+
+		var i18n = {
+			noShopCategorySelected: '<?= esc(lang('js_no_shop_category_selected'), 'js') ?>',
+			confirmDelete: '<?= esc(lang('js_confirm_delete'), 'js') ?>',
+			confirmSave: '<?= esc(lang('js_confirm_save'), 'js') ?>',
+			yes: '<?= esc(lang('js_yes'), 'js') ?>',
+			no: '<?= esc(lang('js_no'), 'js') ?>',
+			pleaseEnterAllFields: '<?= esc(lang('js_please_enter_all_fields'), 'js') ?>',
+			orderStatusNotProcessed: '<?= esc(lang('js_order_status_not_processed'), 'js') ?>',
+			orderStatusProcessed: '<?= esc(lang('js_order_status_processed'), 'js') ?>',
+			orderStatusRejected: '<?= esc(lang('js_order_status_rejected'), 'js') ?>',
+			errorStatusChange: '<?= esc(lang('js_error_status_change'), 'js') ?>',
+			visibilityVisible: '<?= esc(lang('js_visibility_visible'), 'js') ?>',
+			visibilityInvisible: '<?= esc(lang('js_visibility_invisible'), 'js') ?>',
+			errorProductStatusChange: '<?= esc(lang('js_error_product_status_change'), 'js') ?>',
+			errorPasswordChange: '<?= esc(lang('js_error_password_change'), 'js') ?>',
+			errorPasswordTooShort: '<?= esc(lang('js_error_password_too_short'), 'js') ?>'
+		};
 	</script>
 	<script src="<?= base_url('assets/js/mine_admin.js') ?>"></script>
 </body>

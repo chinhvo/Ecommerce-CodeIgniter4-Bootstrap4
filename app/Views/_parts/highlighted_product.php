@@ -1,4 +1,4 @@
-<section class="main-content col-md-8 col-12">
+<section class="main-content col-md-8 col-12" id="highlighted-products">
     <div class="padding-add p-0 highlighted-products-wrap">
         <h4 class="part-label mb-1"><?= lang('highlighted_products') ?></h4>
         <div class="row products highlighted-products-grid">

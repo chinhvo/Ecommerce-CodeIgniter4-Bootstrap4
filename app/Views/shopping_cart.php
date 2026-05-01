@@ -6,12 +6,12 @@
         <hr>
         <?php
         if (!isset($cartItems['array']) || $cartItems['array'] == null) {
-            ?>
+        ?>
             <div class="alert alert-info"><?= lang('no_products_in_cart') ?></div>
-            <?php
+        <?php
         } else {
             echo purchase_steps(1);
-            ?>
+        ?>
             <div class="table-responsive">
                 <table class="table table-bordered table-products">
                     <thead>
@@ -30,15 +30,15 @@
                                     <input type="hidden" name="id[]" value="<?= $item['id'] ?>">
                                     <input type="hidden" name="quantity[]" value="<?= $item['num_added'] ?>">
                                     <?php $detailsUrl = \App\Libraries\Loop::buildFrontendUrl((string) ($item['url'] ?? '')); ?>
-                                    
-                                    <?php 
-                                        $productImage = base_url('/attachments/no-image-frontend.png');
-                                        if(is_file('attachments/shop_images/' . $item['image'])) {
-                                            $productImage = base_url('/attachments/shop_images/' . $item['image']);
-                                        }
+
+                                    <?php
+                                    $productImage = base_url('/attachments/no-image-frontend.png');
+                                    if (is_file('attachments/shop_images/' . $item['image'])) {
+                                        $productImage = base_url('/attachments/shop_images/' . $item['image']);
+                                    }
                                     ?>
                                     <img class="product-image" src="<?= $productImage ?>" alt="">
-                                    
+
                                     <a href="<?= base_url('home/removeFromCart?delete-product=' . $item['id'] . '&back-to=shopping-cart') ?>" class="btn btn-xs btn-danger remove-product">
                                         <i class="fa fa-times" aria-hidden="true"></i>
                                     </a>
@@ -67,23 +67,22 @@
                 </table>
             </div>
             <a href="<?= LANG_URL ?>" class="btn cloth-bg-color go-shop">
-                <i class="fa fa-angle-left" aria-hidden="true"></i> 
+                <i class="fa fa-angle-left" aria-hidden="true"></i>
                 <?= lang('back_to_shop') ?>
             </a>
             <a class="btn cloth-bg-color go-checkout" href="<?= LANG_URL . '/checkout' ?>">
-                <?= lang('checkout') ?> 
+                <?= lang('checkout') ?>
                 <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
             </a>
         <?php } ?>
         <div class="bottom-30"></div>
-        <?= $this->include('_parts/bodyFooter') ?>
     </div>
 </div>
 <?php
 if (session()->getFlashdata('deleted')) {
-    ?>
+?>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             ShowNotificator('alert-info', '<?= session()->getFlashdata('deleted') ?>');
         });
     </script>

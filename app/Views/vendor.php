@@ -34,14 +34,14 @@ foreach ($all_categories as $categorie) {
                 <ul class="list">
                     <?php
                     foreach ($arrCategories as $categorie) {
-                        ?>
+                    ?>
                         <li>
                             <a href="javascript:void(0);" data-categorie-id="<?= $categorie['id'] ?>" class="go-category left-side <?= isset($_GET['category']) && $_GET['category'] == $categorie['id'] ? 'selected' : '' ?>">
                                 <span><?= htmlspecialchars($categorie['name'], ENT_QUOTES, 'UTF-8') ?></span>
                                 <i class="fa fa-angle-double-down" aria-hidden="true"></i>
                             </a>
                         </li>
-                        <?php
+                    <?php
                     }
                     ?>
                 </ul>
@@ -56,13 +56,12 @@ foreach ($all_categories as $categorie) {
             if (!empty($products)) {
                 $load::getProducts($products, 'col-sm-4 col-md-3', false);
             } else {
-                ?>
+            ?>
                 <div class="col-12">
                     <div class="alert alert-danger"><?= lang('no_products') ?></div>
                 </div>
             <?php } ?>
         </div>
         <?= $links_pagination ?>
-        <?= $this->include('_parts/bodyFooter') ?>
     </div>
-<?= $this->endSection() ?>
+    <?= $this->endSection() ?>

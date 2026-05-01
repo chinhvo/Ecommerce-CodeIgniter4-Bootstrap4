@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Admin\Controllers\Ecommerce;
 
 use App\Core\AdminController;
@@ -24,7 +25,7 @@ class ShopCategories extends AdminController
         $this->login_check();
 
         $head = [
-            'title'       => 'Administration - Home Categories',
+            'title'       => lang('admin_shop_categories_page_title'),
             'description' => '!',
             'keywords'    => ''
         ];
@@ -36,16 +37,16 @@ class ShopCategories extends AdminController
 
         // Delete
         if ($this->request->getGet('delete')) {
-            $this->saveHistory('Delete a shop category');
+            $this->saveHistory(lang('admin_history_delete_shop_category'));
             $this->Categories_model->deleteShopCategorie($this->request->getGet('delete'));
-            $this->session->setFlashdata('result_delete', 'Shop Category is deleted!');
+            $this->session->setFlashdata('result_delete', lang('admin_shop_category_deleted'));
             return redirect()->to('admin/shopcategories');
         }
 
         // Add
         if ($this->request->getPost('submit')) {
             $this->Categories_model->setShopCategorie($this->request->getPost());
-            $this->session->setFlashdata('result_add', 'Shop category is added!');
+            $this->session->setFlashdata('result_add', lang('admin_shop_category_added'));
             return redirect()->to('admin/shopcategories');
         }
 
@@ -53,17 +54,17 @@ class ShopCategories extends AdminController
         if ($this->request->getPost('editSubId')) {
             $result = $this->Categories_model->editShopCategorieSub($this->request->getPost());
             if ($result === true) {
-                $this->session->setFlashdata('result_add', 'Subcategory changed!');
-                $this->saveHistory('Change subcategory for category id - ' . $this->request->getPost('editSubId'));
+                $this->session->setFlashdata('result_add', lang('admin_shop_category_subcategory_changed'));
+                $this->saveHistory(lang('admin_history_change_subcategory_for_category_id') . ' - ' . $this->request->getPost('editSubId'));
             } else {
-                $this->session->setFlashdata('result_add', 'Problem with Shop category change!');
+                $this->session->setFlashdata('result_add', lang('admin_shop_category_change_problem'));
             }
             return redirect()->to('admin/shopcategories');
         }
 
         echo view('\App\Modules\Admin\Views\Ecommerce\shopcategories', array_merge($data, $head));
 
-        $this->saveHistory('Go to shop categories');
+        $this->saveHistory(lang('admin_history_go_to_shop_categories'));
     }
 
     /**
@@ -72,8 +73,12 @@ class ShopCategories extends AdminController
     public function editShopCategorie()
     {
         $this->login_check();
-        $this->Categories_model->editShopCategorie($this->request->getPost());
-        $this->saveHistory('Edit shop category to ' . $this->request->getPost('name'));
+        $post = $this->request->getPost();
+        $this->Categories_model->editShopCategorie($post);
+
+        $isIconEdit = (($post['edit_type'] ?? 'name') === 'icon');
+        $editedValue = $isIconEdit ? (string) ($post['icon'] ?? '') : (string) ($post['name'] ?? '');
+        $this->saveHistory(lang('admin_history_edit_shop_category_to') . ' ' . $editedValue);
     }
 
     /**
@@ -82,7 +87,8 @@ class ShopCategories extends AdminController
     public function changePosition()
     {
         $this->login_check();
-        $this->Categories_model->editShopCategoriePosition($this->request->getPost());
-        $this->saveHistory('Edit shop category position ' . $this->request->getPost('name'));
+        $post = $this->request->getPost();
+        $this->Categories_model->editShopCategoriePosition($post);
+        $this->saveHistory(lang('admin_history_edit_shop_category_position') . ' ' . ($post['name'] ?? ''));
     }
 }

@@ -65,7 +65,8 @@ class Loop
     {
         if (!is_array($cartItems) || empty($cartItems['array'])) {
             return '';
-        }        
+        }
+
         if (!empty($cartItems['array'])) {
             ?>
             <li class="cleaner text-right">
@@ -78,10 +79,11 @@ class Loop
             foreach ($cartItems['array'] as $cartItem) {
                 $productImage = base_url('attachments/no-image-frontend.png');
                 $cartItemUrl = self::buildFrontendUrl((string) ($cartItem['url'] ?? ''));
+
                 if (is_file(FCPATH . 'attachments/shop_images/' . $cartItem['image'])) {
                     $productImage = base_url('attachments/shop_images/' . $cartItem['image']);
                 }
-                ?>
+            ?>
                 <li class="shop-item" data-artticle-id="<?= esc($cartItem['id']) ?>">
                     <span class="num_added hidden"><?= esc($cartItem['num_added']) ?></span>
                     <div class="item">
@@ -98,8 +100,8 @@ class Loop
                                             echo esc($cartItem['price']);
                                         } else {
                                             echo '<span class="num-added-single">' . esc($cartItem['num_added']) .
-                                                 '</span> x <span class="price-single">' . esc($cartItem['price']) .
-                                                 '</span> - <span class="sum-price-single">' . esc($cartItem['sum_price']) . '</span>';
+                                                '</span> x <span class="price-single">' . esc($cartItem['price']) .
+                                                '</span> - <span class="sum-price-single">' . esc($cartItem['sum_price']) . '</span>';
                                         }
                                         ?>
                                     </span>
@@ -114,7 +116,7 @@ class Loop
                         </div>
                     </div>
                 </li>
-                <?php
+            <?php
             }
             ?>
             <li class="divider"></li>
@@ -129,11 +131,11 @@ class Loop
                     ?>
                 </a>
             </li>
-            <?php
+        <?php
         } else {
-            ?>
+        ?>
             <li class="text-center"><?= lang('no_products') ?></li>
-            <?php
+        <?php
         }
     }
 
@@ -143,9 +145,20 @@ class Loop
         $moreInfoBtn = Services::renderer()->getData('moreInfoBtn');
         $hideBuyButtonsOfOutOfStock = Services::renderer()->getData('hideBuyButtonsOfOutOfStock');
         $refreshAfterAddToCart = Services::renderer()->getData('refreshAfterAddToCart');
+        $showProductPrice = Services::renderer()->getData('showProductPrice');
+        $footerSocialZalo = Services::renderer()->getData('footerSocialZalo');
+
+        $showPriceOnCard = ($showProductPrice === null || $showProductPrice === '') ? true : ((int) $showProductPrice === 1);
+        $contactUrlRaw = is_scalar($footerSocialZalo) ? (string) $footerSocialZalo : '';
+        $contactUrl = trim($contactUrlRaw);
+        $contactUrl = html_entity_decode($contactUrl, ENT_QUOTES, 'UTF-8');
+
+        if ($contactUrl === '') {
+            $contactUrl = base_url('contacts');
+        }
 
         if ($carousel) {
-            ?>
+        ?>
             <div class="carousel slide" id="small_carousel" data-ride="carousel" data-interval="3000">
                 <ol class="carousel-indicators">
                     <?php foreach (array_keys($products) as $i): ?>
@@ -153,83 +166,93 @@ class Loop
                     <?php endforeach; ?>
                 </ol>
                 <div class="carousel-inner products">
-            <?php
-        }
-
-        foreach ($products as $i => $article) {
-            $active = ($i === 0 && $carousel) ? 'active' : '';
-            $backgroundImageFile = base_url('attachments/no-image-frontend.png');
-            $rawImage = isset($article['image']) ? trim((string) $article['image']) : '';
-            $detailsUrl = self::buildFrontendUrl((string) ($article['url'] ?? ''), $article['vendor_url'] ?? null);
-
-            if ($rawImage !== '') {
-                // Support values stored as full relative paths or as filenames.
-                $normalizedImage = ltrim($rawImage, '/\\');
-                if (is_file(FCPATH . $normalizedImage)) {
-                    $backgroundImageFile = base_url($normalizedImage);
-                } elseif (is_file(FCPATH . 'attachments/shop_images/' . $normalizedImage)) {
-                    $backgroundImageFile = base_url('attachments/shop_images/' . $normalizedImage);
-                }
+                <?php
             }
-            ?>
-            <div class="product-list <?= $carousel ? 'item' : '' ?> <?= esc($classes) ?> <?= $active ?>">
-                <div class="inner">
-                    <div class="img-container">
-                        <a href="<?= esc($detailsUrl) ?>" >
-                            <img src="<?= esc($backgroundImageFile) ?>" alt="<?= esc(character_limiter($article['title'], 70)) ?>" onerror="this.onerror=null;this.src='<?= esc(base_url('attachments/no-image-frontend.png')) ?>';">
-                        </a>
-                    </div>
-                    <h6 class="product-title">
-                        <a href="<?= esc($detailsUrl) ?>"><?= character_limiter($article['title'], 70) ?></a>
-                    </h6>
-                    <div class="price">
-                        <span class="underline"><?= lang('new_price') ?>: <span><?= format_currency($article['price']) ?></span></span>
-                        <?php if ($article['old_price'] && $article['price']) {
-                            $percent_friendly = number_format((($article['old_price'] - $article['price']) / $article['old_price']) * 100) . '%';
-                            ?>
-                            <span class="price-down"><?= esc($percent_friendly) ?></span>
-                        <?php } ?>
-                    </div>
-                    <div class="price-discount <?= empty($article['old_price']) ? 'invisible' : '' ?>">
-                        <?= lang('old_price') ?>: <span><?= $article['old_price'] ? format_currency($article['old_price']) : '' ?></span>
-                    </div>
-                    <?php if ($publicQuantity == 1): ?>
-                        <div class="quantity">
-                            <?= lang('in_stock') ?>: <span><?= esc($article['quantity']) ?></span>
+
+            foreach ($products as $i => $article) {
+                $active = ($i === 0 && $carousel) ? 'active' : '';
+                $backgroundImageFile = base_url('attachments/no-image-frontend.png');
+                $rawImage = isset($article['image']) ? trim((string) $article['image']) : '';
+                $detailsUrl = self::buildFrontendUrl((string) ($article['url'] ?? ''), $article['vendor_url'] ?? null);
+
+                if ($rawImage !== '') {
+                    // Support values stored as full relative paths or as filenames.
+                    $normalizedImage = ltrim($rawImage, '/\\');
+                    if (is_file(FCPATH . $normalizedImage)) {
+                        $backgroundImageFile = base_url($normalizedImage);
+                    } elseif (is_file(FCPATH . 'attachments/shop_images/' . $normalizedImage)) {
+                        $backgroundImageFile = base_url('attachments/shop_images/' . $normalizedImage);
+                    }
+                }
+                ?>
+                    <div class="product-list <?= $carousel ? 'item' : '' ?> <?= esc($classes) ?> <?= $active ?>">
+                        <div class="inner">
+                            <div class="img-container">
+                                <a href="<?= esc($detailsUrl) ?>">
+                                    <img src="<?= esc($backgroundImageFile) ?>" alt="<?= esc(character_limiter($article['title'], 70)) ?>" onerror="this.onerror=null;this.src='<?= esc(base_url('attachments/no-image-frontend.png')) ?>';">
+                                </a>
+                            </div>
+                            <h6 class="product-title">
+                                <a href="<?= esc($detailsUrl) ?>"><?= character_limiter($article['title'], 70) ?></a>
+                            </h6>
+                            <?php if ($showPriceOnCard): ?>
+                                <div class="price">
+                                    <span class="underline"><?= lang('new_price') ?>: <span><?= format_currency($article['price']) ?></span></span>
+                                    <?php if ($article['old_price'] && $article['price']) {
+                                        $percent_friendly = number_format((($article['old_price'] - $article['price']) / $article['old_price']) * 100) . '%';
+                                    ?>
+                                        <span class="price-down"><?= esc($percent_friendly) ?></span>
+                                    <?php } ?>
+                                </div>
+                                <div class="price-discount <?= empty($article['old_price']) ? 'invisible' : '' ?>">
+                                    <?= lang('old_price') ?>: <span><?= $article['old_price'] ? format_currency($article['old_price']) : '' ?></span>
+                                </div>
+                            <?php endif; ?>
+                            <?php if ($publicQuantity == 1): ?>
+                                <div class="quantity">
+                                    <?= lang('in_stock') ?>: <span><?= esc($article['quantity']) ?></span>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($moreInfoBtn == 1): ?>
+                                <a href="<?= esc($detailsUrl) ?>" class="info-btn gradient-color">
+                                    <span class="text-to-bg"><?= lang('info_product_list') ?></span>
+                                </a>
+                            <?php endif; ?>
+
+                            <?php if ($showPriceOnCard): ?>
+                                <?php if ($hideBuyButtonsOfOutOfStock == 0 || (int) $article['quantity'] > 0):
+                                    $hasRefresh = ($refreshAfterAddToCart == 1);
+                                ?>
+                                    <div class="add-to-cart">
+                                        <a href="javascript:void(0);" class="add-to-cart btn-add <?= $hasRefresh ? 'refresh-me' : '' ?>" data-goto="<?= base_url('/shopping-cart') ?>" data-id="<?= esc($article['id']) ?>">
+                                            <img class="loader" src="<?= base_url('assets/imgs/ajax-loader.gif') ?>" alt="Loading">
+                                            <span class="text-to-bg"><?= lang('add_to_cart') ?></span>
+                                        </a>
+                                    </div>
+                                    <!-- <div class="add-to-cart">
+                                <a href="javascript:void(0);" class="add-to-cart btn-add more-blue" data-goto="<?= base_url('/checkout') ?>" data-id="<?= esc($article['id']) ?>">
+                                    <img class="loader" src="<?= base_url('assets/imgs/ajax-loader.gif') ?>" alt="Loading">
+                                    <span class="text-to-bg"><?= lang('buy_now') ?></span>
+                                </a>
+                            </div> -->
+                                <?php else: ?>
+                                    <div>Product is out of stock</div>
+                                <?php endif; ?>
+                            <?php else: ?>
+                                <div class="add-to-cart">
+                                    <a href="<?= esc($contactUrl) ?>" class="btn-add more-blue" rel="noopener" target="_blank">
+                                        <span class="text-to-bg"><?= lang('contact_via_zalo') ?></span>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                    <?php endif; ?>
+                    </div>
+                <?php
+            }
 
-                    <?php if ($moreInfoBtn == 1): ?>
-                        <a href="<?= esc($detailsUrl) ?>" class="info-btn gradient-color">
-                            <span class="text-to-bg"><?= lang('info_product_list') ?></span>
-                        </a>
-                    <?php endif; ?>
-
-                    <?php if ($hideBuyButtonsOfOutOfStock == 0 || (int)$article['quantity'] > 0):
-                        $hasRefresh = ($refreshAfterAddToCart == 1);
-                        ?>
-                        <div class="add-to-cart">
-                            <a href="javascript:void(0);" class="add-to-cart btn-add <?= $hasRefresh ? 'refresh-me' : '' ?>" data-goto="<?= base_url('/shopping-cart') ?>" data-id="<?= esc($article['id']) ?>">
-                                <img class="loader" src="<?= base_url('assets/imgs/ajax-loader.gif') ?>" alt="Loading">
-                                <span class="text-to-bg"><?= lang('add_to_cart') ?></span>
-                            </a>
-                        </div>
-                        <!-- <div class="add-to-cart">
-                            <a href="javascript:void(0);" class="add-to-cart btn-add more-blue" data-goto="<?= base_url('/checkout') ?>" data-id="<?= esc($article['id']) ?>">
-                                <img class="loader" src="<?= base_url('assets/imgs/ajax-loader.gif') ?>" alt="Loading">
-                                <span class="text-to-bg"><?= lang('buy_now') ?></span>
-                            </a>
-                        </div> -->
-                    <?php else: ?>
-                        <div>Product is out of stock</div>
-                    <?php endif; ?>
-                </div>
-            </div>
-            <?php
-        }
-
-        if ($carousel) {
-            ?>
+            if ($carousel) {
+                ?>
                 </div>
                 <a class="left carousel-control" href="#small_carousel" role="button" data-slide="prev">
                     <i class="fa fa-5x fa-angle-left" aria-hidden="true"></i>
@@ -238,7 +261,7 @@ class Loop
                     <i class="fa fa-5x fa-angle-right" aria-hidden="true"></i>
                 </a>
             </div>
-            <?php
+<?php
+            }
         }
     }
-}
