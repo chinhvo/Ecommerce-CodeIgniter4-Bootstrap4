@@ -156,6 +156,12 @@
             </li>
 
             <li>
+                <a href="<?= base_url('admin/contact-messages') ?>" class="<?= urldecode(uri_string()) == 'admin/contact-messages' ? 'active font-weight-bold' : '' ?>">
+                    <i class="fa fa-comments-o"></i> <?= lang('contact_messages_nav') ?>
+                </a>
+            </li>
+
+            <li>
                 <a href="<?= base_url('admin/history') ?>" class="<?= urldecode(uri_string()) == 'admin/history' ? 'active font-weight-bold' : '' ?>">
                     <i class="fa fa-history"></i> <?= lang('activity_history') ?>
                 </a>

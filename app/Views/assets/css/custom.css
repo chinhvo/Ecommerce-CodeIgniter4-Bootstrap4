@@ -1978,3 +1978,9 @@ body {
     text-transform: uppercase;
 }
 /* endregion: showroom section */
+
+/* region: map section */
+#map {
+    height: 400px;
+    width: 100%;
+}

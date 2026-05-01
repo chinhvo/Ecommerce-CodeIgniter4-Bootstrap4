@@ -1,19 +1,21 @@
 <?php
 
 namespace App\Modules\Config;
+
 use CodeIgniter\Router\RouteCollection;
 /*
 |--------------------------------------------------------------------------
 | Admin Controllers Routes
 |--------------------------------------------------------------------------
 */
-$routes->group('admin', ['namespace' => 'App\Modules\Admin\Controllers'], function($routes) {    
+
+$routes->group('admin', ['namespace' => 'App\Modules\Admin\Controllers'], function ($routes) {
 	// HOME / LOGIN
 	$routes->get('', 'Home\Login::index');
 	$routes->get('home', 'Home\Home::index');
 	$routes->get('login', 'Home\Login::index');
 	$routes->post('login', 'Home\Login::index');
-	
+
 	// ECOMMERCE GROUP
 	$routes->add('publish', 'Ecommerce\Publish::index');
 	$routes->add('publish/(:num)', 'Ecommerce\Publish::index/$1');
@@ -48,6 +50,8 @@ $routes->group('admin', ['namespace' => 'App\Modules\Admin\Controllers'], functi
 	$routes->add('emails', 'Settings\Emails::index');
 	$routes->add('emails/(:num)', 'Settings\Emails::index/$1');
 	$routes->get('emails/delete/(:num)', 'Settings\Emails::index/$1');
+	$routes->add('contact-messages', 'Settings\ContactMessages::index');
+	$routes->add('contact-messages/(:num)', 'Settings\ContactMessages::index/$1');
 	$routes->add('history', 'Settings\History::index');
 	$routes->add('history/(:num)', 'Settings\History::index/$1');
 
@@ -58,7 +62,7 @@ $routes->group('admin', ['namespace' => 'App\Modules\Admin\Controllers'], functi
 	$routes->add('adminusers/edit/(:num)', 'AdvancedSettings\AdminUsers::index/$1'); // optional style
 	$routes->add('adminusers/save', 'AdvancedSettings\AdminUsers::save'); // optional style
 	$routes->add('adminusers/delete/(:num)', 'AdvancedSettings\AdminUsers::delete/$1'); // optional style
-	
+
 	// TEXTUAL PAGES
 	$routes->get('pageedit/(:any)', 'Textual_pages\TextualPages::pageEdit/$1');
 	$routes->post('changePageStatus', 'Textual_pages\TextualPages::changePageStatus');

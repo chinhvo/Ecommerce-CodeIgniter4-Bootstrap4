@@ -82,7 +82,9 @@ $routes->get('^(\w{2})$/shop', 'Home::shop');
 
 // Contacts page
 $routes->get('contacts', 'Contacts::index');
+$routes->post('contacts', 'Contacts::index');
 $routes->get('^(\w{2})$/contacts', 'Contacts::index');
+$routes->post('^(\w{2})$/contacts', 'Contacts::index');
 
 // Textual Pages links
 $routes->get('page/(:any)', 'Page::index/$1');
@@ -152,4 +154,3 @@ $routes->get('^(\w{2})$/([a-z0-9-]+)', 'Product::viewProductBySlug/$2');
 // Error & translation settings
 $routes->set404Override();
 $routes->setTranslateURIDashes(false);
-

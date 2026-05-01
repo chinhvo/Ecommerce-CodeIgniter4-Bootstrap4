@@ -1,11 +1,5 @@
 <?= $this->extend('_parts/layout') ?>
 <?= $this->section('contacts') ?>
-<style>
-    #map {
-        height: 400px;
-        width: 100%;
-    }
-</style>
 <div class="container-fluid body" id="contacts">
     <div class="row content rounded p-3 p-md-4">
         <?php $errors = session('errors') ?? []; ?>
@@ -36,7 +30,7 @@
             <?php } ?>
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <form method="POST" action="">
+                    <form method="POST" action="" novalidate>
                         <?= csrf_field() ?>
 
                         <div class="row">
@@ -49,8 +43,7 @@
                                         class="form-control<?= isset($errors['name']) ? ' is-invalid' : '' ?>"
                                         id="name"
                                         placeholder="<?= lang('please_enter_name') ?>"
-                                        value="<?= old('name') ?>"
-                                        required="required" />
+                                        value="<?= old('name') ?>" />
                                     <?php if (isset($errors['name'])) { ?>
                                         <div class="invalid-feedback"><?= esc($errors['name']) ?></div>
                                     <?php } ?>
@@ -68,8 +61,7 @@
                                             class="form-control<?= isset($errors['email']) ? ' is-invalid' : '' ?>"
                                             id="email"
                                             placeholder="<?= lang('enter_email') ?>"
-                                            value="<?= old('email') ?>"
-                                            required="required" />
+                                            value="<?= old('email') ?>" />
                                     </div>
                                     <?php if (isset($errors['email'])) { ?>
                                         <div class="invalid-feedback d-block"><?= esc($errors['email']) ?></div>
@@ -83,8 +75,7 @@
                                         name="subject"
                                         class="form-control<?= isset($errors['subject']) ? ' is-invalid' : '' ?>"
                                         id="subject"
-                                        value="<?= old('subject') ?>"
-                                        required="required">
+                                        value="<?= old('subject') ?>">
                                     <?php if (isset($errors['subject'])) { ?>
                                         <div class="invalid-feedback"><?= esc($errors['subject']) ?></div>
                                     <?php } ?>
@@ -100,7 +91,6 @@
                                         class="form-control<?= isset($errors['message']) ? ' is-invalid' : '' ?>"
                                         rows="9"
                                         cols="25"
-                                        required="required"
                                         placeholder="<?= lang('message') ?>"><?= old('message') ?></textarea>
                                     <?php if (isset($errors['message'])) { ?>
                                         <div class="invalid-feedback"><?= esc($errors['message']) ?></div>
