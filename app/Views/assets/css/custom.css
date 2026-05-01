@@ -1917,11 +1917,20 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1060;
+  bottom: 0;
+  z-index: 20000;
   display: none;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 16px;
+}
+
+#onesignal-slidedown-dialog #normal-slidedown {
+  width: min(700px, 100%);
+  margin: 10vh auto 0;
   background: #ffffff;
-  border-bottom: 1px solid #dee2e6;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
 }
 
 #onesignal-slidedown-dialog .slidedown-body-icon img {
@@ -1932,8 +1941,8 @@ body {
 
 #onesignal-slidedown-dialog .slidedown-body,
 #onesignal-slidedown-dialog .slidedown-footer {
-  max-width: 1140px;
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
   padding: 10px 15px;
 }
 
@@ -1942,6 +1951,14 @@ body {
 }
 
 @media (max-width: 575.98px) {
+  #onesignal-slidedown-dialog {
+    padding: 10px;
+  }
+
+  #onesignal-slidedown-dialog #normal-slidedown {
+    margin-top: 6vh;
+  }
+
   #onesignal-slidedown-dialog .slidedown-footer {
     justify-content: center !important;
   }
@@ -1951,3 +1968,13 @@ body {
   }
 }
 /* endregion: Follow popup (first visit prompt) */
+
+
+/* region: showroom section */
+.showroom-section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+/* endregion: showroom section */

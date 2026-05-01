@@ -96,7 +96,7 @@
                 </div>
                 <div class="row">
                     <?= $this->include('_parts/showrooms') ?>
-                </div>                
+                </div>
                 <div class="row">
                     <?= $this->include('_parts/categories') ?>
                 </div>
@@ -106,7 +106,6 @@
             </div>
         </div>
         <?= $this->include('_parts/footer') ?>
-        <?= $this->include('_parts/follow_page') ?>
     </div>
 
     <?php if (session()->getFlashdata('emailAdded')) { ?>
@@ -159,6 +158,7 @@
             $('body').css('overflow', '');
         });
     </script>
+    <?= $this->include('_parts/follow_page') ?>
 </body>
 
 </html>

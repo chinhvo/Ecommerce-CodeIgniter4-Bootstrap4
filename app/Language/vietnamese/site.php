@@ -254,9 +254,16 @@ return [
 	'select_category' => 'Chọn danh mục',
 	'selected_category' => 'Danh mục đang chọn',
 	'main_category' => 'Danh mục chính',
-	'showroom_section_title' => 'Địa chỉ các Showroom',
+	'follow_page_prompt_aria_label' => 'Hộp thoại theo dõi trang',
+	'follow_page_icon_alt' => 'Biểu tượng thông báo',
+	'follow_page_message' => 'Theo dõi để nhận thông tin mới nhất từ Thế Giới Xe Chạy Điện',
+	'follow_page_facebook_button' => 'THEO DÕI FACEBOOK',
+	'follow_page_zalo_button' => 'THEO DÕI ZALO',
+	'follow_page_thanks_button' => 'CẢM ƠN',
+	'showroom_section_title' => 'Showroom/Cửa hàng',
 	'showroom_address_label' => 'Địa chỉ',
 	'showroom_contact_label' => 'Liên hệ',
 	'showroom_view_google_map' => 'Xem Google Map',
+	'showroom_empty_message' => 'Hiện chưa có thông tin showroom.',
 
 ];

@@ -51,6 +51,29 @@ Gitgub     : https://github.com/kirilkirkov
 .blogpost-header-img {
   margin-top: -2px;
 }
+
+/* Admin home page */
+.home-header-img {
+  margin-top: -3px;
+}
+
+.home-last-login-date {
+  font-size: 25px;
+}
+
+.home-last-login-time {
+  font-size: 16px;
+}
+
+.home-chart-container {
+  min-width: 310px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+.home-chart-tooltip-header {
+  font-size: 11px;
+}
 html,
 body {
   height: 100%;
@@ -79,6 +102,7 @@ textarea.form-control {
   border: 1px solid #dadada;
   border-radius: 0;
   box-shadow: none;
+  padding: 4px;
 }
 .login-container {
   position: relative;

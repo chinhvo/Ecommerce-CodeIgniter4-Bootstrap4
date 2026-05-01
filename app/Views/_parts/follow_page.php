@@ -7,29 +7,29 @@ $zaloFollowUrl = !empty($footerSocialZalo)
     : '';
 ?>
 
-<div id="onesignal-slidedown-dialog" class="onesignal-slidedown-dialog" role="dialog" aria-live="polite" aria-label="Follow page prompt">
-    <div id="normal-slidedown">
+<div id="onesignal-slidedown-dialog" class="onesignal-slidedown-dialog" role="dialog" aria-live="polite" aria-label="<?= esc(lang('follow_page_prompt_aria_label')) ?>">
+    <div id="normal-slidedown" role="document">
         <div class="slidedown-body d-flex align-items-center flex-wrap" id="slidedown-body">
             <div class="slidedown-body-icon mr-3">
-                <img alt="notification icon" src="https://img.onesignal.com/t/fa0d60f0-7b2c-43b7-a20d-ccecb8922c0e.jpg" class="rounded">
+                <img alt="<?= esc(lang('follow_page_icon_alt')) ?>" src="https://img.onesignal.com/t/fa0d60f0-7b2c-43b7-a20d-ccecb8922c0e.jpg" class="rounded">
             </div>
             <div class="slidedown-body-message flex-grow-1">
-                Theo Dõi Để Nhận Thông Tin Mới Nhất Từ Thế Giới Xe Chạy Điện
+                <?= lang('follow_page_message') ?>
             </div>
             <div id="onesignal-loading-container"></div>
         </div>
         <div class="slidedown-footer d-flex justify-content-end" id="slidedown-footer">
-            <button type="button" class="btn btn-primary btn-sm slidedown-button mr-2" id="onesignal-slidedown-allow-button">THEO DÕI</button>
+            <button type="button" class="btn btn-primary btn-sm slidedown-button mr-2" id="onesignal-slidedown-allow-button"><?= lang('follow_page_facebook_button') ?></button>
             <?php if (!empty($zaloFollowUrl)) { ?>
-                <button type="button" class="btn btn-info btn-sm slidedown-button mr-2" id="onesignal-slidedown-zalo-button">ZALO</button>
+                <button type="button" class="btn btn-info btn-sm slidedown-button mr-2" id="onesignal-slidedown-zalo-button"><?= lang('follow_page_zalo_button') ?></button>
             <?php } ?>
-            <button type="button" class="btn btn-secondary btn-sm slidedown-button" id="onesignal-slidedown-cancel-button">CÁM ƠN</button>
+            <button type="button" class="btn btn-secondary btn-sm slidedown-button" id="onesignal-slidedown-cancel-button"><?= lang('follow_page_thanks_button') ?></button>
         </div>
     </div>
 </div>
 
 <script>
-    (function () {
+    (function() {
         var storageKey = 'axc_follow_prompt_seen';
         var cookieKey = 'axc_follow_prompt_seen';
         var followFacebookUrl = <?= json_encode($facebookFollowUrl, JSON_UNESCAPED_SLASHES) ?>;
@@ -72,10 +72,9 @@ $zaloFollowUrl = !empty($footerSocialZalo)
                 return;
             }
             prompt.style.display = 'none';
-            document.body.style.paddingTop = '';
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             var prompt = document.getElementById('onesignal-slidedown-dialog');
             var allowBtn = document.getElementById('onesignal-slidedown-allow-button');
             var zaloBtn = document.getElementById('onesignal-slidedown-zalo-button');
@@ -90,9 +89,8 @@ $zaloFollowUrl = !empty($footerSocialZalo)
             }
 
             prompt.style.display = 'block';
-            document.body.style.paddingTop = prompt.offsetHeight + 'px';
 
-            allowBtn.addEventListener('click', function () {
+            allowBtn.addEventListener('click', function() {
                 setSeen();
                 closePrompt();
                 if (followFacebookUrl) {
@@ -101,7 +99,7 @@ $zaloFollowUrl = !empty($footerSocialZalo)
             });
 
             if (zaloBtn) {
-                zaloBtn.addEventListener('click', function () {
+                zaloBtn.addEventListener('click', function() {
                     setSeen();
                     closePrompt();
                     if (followZaloUrl) {
@@ -110,7 +108,7 @@ $zaloFollowUrl = !empty($footerSocialZalo)
                 });
             }
 
-            cancelBtn.addEventListener('click', function () {
+            cancelBtn.addEventListener('click', function() {
                 setSeen();
                 closePrompt();
             });

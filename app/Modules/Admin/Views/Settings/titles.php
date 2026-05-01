@@ -10,8 +10,7 @@
           src="<?= base_url('assets/imgs/seo_titles_descript.png') ?>"
           class="header-img"
           style="margin-top: -3px;"
-          alt=""
-        >
+          alt="">
         <?= lang('titles_/_descriptions') ?>
       </h1>
 
@@ -49,8 +48,7 @@
                         <img
                           src="<?= base_url('attachments/lang_flags/' . $language->flag) ?>"
                           alt=""
-                          style="height: 14px; margin-left: 4px;"
-                        >)
+                          style="height: 14px; margin-left: 4px;">)
                       </label>
 
                       <input
@@ -58,8 +56,7 @@
                         id="<?= $titleId ?>"
                         name="title[]"
                         value="<?= @$seo_trans[$page['name']][$language->abbr]['title'] ?>"
-                        class="form-control"
-                      >
+                        class="form-control">
                     </div>
                   <?php endforeach; ?>
 
@@ -71,8 +68,7 @@
                         <img
                           src="<?= base_url('attachments/lang_flags/' . $language->flag) ?>"
                           alt=""
-                          style="height: 14px; margin-left: 4px;"
-                        >)
+                          style="height: 14px; margin-left: 4px;">)
                       </label>
 
                       <input
@@ -80,8 +76,7 @@
                         id="<?= $descriptionId ?>"
                         name="description[]"
                         value="<?= @$seo_trans[$page['name']][$language->abbr]['description'] ?>"
-                        class="form-control"
-                      >
+                        class="form-control">
                     </div>
                   <?php endforeach; ?>
 
@@ -90,14 +85,13 @@
 
             <?php endforeach; ?>
 
-            <button type="submit" name="save" class="btn btn-secondary mb-2" value ="save" >
+            <button type="submit" name="save" class="btn btn-secondary mb-2" value="save">
               <?= lang('save') ?>
             </button>
           </form>
 
           <div class="alert alert-warning mt-3 mb-0">
-            If you add new page with controller or in controller method.. insert
-            her name in table <b>seo_pages</b>!
+            <?= lang('seo_pages_notice') ?>
           </div>
 
         </div>

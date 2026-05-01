@@ -5,7 +5,7 @@
             <div class="col-sm-3">
                 <h3><?= lang('about_us') ?></h3>
                 <hr>
-                <p><?= $footerAboutUs ?></p>
+                <?= html_entity_decode($footerAboutUs) ?>
             </div>
         <?php } ?>
         <div class="col-sm-3">
