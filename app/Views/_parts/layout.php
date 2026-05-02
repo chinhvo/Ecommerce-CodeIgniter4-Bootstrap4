@@ -70,7 +70,7 @@
     <div id="wrapper" class="layout-main-width container-fluid">
         <?= $this->include('_parts/header') ?>
         <div class="row">
-            <?= $this->include('_parts/topMenu') ?>
+            <?= $this->include('_parts/topmenu') ?>
         </div>
         <div class="row">
             <?php $currentUri = trim(uri_string(), '/'); ?>
@@ -101,7 +101,7 @@
             <?= $this->include('_parts/categories') ?>
         </div>
         <div class="row">
-            <?= $this->include('_parts/bodyFooter') ?>
+            <?= $this->include('_parts/bodyfooter') ?>
         </div>
     </div>
     <?= $this->include('_parts/footer') ?>

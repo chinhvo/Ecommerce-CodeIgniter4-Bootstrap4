@@ -33,9 +33,9 @@
 			<?= $this->include('\App\Modules\Admin\Views\_parts\header') ?>
 			<div class="container-fluid">
 				<div class="row">
-					<?= $this->include('\App\Modules\Admin\Views\_parts\leftSidebar') ?>
+					<?= $this->include('\App\Modules\Admin\Views\_parts\leftsidebar') ?>
 					<?php if (!session()->get('logged_in')) { ?>
-						<?= $this->include('\App\Modules\Admin\Views\Home\login') ?>
+						<?= $this->include('\App\Modules\Admin\Views\home\login') ?>
 					<?php } ?>
 					<?php if (session()->get('logged_in') && strpos(uri_string(), "home")) { ?>
 						<?= $this->renderSection('home') ?>

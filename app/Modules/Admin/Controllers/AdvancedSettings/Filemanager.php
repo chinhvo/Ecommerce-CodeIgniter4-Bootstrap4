@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Admin\Controllers\AdvancedSettings;
 
 use App\Core\AdminController;
@@ -16,8 +17,8 @@ class Filemanager extends AdminController
             'keywords'    => ''
         ];
 
-        echo view('\App\Modules\Admin\Views\AdvancedSettings\filemanager', array_merge($data, $head));
-        
+        echo view('App\Modules\Admin\Views\advancedsettings\filemanager', array_merge($data, $head));
+
 
         $this->saveHistory('Go to File Manager');
     }

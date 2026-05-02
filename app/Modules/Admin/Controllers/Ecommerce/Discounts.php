@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Admin\Controllers\Ecommerce;
 
 use App\Core\AdminController;
@@ -71,8 +72,8 @@ class Discounts extends AdminController
             'links_pagination'  => pagination('admin/discounts', $this->Discounts_model->discountCodesCount(), $this->num_rows, 3)
         ];
 
-        echo view('\App\Modules\Admin\Views\Ecommerce\discounts', array_merge($data, $head));
-        
+        echo view('App\Modules\Admin\Views\ecommerce\discounts', array_merge($data, $head));
+
         if ($page == 0) {
             $this->saveHistory('Go to discounts page');
         }

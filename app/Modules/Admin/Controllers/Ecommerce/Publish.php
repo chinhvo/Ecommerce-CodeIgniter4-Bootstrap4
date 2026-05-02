@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Admin\Controllers\Ecommerce;
 
 use App\Core\AdminController;
@@ -71,10 +72,10 @@ class Publish extends AdminController
             'description' => '!',
             'keywords'    => ''
         ];
-        
+
         $validation = \Config\Services::validation();
-        
-        echo view('\App\Modules\Admin\Views\Ecommerce\publish', array_merge($head, $data, ['validation' => $validation]));
+
+        echo view('App\Modules\Admin\Views\ecommerce\publish', array_merge($head, $data, ['validation' => $validation]));
 
         $this->saveHistory('Go to publish product');
     }

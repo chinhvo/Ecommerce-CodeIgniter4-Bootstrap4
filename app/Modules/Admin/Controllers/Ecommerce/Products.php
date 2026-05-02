@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Admin\Controllers\Ecommerce;
 
 use App\Core\AdminController;
@@ -11,7 +12,7 @@ class Products extends AdminController
     protected $Languages_model;
     protected $Categories_model;
     protected $session;
-    
+
     public function __construct()
     {
         parent::__construct();
@@ -60,7 +61,7 @@ class Products extends AdminController
         }
 
         // Filter by category
-        $category = $this->request->getGet('category')?: null;
+        $category = $this->request->getGet('category') ?: null;
         if ($category !== null) {
             $filters['category'] = $category;
             $this->session->set('filter.category', $category);
@@ -83,7 +84,7 @@ class Products extends AdminController
         $data['shop_categories'] = $this->Categories_model->getShopCategories(null, null, 2);
 
 
-        echo view('\App\Modules\Admin\Views\Ecommerce\products', array_merge($data, $head));
+        echo view('App\Modules\Admin\Views\ecommerce\products', array_merge($data, $head));
         $this->saveHistory('Go to products');
     }
 

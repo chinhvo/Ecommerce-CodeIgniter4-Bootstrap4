@@ -41,7 +41,7 @@ class Showrooms extends AdminController
             'validation'   => session('validation'),
         ];
 
-        echo view('\App\Modules\Admin\Views\Settings\showrooms', array_merge($data, $head));
+        echo view('App\Modules\Admin\Views\settings\showrooms', array_merge($data, $head));
         $this->saveHistory('View Showrooms list');
     }
 

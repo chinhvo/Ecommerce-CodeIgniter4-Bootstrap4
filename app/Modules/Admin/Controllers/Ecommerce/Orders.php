@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Modules\Admin\Controllers\Ecommerce;
+
 use App\Core\AdminController;
 /*
  * @Author:    Kiril Kirkov
@@ -10,7 +12,10 @@ class Orders extends AdminController
 {
     private $num_rows = 10;
     private $segment = 3;
-    
+    private \App\Libraries\SendMail $sendMail;
+    private \App\Modules\Admin\Models\OrdersModel $ordersModel;
+    private \App\Modules\Admin\Models\HomeAdminModel $homeAdminModel;
+
     public function __construct()
     {
         parent::__construct();
@@ -82,8 +87,8 @@ class Orders extends AdminController
         $data['cashondelivery_visibility'] = $this->homeAdminModel->getValueStore('cashondelivery_visibility');
         $data['bank_account'] = $this->ordersModel->getBankAccountSettings();
 
-        echo view('\App\Modules\Admin\Views\Ecommerce\orders', array_merge($data, $head));
-        
+        echo view('App\Modules\Admin\Views\ecommerce\orders', array_merge($data, $head));
+
 
         if ($page == 0) {
             $this->saveHistory('Go to orders page');
@@ -130,7 +135,7 @@ class Orders extends AdminController
 
         $this->saveHistory(
             'Change status of Order Id ' . $request->getPost('the_id') .
-            ' to status ' . $request->getPost('to_status')
+                ' to status ' . $request->getPost('to_status')
         );
     }
 
@@ -179,5 +184,4 @@ class Orders extends AdminController
 
         return true; // no virtual products found, but function succeeds
     }
-
 }

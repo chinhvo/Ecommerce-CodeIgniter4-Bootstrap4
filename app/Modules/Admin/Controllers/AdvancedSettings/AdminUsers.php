@@ -37,10 +37,10 @@ class AdminUsers extends AdminController
             'users'     => $this->adminUsersModel->getAdminUsers(),
             'editUser'  => $editUser,                 // for modal prefill
             'openModal' => $editUser !== null,        // auto open modal if edit
-            'validation'=> session('validation'),     // show validation after redirect
+            'validation' => session('validation'),     // show validation after redirect
         ];
 
-        echo view('\App\Modules\Admin\Views\AdvancedSettings\adminUsers', array_merge($data, $head));
+        echo view('App\Modules\Admin\Views\advancedsettings\adminusers', array_merge($data, $head));
         $this->saveHistory('Go to Admin Users');
     }
 

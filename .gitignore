@@ -125,3 +125,5 @@ _modules/*
 /results/
 /phpunit*.xml
 /app/Views/references
+/writable/logs
+/writable/session

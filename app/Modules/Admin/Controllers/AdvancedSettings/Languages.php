@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Admin\Controllers\AdvancedSettings;
 
 use App\Core\AdminController;
@@ -95,8 +96,8 @@ class Languages extends AdminController
 
         $data['max_input_vars'] = ini_get('max_input_vars');
 
-        echo view('\App\Modules\Admin\Views\AdvancedSettings\languages', array_merge($data, $head));
-        
+        echo view('App\Modules\Admin\Views\advancedsettings\languages', array_merge($data, $head));
+
 
         $this->saveHistory('Go to languages');
     }

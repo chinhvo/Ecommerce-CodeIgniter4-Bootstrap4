@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Admin\Controllers\Blog;
 
 use App\Core\AdminController;
@@ -53,8 +54,8 @@ class Blog extends AdminController
         $data['blogTypes'] = BlogType::labels();
         $data['selectedBlogType'] = $blogType;
 
-        echo view('\App\Modules\Admin\Views\Blog\blogposts', array_merge($data, $head));
-        
+        echo view('App\Modules\Admin\Views\blog\blogposts', array_merge($data, $head));
+
         if ($page == 0) {
             $this->saveHistory('Go to Blog');
         }

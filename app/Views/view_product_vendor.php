@@ -9,7 +9,7 @@
             <?php
             if ($product['folder'] != null) {
                 $dir = "attachments/shop_images/" . $product['folder'] . '/';
-                ?>
+            ?>
                 <div class="row">
                     <?php
                     if (is_dir($dir)) {
@@ -17,11 +17,11 @@
                             $i = 1;
                             while (($file = readdir($dh)) !== false) {
                                 if (is_file($dir . $file)) {
-                                    ?>
+                    ?>
                                     <div class="col-4 col-sm-6 col-md-4 text-center">
                                         <img src="<?= base_url($dir . $file) ?>" data-num="<?= $i ?>" class="other-img-preview img-sl img-thumbnail the-image" alt="<?= str_replace('"', "'", $product['title']) ?>">
                                     </div>
-                                    <?php
+                    <?php
                                     $i++;
                                 }
                             }
@@ -30,10 +30,10 @@
                     }
                     ?>
                 </div>
-                <?php
+            <?php
             }
             ?>
-            <?php include rtrim(APPPATH, '/') . '/views/main/social_share.php'; ?>
+            <?php include rtrim(APPPATH, '/') . '/Views/main/social_share.php'; ?>
         </div>
 
         <div class="col-sm-8">
@@ -54,7 +54,8 @@
                     <div class="col-sm-6"><?= format_currency($product['old_price']) ?></div>
                     <div class="col-sm-12 border-bottom"></div>
                 </div>
-            <?php } if ($publicQuantity == 1) { ?>
+            <?php }
+            if ($publicQuantity == 1) { ?>
                 <div class="row row-info">
                     <div class="col-sm-6">
                         <b><?= lang('in_stock') ?>:</b>
@@ -66,12 +67,12 @@
             <div class="row row-info">
                 <div class="col-sm-6"><b><?= lang('num_added_to_cart') ?>:</b></div>
                 <div class="col-sm-6"><?php
-                    @$result = array_count_values($_SESSION['shopping_cart']);
-                    if (isset($result[$product['id']]))
-                        echo $result[$product['id']];
-                    else
-                        echo 0;
-                    ?></div>
+                                        @$result = array_count_values($_SESSION['shopping_cart']);
+                                        if (isset($result[$product['id']]))
+                                            echo $result[$product['id']];
+                                        else
+                                            echo 0;
+                                        ?></div>
                 <div class="col-sm-12 border-bottom"></div>
             </div>
             <?php if ($publicDateAdded == 1) { ?>
@@ -126,9 +127,9 @@
         if (!empty($sameCagegoryProducts)) {
             $load::getProducts($sameCagegoryProducts, 'col-sm-4 col-md-3', false);
         } else {
-            ?>
+        ?>
             <div class="alert alert-info"><?= lang('no_same_category_products') ?></div>
-            <?php
+        <?php
         }
         ?>
     </div>

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Admin\Controllers\TextualPages;
 
 use App\Core\AdminController;
@@ -40,7 +41,7 @@ class TextualPages extends AdminController
         }
 
         echo view('_parts/header', $head);
-        echo view('textual_pages/pageEdit', $data);
+        echo view('App\Modules\Admin\Views\textualpages\pageedit', $data);
         echo view('_parts/footer');
 
         $this->saveHistory('Edit page - ' . $page);

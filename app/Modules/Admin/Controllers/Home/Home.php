@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Admin\Controllers\Home;
 
 use App\Core\AdminController;
@@ -11,7 +12,7 @@ class Home extends AdminController
     protected $session;
 
     public function __construct()
-    {       
+    {
         parent::__construct();
         $this->Orders_model      = model(\App\Modules\Admin\Models\OrdersModel::class);
         $this->History_model     = model(\App\Modules\Admin\Models\HistoryModel::class);
@@ -22,7 +23,7 @@ class Home extends AdminController
     public function index()
     {
         $this->login_check();
-        
+
         $head = [
             'title'       => 'Administration - Home',
             'description' => '',
@@ -40,7 +41,7 @@ class Home extends AdminController
             'ordersByMonth'        => $this->Home_admin_model->getOrdersByMonth()
         ];
 
-        echo view('\App\Modules\Admin\Views\Home\home', array_merge($head, $data));
+        echo view('App\Modules\Admin\Views\home\home', array_merge($head, $data));
         $this->saveHistory('Go to home page');
     }
 

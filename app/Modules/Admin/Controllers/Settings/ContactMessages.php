@@ -42,7 +42,7 @@ class ContactMessages extends AdminController
             'messages'         => $this->contactMessagesModel->getMessages($this->numRows, (int) $page),
         ];
 
-        echo view('\App\Modules\Admin\Views\Settings\contact_messages', array_merge($data, $head));
+        echo view('App\Modules\Admin\Views\settings\contact_messages', array_merge($data, $head));
 
         if ((int) $page === 0) {
             $this->saveHistory('Go to Contact Messages');

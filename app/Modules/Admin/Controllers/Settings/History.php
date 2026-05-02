@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Admin\Controllers\Settings;
 
 use App\Core\AdminController;
@@ -32,8 +33,8 @@ class History extends AdminController
             'history'           => $this->history // inherited from AdminController
         ];
 
-        echo view('\App\Modules\Admin\Views\settings\history', array_merge($data, $head));
-        
+        echo view('App\Modules\Admin\Views\settings\history', array_merge($data, $head));
+
 
         if ($page == 0) {
             $this->saveHistory('Go to History');

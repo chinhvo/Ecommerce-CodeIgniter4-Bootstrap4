@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Admin\Controllers\Settings;
 
 use App\Core\AdminController;
@@ -40,8 +41,8 @@ class Pages extends AdminController
             return redirect()->to('admin/pages');
         }
 
-        echo view('\App\Modules\Admin\Views\settings\pages', array_merge($data, $head));
-        
+        echo view('App\Modules\Admin\Views\settings\pages', array_merge($data, $head));
+
 
         $this->saveHistory('Go to Pages manage');
     }

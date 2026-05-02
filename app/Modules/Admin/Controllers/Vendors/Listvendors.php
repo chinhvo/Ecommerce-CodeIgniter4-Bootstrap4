@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Admin\Controllers\Vendors;
 
 use App\Core\AdminController;
@@ -52,9 +53,8 @@ class Listvendors extends AdminController
         ];
 
 
-        echo view('\App\Modules\Admin\Views\Vendors\listVendors', array_merge($data, $head));
-        
+        echo view('App\Modules\Admin\Views\vendors\listvendors', array_merge($data, $head));
+
         $this->saveHistory('Go to Admin Vendors List');
     }
-
 }

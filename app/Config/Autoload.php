@@ -96,7 +96,7 @@ class Autoload extends AutoloadConfig
         'language',
         'text',
         'cookie',
-        'getTextualPages',
+        'common',
         'mb_ucfirst',
         'purchase_steps',
         'cleanreferral',

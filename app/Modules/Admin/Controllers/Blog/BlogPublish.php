@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Admin\Controllers\Blog;
 
 use App\Core\AdminController;
@@ -55,7 +56,7 @@ class BlogPublish extends AdminController
         ];
 
 
-        echo view('\App\Modules\Admin\Views\Blog\blogpublish', array_merge($data, $head));        
+        echo view('App\Modules\Admin\Views\blog\blogpublish', array_merge($data, $head));
 
         $this->saveHistory('Go to Blog Publish');
     }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Admin\Controllers\Settings;
 
 use App\Core\AdminController;
@@ -36,7 +37,7 @@ class Titles extends AdminController
         $data['languages'] = $this->languagesModel->getLanguages();
         $data['seo_pages'] = $this->titlesModel->getSeoPages();
 
-        echo view('\App\Modules\Admin\Views\settings\titles', array_merge($data, $head));
+        echo view('App\Modules\Admin\Views\settings\titles', array_merge($data, $head));
 
         $this->saveHistory('Go to Titles / Descriptions page');
     }

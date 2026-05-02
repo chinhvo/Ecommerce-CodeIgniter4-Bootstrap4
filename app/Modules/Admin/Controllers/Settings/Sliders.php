@@ -41,7 +41,7 @@ class Sliders extends AdminController
             'validation' => session('validation'),
         ];
 
-        echo view('\App\Modules\Admin\Views\Settings\sliders', array_merge($data, $head));
+        echo view('App\Modules\Admin\Views\settings\sliders', array_merge($data, $head));
         $this->saveHistory('View Sliders list');
     }
 

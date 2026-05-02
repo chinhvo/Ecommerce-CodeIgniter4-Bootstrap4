@@ -62,7 +62,7 @@ class ShopCategories extends AdminController
             return redirect()->to('admin/shopcategories');
         }
 
-        echo view('\App\Modules\Admin\Views\Ecommerce\shopcategories', array_merge($data, $head));
+        echo view('App\Modules\Admin\Views\ecommerce\shopcategories', array_merge($data, $head));
 
         $this->saveHistory(lang('admin_history_go_to_shop_categories'));
     }

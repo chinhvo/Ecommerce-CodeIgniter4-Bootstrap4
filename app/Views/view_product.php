@@ -41,7 +41,7 @@
                     <?php
                     }
                     ?>
-                    <?php include rtrim(APPPATH, '/') . '/views/main/social_share.php'; ?>
+                    <?php include rtrim(APPPATH, '/') . '/Views/main/social_share.php'; ?>
                 </div>
 
                 <div class="col-12 col-md-8">

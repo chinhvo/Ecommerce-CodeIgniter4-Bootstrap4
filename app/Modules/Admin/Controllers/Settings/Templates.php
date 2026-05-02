@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Admin\Controllers\Settings;
 
 use App\Core\AdminController;
@@ -29,7 +30,7 @@ class Templates extends AdminController
         $data['seleced_template'] = null;
 
         // Render views
-        echo view('\App\Modules\Admin\Views\settings\templates', array_merge($data, $head));
+        echo view('App\Modules\Admin\Views\settings\templates', array_merge($data, $head));
 
         $this->saveHistory('Go to Templates Page');
     }

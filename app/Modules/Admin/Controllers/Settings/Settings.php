@@ -52,7 +52,7 @@ class Settings extends AdminController
         );
 
         // Merge $head and $data if you need them in one array for views
-        echo view('\App\Modules\Admin\Views\settings\settings', array_merge($data, $head));
+        echo view('App\Modules\Admin\Views\settings\settings', array_merge($data, $head));
 
         $this->saveHistory('Go to Settings Page');
     }

@@ -3,6 +3,7 @@
 
 
 namespace App\Controllers;
+
 use App\Core\MyController;
 
 class Page extends MyController
@@ -26,7 +27,7 @@ class Page extends MyController
         $head['description'] = character_limiter(strip_tags(trim($page['content'])), 120);
         $head['keywords'] = str_replace(" ", ",", $page['name']);
         $data['content'] = $page['content'];
-        $this->render('dynPage', $head, $data);
+        $this->render('dynpage', $head, $data);
     }
 
     private function goOut($page)
@@ -35,5 +36,4 @@ class Page extends MyController
             redirect();
         }
     }
-
 }

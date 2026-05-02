@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Admin\Controllers\Settings;
 
 use App\Core\AdminController;
@@ -56,8 +57,8 @@ class Emails extends AdminController
             'emails'           => $this->Emails_model->getSubscribedEmails($this->num_rows, $page)
         ];
 
-        echo view('\App\Modules\Admin\Views\settings\emails', array_merge($data, $head));
-        
+        echo view('App\Modules\Admin\Views\settings\emails', array_merge($data, $head));
+
 
         if ($page == 0) {
             $this->saveHistory('Go to Subscribed Emails');

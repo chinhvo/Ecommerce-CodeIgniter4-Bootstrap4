@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Admin\Controllers\Settings;
 
 use App\Core\AdminController;
@@ -35,8 +36,8 @@ class Styling extends AdminController
             'newStyle' => $this->homeAdminModel->getValueStore('newStyle'),
         ];
 
-        echo view('\App\Modules\Admin\Views\settings\styling', array_merge($data, $head));
-        
+        echo view('App\Modules\Admin\Views\settings\styling', array_merge($data, $head));
+
         $this->saveHistory('Go to Styling page');
     }
 }
