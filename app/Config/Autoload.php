@@ -1,6 +1,7 @@
 <?php
 
 namespace Config;
+
 use CodeIgniter\Config\AutoloadConfig;
 
 /**
@@ -99,6 +100,7 @@ class Autoload extends AutoloadConfig
         'mb_ucfirst',
         'purchase_steps',
         'cleanreferral',
+        'request_method',
         'except_letters',
         'file',
         'pagination',
@@ -109,7 +111,7 @@ class Autoload extends AutoloadConfig
         'savefile',
         'vnToStr',
     ];
-    
+
     /*
      | -------------------------------------------------------------------
      | AUTO-LOADER
@@ -138,7 +140,7 @@ class Autoload extends AutoloadConfig
      | 7. Models
      |
      */
-    
+
     /*
      | -------------------------------------------------------------------
      |  Auto-load Packages
@@ -149,7 +151,7 @@ class Autoload extends AutoloadConfig
      |
      */
     public $packages = array();
-    
+
     /*
      | -------------------------------------------------------------------
      |  Auto-load Libraries
@@ -175,7 +177,7 @@ class Autoload extends AutoloadConfig
         'Language',
         'SendMail'
     );
-    
+
     /*
      | -------------------------------------------------------------------
      |  Auto-load Drivers
@@ -190,7 +192,7 @@ class Autoload extends AutoloadConfig
      |	$autoload['drivers'] = array('cache');
      */
     public $drivers = array();
-    
+
     /*
      | -------------------------------------------------------------------
      |  Auto-load Config files
@@ -204,7 +206,7 @@ class Autoload extends AutoloadConfig
      |
      */
     public $config = array();
-    
+
     /*
      | -------------------------------------------------------------------
      |  Auto-load Language files
@@ -218,7 +220,7 @@ class Autoload extends AutoloadConfig
      |
      */
     public $language = array();
-    
+
     /*
      | -------------------------------------------------------------------
      |  Auto-load Models

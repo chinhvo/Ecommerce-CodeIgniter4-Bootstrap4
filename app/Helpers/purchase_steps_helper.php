@@ -29,17 +29,17 @@ function purchase_steps($step1 = null, $step2 = null, $step3 = null)
         $icon3 = 'no.png';
         $class3 = 'step-bg-not-ok';
     }
-    ?>
-    <div class="row steps">
-        <div class="col-sm-4 step <?= $class1 ?>">
-            <img src="<?= base_url('assets/imgs/' . $icon1) ?>" alt="Ok"> <?= lang('step_your_order') ?>
+?>
+    <div class="row steps mb-3">
+        <div class="col-4 step text-center <?= $class1 ?>">
+            <img src="<?= base_url('assets/imgs/' . $icon1) ?>" alt="Ok" class="mb-1"> <span class="d-block d-sm-inline"><?= lang('step_your_order') ?></span>
         </div>
-        <div class="col-sm-4 step <?= $class2 ?>">
-            <img src="<?= base_url('assets/imgs/' . $icon2) ?>" alt="Ok"> <?= lang('step_payment_method') ?>
+        <div class="col-4 step text-center <?= $class2 ?>">
+            <img src="<?= base_url('assets/imgs/' . $icon2) ?>" alt="Ok" class="mb-1"> <span class="d-block d-sm-inline"><?= lang('step_payment_method') ?></span>
         </div>
-        <div class="col-sm-4 step <?= $class3 ?>">
-            <img src="<?= base_url('assets/imgs/' . $icon3) ?>" alt="Ok"> <?= lang('step_success_prod') ?>
+        <div class="col-4 step text-center <?= $class3 ?>">
+            <img src="<?= base_url('assets/imgs/' . $icon3) ?>" alt="Ok" class="mb-1"> <span class="d-block d-sm-inline"><?= lang('step_success_prod') ?></span>
         </div>
     </div>
-    <?php
+<?php
 }

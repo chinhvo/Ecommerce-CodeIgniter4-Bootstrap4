@@ -274,7 +274,6 @@ textarea.form-control {
   float: left;
   height: 40px;
   margin-right: 10px;
-  margin-top: -10px;
 }
 .divLangs {
   padding: 10px;
@@ -615,4 +614,63 @@ a.orders-referral {
 /* Settings cards */
 .col-h {
   margin-top: 2px;
+}
+
+/* Orders page */
+.orders-header-img {
+  margin-top: -2px;
+}
+
+.orders-new-badge {
+  width: 100px;
+}
+
+.orders-status-label {
+  font-size: 16px;
+}
+
+.orders-product-entry {
+  word-break: break-all;
+}
+
+.orders-product-thumb {
+  width: 100px;
+  margin-right: 10px;
+}
+
+.orders-total-label {
+  font-size: 16px;
+}
+
+/* Admin action icon links (orders, products, blogs) */
+.admin-action-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 8px;
+  color: #6c757d;
+  line-height: 1;
+  border-radius: 4px;
+  transition: color 0.15s ease, background-color 0.15s ease;
+  text-decoration: none;
+}
+
+.admin-action-link:hover {
+  color: #343a40;
+  background-color: #e9ecef;
+  text-decoration: none;
+}
+
+.admin-action-link--danger {
+  color: #dc3545;
+}
+
+.admin-action-link--danger:hover {
+  color: #fff;
+  background-color: #dc3545;
+}
+
+/* Products list */
+.products-qty-badge {
+  font-size: 12px;
 }

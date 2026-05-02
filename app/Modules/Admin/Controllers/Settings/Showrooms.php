@@ -67,11 +67,7 @@ class Showrooms extends AdminController
             'position'               => 'permit_empty|integer',
         ];
 
-        if ($editId === 0) {
-            $rules['main_image'] = 'uploaded[main_image]|max_size[main_image,4096]|is_image[main_image]|mime_in[main_image,image/jpg,image/jpeg,image/png,image/gif,image/webp]';
-        } else {
-            $rules['main_image'] = 'if_exist|max_size[main_image,4096]|is_image[main_image]|mime_in[main_image,image/jpg,image/jpeg,image/png,image/gif,image/webp]';
-        }
+        $rules['main_image'] = 'if_exist|max_size[main_image,4096]|is_image[main_image]|mime_in[main_image,image/jpg,image/jpeg,image/png,image/gif,image/webp]';
 
         if (! $this->validate($rules)) {
             return redirect()->back()->withInput()->with('validation', $this->validator);

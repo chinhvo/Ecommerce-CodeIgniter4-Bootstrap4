@@ -2,7 +2,7 @@
 <?= $this->section('shopping_cart') ?>
 <div class="container" id="shopping-cart">
     <div class="body">
-        <h1><?= lang('shopping_cart') ?></h1>
+        <h5><?= lang('shopping_cart') ?></h5>
         <hr>
         <?php
         if (!isset($cartItems['array']) || $cartItems['array'] == null) {

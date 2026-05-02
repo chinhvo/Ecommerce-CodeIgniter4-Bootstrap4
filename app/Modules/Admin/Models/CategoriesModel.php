@@ -156,7 +156,7 @@ class CategoriesModel extends Model
     {
         helper(['text', 'vntostr', 'except_letters']);
 
-        return vnToStr(except_letters(url_title($name, '-', true))) . '-' . $id;
+        return url_title(str_replace('_', ' ', vnToStr($name)) . ' ' . $id, '-', true);
     }
 
     public function editShopCategoriePosition(array $post): void

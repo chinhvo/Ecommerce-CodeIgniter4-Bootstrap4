@@ -231,6 +231,7 @@ return [
     'wrong_user' => 'Wrong username or password!',
     'user_register' => 'User registration',
     'please_enter_name' => 'Please enter name',
+    'please_enter_subject' => 'Please enter subject',
     'please_enter_phone' => 'Please enter phone',
     'enter_password' => 'Please enter password',
     'pass_repeat' => 'Please repeat password',

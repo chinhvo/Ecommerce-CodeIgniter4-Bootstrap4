@@ -65,7 +65,13 @@ $routes->get('shop-product_(:num)', 'Product::viewProduct/$3');
 
 // Blog URL style and pagination
 $routes->get('blog', 'Blog::index');
+$routes->post('blog', 'Blog::index');
 $routes->get('^(\w{2})$/blog', 'Blog::index');
+$routes->post('^(\w{2})$/blog', 'Blog::index');
+$routes->get('blog/khuyen-mai', 'Blog::promotions');
+$routes->get('blog/khuyen-mai/(:num)', 'Blog::promotions/$1');
+$routes->get('^(\w{2})$/blog/khuyen-mai', 'Blog::promotions');
+$routes->get('^(\w{2})$/blog/khuyen-mai/(:num)', 'Blog::promotions/$2');
 $routes->get('blog/(:num)', 'Blog::index/$1');
 $routes->get('blog/(:any)_(:num)', 'Blog::viewPost/$2');
 $routes->get('^(\w{2})$/blog/(:any)_(:num)', 'Blog::viewPost/$3');
@@ -85,6 +91,9 @@ $routes->get('contacts', 'Contacts::index');
 $routes->post('contacts', 'Contacts::index');
 $routes->get('^(\w{2})$/contacts', 'Contacts::index');
 $routes->post('^(\w{2})$/contacts', 'Contacts::index');
+
+// Newsletter subscribe action
+$routes->post('subscribe', 'Home::subscribe');
 
 // Textual Pages links
 $routes->get('page/(:any)', 'Page::index/$1');

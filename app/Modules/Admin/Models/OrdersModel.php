@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Admin\Models;
 
 use CodeIgniter\Model;
@@ -45,19 +46,57 @@ class OrdersModel extends Model
             return $result;
         }
 
-        // Decrypt fields
-        foreach ($result as $k => $v) {
-            $result[$k] = array_map(function ($val) {
-                try {
-                    $decrypted = $this->encryption->decrypt($val);
-                    return $decrypted !== false ? $decrypted : $val;
-                } catch (\Exception $e) {
-                    return $val; // if it's not encrypted
+        // Decrypt only customer fields that are stored encrypted.
+        $encryptedFields = [
+            'first_name',
+            'last_name',
+            'email',
+            'phone',
+            'address',
+            'city',
+            'post_code',
+            'notes',
+        ];
+
+        foreach ($result as $k => $row) {
+            foreach ($encryptedFields as $field) {
+                if (!array_key_exists($field, $row) || !is_string($row[$field]) || $row[$field] === '') {
+                    continue;
                 }
-            }, $v);
+
+                $row[$field] = $this->decryptClientValue($row[$field]);
+            }
+
+            $result[$k] = $row;
         }
 
         return $result;
+    }
+
+    private function decryptClientValue(string $value): string
+    {
+        try {
+            $decrypted = $this->encryption->decrypt($value);
+            if (is_string($decrypted) && $decrypted !== '') {
+                return $decrypted;
+            }
+        } catch (\Throwable $e) {
+            // Try base64-wrapped ciphertext next.
+        }
+
+        $decoded = base64_decode($value, true);
+        if ($decoded !== false && $decoded !== '') {
+            try {
+                $decrypted = $this->encryption->decrypt($decoded);
+                if (is_string($decrypted) && $decrypted !== '') {
+                    return $decrypted;
+                }
+            } catch (\Throwable $e) {
+                // Keep original value below.
+            }
+        }
+
+        return $value;
     }
 
     public function changeOrderStatus(int $id, int $to_status): bool
@@ -111,13 +150,15 @@ class OrdersModel extends Model
 
             if ($operator) {
                 $this->db->query("UPDATE products SET quantity = quantity {$operator} ? WHERE id = ?", [
-                    $product['product_quantity'], (int)$product['product_info']['id']
+                    $product['product_quantity'],
+                    (int)$product['product_info']['id']
                 ]);
             }
 
             if ($operator_pro) {
                 $this->db->query("UPDATE products SET procurement = procurement {$operator_pro} ? WHERE id = ?", [
-                    $product['product_quantity'], (int)$product['product_info']['id']
+                    $product['product_quantity'],
+                    (int)$product['product_info']['id']
                 ]);
             }
         }

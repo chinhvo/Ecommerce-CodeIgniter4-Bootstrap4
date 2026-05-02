@@ -36,7 +36,7 @@
             <h3><?= lang('newsletter') ?></h3>
             <hr>
             <div class="newsletter-box">
-                <form method="POST" id="subscribeForm">
+                <form method="POST" id="subscribeForm" action="/subscribe">
                     <?= csrf_field() ?>
                     <div class="input-group">
                         <input type="email" class="form-control" name="subscribeEmail" placeholder="<?= lang('email_address') ?>">

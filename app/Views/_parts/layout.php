@@ -28,17 +28,6 @@
     <link href="<?= base_url('assets/css/main.css') ?>" rel="stylesheet" />
     <link href="<?= base_url('assets/css/back-to-top.css') ?>" rel="stylesheet" />
 
-    <style>
-        @media (min-width: 992px) {
-            .layout-main-width {
-                width: 99%;
-                margin-left: auto;
-                margin-right: auto;
-                margin-top: 2px;
-            }
-        }
-    </style>
-
     <script src="<?= base_url('assets/js/jquery.min.js') ?>"></script>
     <script src="<?= base_url('loadlanguage/all.js') ?>"></script>
 
@@ -78,50 +67,44 @@
         </ul>
     </nav>
 
-    <div id="wrapper">
-        <div id="content">
-            <?= $this->include('_parts/header') ?>
-            <div class="container-fluid">
-                <div class="row">
-                    <?= $this->include('_parts/topMenu') ?>
-                </div>
-                <div class="layout-main-width">
-                    <div class="row">
-                        <?php $currentUri = trim(uri_string(), '/'); ?>
-                        <?php if (strpos($currentUri, 'home') !== false || $currentUri === '') { ?>
-                            <?= $this->renderSection('home') ?>
-                        <?php } ?>
-                        <?php if (strpos($currentUri, 'shopping-cart') !== false) { ?>
-                            <?= $this->renderSection('shopping-cart') ?>
-                        <?php } ?>
-                        <?php if (strpos($currentUri, 'product') !== false) { ?>
-                            <?= $this->renderSection('product-detail') ?>
-                        <?php } ?>
-                        <?php if (strpos($currentUri, 'checkout') !== false) { ?>
-                            <?= $this->renderSection('checkout') ?>
-                        <?php } ?>
-                        <?php if (strpos($currentUri, 'blog') !== false) { ?>
-                            <?= $this->renderSection('blog') ?>
-                        <?php } ?>
-                        <?php if (strpos($currentUri, 'contacts') !== false) { ?>
-                            <?= $this->renderSection('contacts') ?>
-                        <?php } ?>
-                        <?= $this->include('_parts/brands') ?>
-                    </div>
-                    <div class="row">
-                        <?= $this->include('_parts/showrooms') ?>
-                    </div>
-                    <div class="row">
-                        <?= $this->include('_parts/categories') ?>
-                    </div>
-                    <div class="row">
-                        <?= $this->include('_parts/bodyFooter') ?>
-                    </div>
-                </div>
-            </div>
+    <div id="wrapper" class="layout-main-width container-fluid">
+        <?= $this->include('_parts/header') ?>
+        <div class="row">
+            <?= $this->include('_parts/topMenu') ?>
         </div>
-        <?= $this->include('_parts/footer') ?>
+        <div class="row">
+            <?php $currentUri = trim(uri_string(), '/'); ?>
+            <?php if (strpos($currentUri, 'home') !== false || $currentUri === '') { ?>
+                <?= $this->renderSection('home') ?>
+            <?php } ?>
+            <?php if (strpos($currentUri, 'shopping-cart') !== false) { ?>
+                <?= $this->renderSection('shopping_cart') ?>
+            <?php } ?>
+            <?php if (strpos($currentUri, 'product') !== false) { ?>
+                <?= $this->renderSection('product-detail') ?>
+            <?php } ?>
+            <?php if (strpos($currentUri, 'checkout') !== false) { ?>
+                <?= $this->renderSection('checkout') ?>
+            <?php } ?>
+            <?php if (strpos($currentUri, 'blog') !== false) { ?>
+                <?= $this->renderSection('blog') ?>
+            <?php } ?>
+            <?php if (strpos($currentUri, 'contacts') !== false) { ?>
+                <?= $this->renderSection('contacts') ?>
+            <?php } ?>
+            <?= $this->include('_parts/brands') ?>
+        </div>
+        <div class="row">
+            <?= $this->include('_parts/showrooms') ?>
+        </div>
+        <div class="row">
+            <?= $this->include('_parts/categories') ?>
+        </div>
+        <div class="row">
+            <?= $this->include('_parts/bodyFooter') ?>
+        </div>
     </div>
+    <?= $this->include('_parts/footer') ?>
 
     <?php if (session()->getFlashdata('emailAdded')) { ?>
         <script>

@@ -1,5 +1,5 @@
 <?= $this->extend('_parts/layout') ?>
-<?= $this->section('content') ?>
+<?= $this->section('checkout') ?>
 <div class="container">
     <div class="body">
         <?php
@@ -8,10 +8,10 @@
             $sandbox = '.sandbox.';
         }
         if (!empty($cartItems['array'])) {
-            ?>
-            <div class="row">
-                <div class="col-sm-6 col-sm-offset-3">
-                    <img src="<?= base_url('template/imgs/paypal.png') ?>" class="img-responsive paypal-image">
+        ?>
+            <div class="row justify-content-center">
+                <div class="col-sm-6">
+                    <img src="<?= base_url('template/imgs/paypal.png') ?>" class="img-fluid paypal-image">
                 </div>
             </div>
             <div class="alert alert-info text-center"><?= lang('you_choose_paypal') ?></div>
@@ -28,12 +28,12 @@
                 }
                 $i = 1;
                 foreach ($cartItems['array'] as $item) {
-                    ?>
+                ?>
                     <input type="hidden" name="item_name_<?= $i ?>" value="<?= $item['title'] ?>">
                     <input type="hidden" name="amount_<?= $i ?>" value="<?= CURRENCY_KEY ?>">
                     <input type="hidden" name="discount_amount_<?= $i ?>" value="<?= $discount !== false ? $discount : 0 ?>">
                     <input type="hidden" name="quantity_<?= $i ?>" value="<?= $item['num_added'] ?>">
-                    <?php
+                <?php
                     $i++;
                 }
                 ?>
@@ -45,7 +45,7 @@
                 <a href="<?= base_url('checkout/paypal_cancel') ?>" class="btn btn-lg btn-danger btm-10"><?= lang('cancel_payment') ?></a>
                 <button type="submit" class="btn btn-lg btn-success btm-10"><?= lang('go_to_paypal') ?> <i class="fa fa-cc-paypal" aria-hidden="true"></i></button>
             </form>
-            <?php
+        <?php
         } else {
             redirect(base_url());
         }

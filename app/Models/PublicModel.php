@@ -312,7 +312,7 @@ class PublicModel extends Model
 
     private function buildCategorySlug(string $name, int $id): string
     {
-        return vnToStr(except_letters(url_title($name, '-', true))) . '-' . $id;
+        return url_title(str_replace('_', ' ', vnToStr($name)) . ' ' . $id, '-', true);
     }
 
     public function getSeo($page)
@@ -468,14 +468,14 @@ class PublicModel extends Model
         // Insert into orders_clients table
         $clientData = [
             'for_id'     => $lastId,
-            'first_name' => $this->encryption->encrypt($post['first_name']),
-            'last_name'  => $this->encryption->encrypt($post['last_name']),
-            'email'      => $this->encryption->encrypt($post['email']),
-            'phone'      => $this->encryption->encrypt($post['phone']),
-            'address'    => $this->encryption->encrypt($post['address']),
-            'city'       => $this->encryption->encrypt($post['city']),
-            'post_code'  => $this->encryption->encrypt($post['post_code']),
-            'notes'      => $this->encryption->encrypt($post['notes'])
+            'first_name' => $this->encryptForStorage($post['first_name']),
+            'last_name'  => $this->encryptForStorage($post['last_name']),
+            'email'      => $this->encryptForStorage($post['email']),
+            'phone'      => $this->encryptForStorage($post['phone']),
+            'address'    => $this->encryptForStorage($post['address']),
+            'city'       => $this->encryptForStorage($post['city']),
+            'post_code'  => $this->encryptForStorage($post['post_code']),
+            'notes'      => $this->encryptForStorage($post['notes'])
         ];
         $this->db->table('orders_clients')->insert($clientData);
 
@@ -562,14 +562,14 @@ class PublicModel extends Model
                 // Insert into vendors_orders_clients
                 $insertClient = [
                     'for_id'     => $lastId,
-                    'first_name' => $this->encryption->encrypt($post['first_name']),
-                    'last_name'  => $this->encryption->encrypt($post['last_name']),
-                    'email'      => $this->encryption->encrypt($post['email']),
-                    'phone'      => $this->encryption->encrypt($post['phone']),
-                    'address'    => $this->encryption->encrypt($post['address']),
-                    'city'       => $this->encryption->encrypt($post['city']),
-                    'post_code'  => $this->encryption->encrypt($post['post_code']),
-                    'notes'      => $this->encryption->encrypt($post['notes'])
+                    'first_name' => $this->encryptForStorage($post['first_name']),
+                    'last_name'  => $this->encryptForStorage($post['last_name']),
+                    'email'      => $this->encryptForStorage($post['email']),
+                    'phone'      => $this->encryptForStorage($post['phone']),
+                    'address'    => $this->encryptForStorage($post['address']),
+                    'city'       => $this->encryptForStorage($post['city']),
+                    'post_code'  => $this->encryptForStorage($post['post_code']),
+                    'notes'      => $this->encryptForStorage($post['notes'])
                 ];
 
                 if (! $this->db->table('vendors_orders_clients')->insert($insertClient)) {
@@ -593,6 +593,11 @@ class PublicModel extends Model
             'link'      => $link,
             'for_order' => $orderId
         ]);
+    }
+
+    private function encryptForStorage($value)
+    {
+        return base64_encode($this->encrypter->encrypt((string) $value));
     }
 
     public function getSliderProducts()

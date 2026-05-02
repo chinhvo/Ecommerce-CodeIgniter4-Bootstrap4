@@ -1,7 +1,7 @@
 ﻿<div class="col-12 mb-3 store-pico-section" id="store-pico">
     <h5 class="text-center showroom-section-title"><?= lang('showroom_section_title') ?></h5>
     <?php if (!empty($showrooms)) : ?>
-        <div class="row">
+        <div class="row justify-content-center">
             <?php foreach ($showrooms as $showroom) : ?>
                 <?php
                 $mapLocation = trim((string) ($showroom['google_map_location'] ?? ''));
@@ -23,49 +23,51 @@
 
                 $fallbackImage = !empty($showroom['main_image']) ? base_url(esc($showroom['main_image'])) : '';
                 ?>
-                <div class="col-12 col-md-6 col-lg-4 mb-3">
-                    <div class="card h-100 shadow-sm">
-                        <?php if ($mapImage !== '') : ?>
-                            <img src="<?= esc($mapImage, 'attr') ?>"
-                                class="card-img-top"
-                                alt="<?= esc($showroom['name']) ?>"
-                                onerror="<?= $fallbackImage !== '' ? "this.onerror=null;this.src='" . esc($fallbackImage, 'attr') . "';" : 'this.style.display=\'none\';' ?>"
-                                style="height: 200px; object-fit: cover;">
-                        <?php elseif (!empty($showroom['main_image'])) : ?>
-                            <img src="<?= base_url(esc($showroom['main_image'])) ?>"
-                                class="card-img-top"
-                                alt="<?= esc($showroom['name']) ?>"
-                                style="height: 200px; object-fit: cover;">
-                        <?php endif; ?>
+                <div class="col-12 col-sm-11 col-md-8 col-lg-6 mb-3 d-flex justify-content-center">
+                    <div class="card h-100 shadow-sm w-100" style="max-width: 460px;">
+                        <div class="d-flex align-items-start p-3">
+                            <?php if ($mapImage !== '') : ?>
+                                <img src="<?= esc($mapImage, 'attr') ?>"
+                                    class="d-block"
+                                    alt="<?= esc($showroom['name']) ?>"
+                                    onerror="<?= $fallbackImage !== '' ? "this.onerror=null;this.src='" . esc($fallbackImage, 'attr') . "';" : 'this.style.display=\'none\';' ?>"
+                                    style="width: 120px; height: 90px; object-fit: cover; border-radius: 4px; flex-shrink: 0;">
+                            <?php elseif (!empty($showroom['main_image'])) : ?>
+                                <img src="<?= base_url(esc($showroom['main_image'])) ?>"
+                                    class="d-block"
+                                    alt="<?= esc($showroom['name']) ?>"
+                                    style="width: 120px; height: 90px; object-fit: cover; border-radius: 4px; flex-shrink: 0;">
+                            <?php endif; ?>
 
-                        <div class="card-body">
-                            <h5 class="card-title mb-2"><?= esc($showroom['name']) ?></h5>
-                            <p class="card-text mb-2">
-                                <i class="fa fa-map-marker"></i>
-                                <strong><?= lang('showroom_address_label') ?>:</strong>
-                                <?= esc($showroom['address']) ?>
-                            </p>
-
-                            <?php if (!empty($showroom['contact_phone'])) : ?>
-                                <p class="card-text mb-1">
-                                    <i class="fa fa-phone"></i>
-                                    <strong><?= lang('showroom_contact_label') ?>:</strong>
-                                    <?= esc($showroom['contact_phone']) ?>
+                            <div class="card-body p-0 flex-fill <?= ($mapImage !== '' || !empty($showroom['main_image'])) ? 'ml-3' : '' ?>">
+                                <h5 class="card-title mb-2"><?= esc($showroom['name']) ?></h5>
+                                <p class="card-text mb-2">
+                                    <i class="fa fa-map-marker"></i>
+                                    <strong><?= lang('showroom_address_label') ?>:</strong>
+                                    <?= esc($showroom['address']) ?>
                                 </p>
-                            <?php endif; ?>
 
-                            <?php if (!empty($showroom['email'])) : ?>
-                                <p class="card-text mb-1">
-                                    <i class="fa fa-envelope"></i>
-                                    <?= esc($showroom['email']) ?>
-                                </p>
-                            <?php endif; ?>
+                                <?php if (!empty($showroom['contact_phone'])) : ?>
+                                    <p class="card-text mb-1">
+                                        <i class="fa fa-phone"></i>
+                                        <strong><?= lang('showroom_contact_label') ?>:</strong>
+                                        <?= esc($showroom['contact_phone']) ?>
+                                    </p>
+                                <?php endif; ?>
 
-                            <?php if (!empty($showroom['google_map_location'])) : ?>
-                                <a href="<?= esc($showroom['google_map_location']) ?>" target="_blank" rel="noopener nofollow" class="btn btn-outline-primary btn-sm mt-2">
-                                    <?= lang('showroom_view_google_map') ?>
-                                </a>
-                            <?php endif; ?>
+                                <?php if (!empty($showroom['email'])) : ?>
+                                    <p class="card-text mb-1">
+                                        <i class="fa fa-envelope"></i>
+                                        <?= esc($showroom['email']) ?>
+                                    </p>
+                                <?php endif; ?>
+
+                                <?php if (!empty($showroom['google_map_location'])) : ?>
+                                    <a href="<?= esc($showroom['google_map_location']) ?>" target="_blank" rel="noopener nofollow" class="btn btn-outline-primary btn-sm mt-2">
+                                        <?= lang('showroom_view_google_map') ?>
+                                    </a>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
                 </div>

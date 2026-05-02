@@ -2,6 +2,7 @@
 
 
 namespace App\Controllers;
+
 use App\Core\BlogType;
 use App\Core\MyController;
 
@@ -12,7 +13,7 @@ class Blog extends MyController
     protected $Blog_model;
 
     private $num_rows = 20;
-    
+
     /**
      * Blog archives data
      *
@@ -32,6 +33,22 @@ class Blog extends MyController
         $this->arhives = $this->Public_model->getArchives();
     }
 
+    public function promotions($page = 0)
+    {
+        $this->request->setGlobal('post', array_merge(
+            (array) $this->request->getPost(),
+            ['type' => \App\Core\BlogType::PROMOTION]
+        ));
+        return $this->index($page);
+    }
+
+    private function blogInput(string $key): ?string
+    {
+        // POST takes priority (form submit); fall back to GET (archive links, pagination)
+        $val = $this->request->getPost($key) ?? $this->request->getGet($key);
+        return ($val !== null && $val !== '') ? (string) $val : null;
+    }
+
     public function index($page = 0)
     {
         $data = array();
@@ -40,35 +57,19 @@ class Blog extends MyController
         $head['title'] = @$arrSeo['title'];
         $head['description'] = @$arrSeo['description'];
         $head['keywords'] = $head['title'] !== null ? str_replace(" ", ",", $head['title']) : '';
-        if (isset($_GET['find'])) {
-            $find = $_GET['find'];
-        } else {
-            $find = null;
-        }
-        if (isset($_GET['from']) && isset($_GET['to'])) {
-            $month = $_GET;
-        } else {
-            $month = null;
-        }
-        $blogType = isset($_GET['type']) && is_numeric($_GET['type'])
-            ? BlogType::normalize($_GET['type'])
+
+        $find = $this->blogInput('find');
+
+        $from = $this->blogInput('from');
+        $to   = $this->blogInput('to');
+        $month = ($from !== null && $to !== null) ? ['from' => $from, 'to' => $to] : null;
+
+        $rawType = $this->blogInput('type');
+        $blogType = ($rawType !== null && is_numeric($rawType))
+            ? BlogType::normalize((int) $rawType)
             : null;
 
         $paginationBase = 'blog';
-        $queryArgs = [];
-        if (!empty($find)) {
-            $queryArgs['find'] = $find;
-        }
-        if ($month !== null) {
-            $queryArgs['from'] = (int) $month['from'];
-            $queryArgs['to'] = (int) $month['to'];
-        }
-        if ($blogType !== null) {
-            $queryArgs['type'] = $blogType;
-        }
-        if (!empty($queryArgs)) {
-            $paginationBase .= '?' . http_build_query($queryArgs);
-        }
 
         $data['posts'] = $this->Public_model->getPosts($this->num_rows, $page, $find, $month, $blogType);
         $data['archives'] = $this->getBlogArchiveHtml();
@@ -120,8 +121,9 @@ class Blog extends MyController
 
     private function getBlogArchiveHtml()
     {
-        $selectedType = isset($_GET['type']) && is_numeric($_GET['type'])
-            ? BlogType::normalize($_GET['type'])
+        $rawType = $this->blogInput('type');
+        $selectedType = ($rawType !== null && is_numeric($rawType))
+            ? BlogType::normalize((int) $rawType)
             : null;
         $html = '
 		<div class="alone title cloth-bg-color">
@@ -139,7 +141,7 @@ class Blog extends MyController
                 }
                 $html .= '
 					<li class="item">» <a href="' . $archiveUrl . '">'
-                        . $archive['month'] . '</a></li>
+                    . $archive['month'] . '</a></li>
 				';
             }
             $html .= '</ul>';
@@ -148,5 +150,4 @@ class Blog extends MyController
         }
         return $html;
     }
-
 }

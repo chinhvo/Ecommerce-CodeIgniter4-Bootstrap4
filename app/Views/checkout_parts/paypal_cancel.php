@@ -1,5 +1,5 @@
 <?= $this->extend('_parts/layout') ?>
-<?= $this->section('content') ?>
+<?= $this->section('checkout') ?>
 <div class="container">
     <div class="body">
         <div class="alert alert-success"><?= lang('paypal_cancel_msg') ?></div>

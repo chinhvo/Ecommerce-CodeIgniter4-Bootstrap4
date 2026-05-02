@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use CodeIgniter\Model;
@@ -101,23 +102,23 @@ class ApiModel extends Model
             if (! $this->db->table('products_translations')->insert($arr)) {
                 log_message('error', print_r($this->db->error(), true));
             }
-            $i ++;
+            $i++;
         }
     }
-    
+
     public function setProduct(array $post): bool
     {
         $db = \Config\Database::connect();
-        
+
         if (! isset($post['brand_id'])) {
             $post['brand_id'] = null;
         }
         if (! isset($post['virtual_products'])) {
             $post['virtual_products'] = null;
         }
-        
+
         $db->transBegin();
-        
+
         // Find index for default language
         $i = 0;
         foreach ($post['translations'] as $translation) {
@@ -126,7 +127,7 @@ class ApiModel extends Model
             }
             $i++;
         }
-        
+
         // Insert into products
         $insertData = [
             'image'            => $post['image'],
@@ -139,42 +140,42 @@ class ApiModel extends Model
             'brand_id'         => $post['brand_id'],
             'time'             => time()
         ];
-        
+
         if (! $db->table('products')->insert($insertData)) {
             log_message('error', print_r($db->error(), true));
         }
-        
+
         $id = $db->insertID();
-        
+
         // Update the URL
         $urlData = [
-            'url' => vnToStr(except_letters($post['title'][$myTranslationNum])) . '_' . $id
+            'url' => url_title(str_replace('_', ' ', vnToStr($post['title'][$myTranslationNum])) . ' ' . $id, '-', true)
         ];
-        
+
         if (! $db->table('products')->where('id', $id)->update($urlData)) {
             log_message('error', print_r($db->error(), true));
         }
-        
+
         // Save translations
         $this->setProductTranslation($post, $id);
-        
+
         if ($db->transStatus() === false) {
             $db->transRollback();
             return false;
         }
-        
+
         $db->transCommit();
         return true;
     }
-    
+
     private function getTranslations(int $id): array
     {
         $db = \Config\Database::connect();
-        
+
         $query = $db->table('products_translations')
-        ->where('for_id', $id)
-        ->get();
-        
+            ->where('for_id', $id)
+            ->get();
+
         $arr = [];
         foreach ($query->getResult() as $row) {
             $arr[$row->abbr] = [
@@ -185,26 +186,26 @@ class ApiModel extends Model
                 'old_price'         => $row->old_price
             ];
         }
-        
+
         return $arr;
     }
 
     public function deleteProduct(int $id): void
     {
         $db = \Config\Database::connect();
-        
+
         $db->transBegin();
-        
+
         // Delete translations
         if (! $db->table('products_translations')->where('for_id', $id)->delete()) {
             log_message('error', print_r($db->error(), true));
         }
-        
+
         // Delete main product
         if (! $db->table('products')->where('id', $id)->delete()) {
             log_message('error', print_r($db->error(), true));
         }
-        
+
         if ($db->transStatus() === false) {
             $db->transRollback();
         } else {

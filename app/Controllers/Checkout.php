@@ -4,6 +4,7 @@
 
 
 namespace App\Controllers;
+
 use App\Core\MyController;
 
 class Checkout extends MyController
@@ -24,6 +25,14 @@ class Checkout extends MyController
 
     public function index()
     {
+        if (isRequestMethod($this->request, 'post')) {
+            return $this->submitOrder();
+        }
+        return $this->showCheckoutPage();
+    }
+
+    private function showCheckoutPage()
+    {
         $data = array();
         $head = array();
         $arrSeo = $this->Public_model->getSeo('checkout');
@@ -31,31 +40,6 @@ class Checkout extends MyController
         $head['description'] = @$arrSeo['description'];
         $head['keywords'] = $head['title'] !== null ? str_replace(" ", ",", $head['title']) : '';
 
-        if (isset($_POST['payment_type'])) {
-            $errors = $this->userInfoValidate($_POST);
-            if (!empty($errors)) {
-                $this->session->setFlashdata('submit_error', $errors);
-            } else {
-                $_POST['referrer'] = $this->session->get('referrer');
-                $_POST['clean_referrer'] = cleanReferral($_POST['referrer']);
-                $_POST['user_id'] = isset($_SESSION['logged_user']) ? $_SESSION['logged_user'] : 0;
-                $orderId = $this->Public_model->setOrder($_POST);
-                if ($orderId != false) {
-                    /*
-                     * Save product orders in vendors profiles
-                     */
-                    $this->setVendorOrders();
-                    $this->orderId = $orderId;
-                    $this->setActivationLink();
-                    $this->sendNotifications();
-                    $this->goToDestination();
-                } else {
-                    log_message('error', 'Cant save order!! ' . implode('::', $_POST));
-                    $this->session->setFlashdata('order_error', true);
-                    redirect(LANG_URL . '/checkout/order-error');
-                }
-            }
-        }
         $data['bank_account'] = $this->Orders_model->getBankAccountSettings();
         $data['cashondelivery_visibility'] = $this->Home_admin_model->getValueStore('cashondelivery_visibility');
         $data['paypal_email'] = $this->Home_admin_model->getValueStore('paypal_email');
@@ -64,9 +48,43 @@ class Checkout extends MyController
         $this->render('checkout', $head, $data);
     }
 
-    private function setVendorOrders()
+    private function submitOrder()
     {
-        $this->Public_model->setVendorOrder($_POST);
+        $post = $this->request->getPost();
+        if (empty($post['payment_type'])) {
+            $post['payment_type'] = 'cashOnDelivery';
+        }
+        $errors = $this->userInfoValidate($post);
+
+        if (!empty($errors)) {
+            $this->session->setFlashdata('submit_error', $errors);
+            return $this->showCheckoutPage();
+        }
+
+        $post['referrer'] = (string) ($this->session->get('referrer') ?? '');
+        $post['clean_referrer'] = cleanReferral($post['referrer']);
+        $post['user_id'] = isset($_SESSION['logged_user']) ? $_SESSION['logged_user'] : 0;
+
+        $orderId = $this->Public_model->setOrder($post);
+        if ($orderId != false) {
+            /*
+             * Save product orders in vendors profiles
+             */
+            $this->setVendorOrders($post);
+            $this->orderId = $orderId;
+            $this->setActivationLink($post);
+            $this->sendNotifications();
+            return $this->goToDestination($post);
+        }
+
+        log_message('error', 'Cant save order!! ' . implode('::', $post));
+        $this->session->setFlashdata('order_error', true);
+        return redirect()->to(LANG_URL . '/checkout/order-error');
+    }
+
+    private function setVendorOrders($post)
+    {
+        $this->Public_model->setVendorOrder($post);
     }
 
     /*
@@ -85,7 +103,7 @@ class Checkout extends MyController
         }
     }
 
-    private function setActivationLink()
+    private function setActivationLink($post)
     {
         if (config('App')->send_confirm_link === true) {
             $link = md5($this->orderId . time());
@@ -93,29 +111,29 @@ class Checkout extends MyController
             if ($result == true) {
                 $url = parse_url(base_url());
                 $msg = lang('please_confirm') . base_url('confirm/' . $link);
-                $this->sendmail->sendTo($_POST['email'], $_POST['first_name'] . ' ' . $_POST['last_name'], lang('confirm_order_subj') . $url['host'], $msg);
+                $this->sendmail->sendTo($post['email'], $post['first_name'] . ' ' . $post['last_name'], lang('confirm_order_subj') . $url['host'], $msg);
             }
         }
     }
 
-    private function goToDestination()
+    private function goToDestination($post)
     {
-        if ($_POST['payment_type'] == 'cashOnDelivery' || $_POST['payment_type'] == 'Bank') {
+        if ($post['payment_type'] == 'cashOnDelivery' || $post['payment_type'] == 'Bank') {
             $this->shoppingcart->clearShoppingCart();
             $this->session->setFlashdata('success_order', true);
         }
-        if ($_POST['payment_type'] == 'Bank') {
+        if ($post['payment_type'] == 'Bank') {
             $_SESSION['order_id'] = $this->orderId;
-            $_SESSION['final_amount'] = $_POST['final_amount'] . $_POST['amount_currency'];
-            redirect(LANG_URL . '/checkout/successbank');
+            $_SESSION['final_amount'] = $post['final_amount'] . $post['amount_currency'];
+            return redirect()->to(LANG_URL . '/checkout/successbank');
         }
-        if ($_POST['payment_type'] == 'cashOnDelivery') {
-            redirect(LANG_URL . '/checkout/successcash');
+        if ($post['payment_type'] == 'cashOnDelivery') {
+            return redirect()->to(LANG_URL . '/checkout/successcash');
         }
-        if ($_POST['payment_type'] == 'PayPal') {
+        if ($post['payment_type'] == 'PayPal') {
             @set_cookie('paypal', $this->orderId, 2678400);
-            $_SESSION['discountAmount'] = $_POST['discountAmount'];
-            redirect(LANG_URL . '/checkout/paypalpayment');
+            $_SESSION['discountAmount'] = $post['discountAmount'];
+            return redirect()->to(LANG_URL . '/checkout/paypalpayment');
         }
     }
 
@@ -155,7 +173,7 @@ class Checkout extends MyController
             $head['keywords'] = $head['title'] !== null ? str_replace(" ", ",", $head['title']) : '';
             $this->render('checkout_parts/order_error', $head, $data);
         } else {
-            redirect(LANG_URL . '/checkout');
+            return redirect()->to(LANG_URL . '/checkout');
         }
     }
 
@@ -183,7 +201,7 @@ class Checkout extends MyController
             $head['keywords'] = $head['title'] !== null ? str_replace(" ", ",", $head['title']) : '';
             $this->render('checkout_parts/payment_success_cash', $head, $data);
         } else {
-            redirect(LANG_URL . '/checkout');
+            return redirect()->to(LANG_URL . '/checkout');
         }
     }
 
@@ -199,14 +217,14 @@ class Checkout extends MyController
             $data['bank_account'] = $this->Orders_model->getBankAccountSettings();
             $this->render('checkout_parts/payment_success_bank', $head, $data);
         } else {
-            redirect(LANG_URL . '/checkout');
+            return redirect()->to(LANG_URL . '/checkout');
         }
     }
 
     public function paypal_cancel()
     {
         if (get_cookie('paypal') == null) {
-            redirect(base_url());
+            return redirect()->to(base_url());
         }
         @delete_cookie('paypal');
         $orderId = get_cookie('paypal');
@@ -222,7 +240,7 @@ class Checkout extends MyController
     public function paypal_success()
     {
         if (get_cookie('paypal') == null) {
-            redirect(base_url());
+            return redirect()->to(base_url());
         }
         @delete_cookie('paypal');
         $this->shoppingcart->clearShoppingCart();
@@ -235,5 +253,4 @@ class Checkout extends MyController
         $head['keywords'] = '';
         $this->render('checkout_parts/paypal_success', $head, $data);
     }
-
 }

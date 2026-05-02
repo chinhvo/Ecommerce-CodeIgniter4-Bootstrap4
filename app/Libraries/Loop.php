@@ -68,7 +68,7 @@ class Loop
         }
 
         if (!empty($cartItems['array'])) {
-            ?>
+?>
             <li class="cleaner text-right">
                 <a href="javascript:void(0);" class="btn-blue-round" onclick="clearCart()">
                     <?= lang('clear_all') ?>
@@ -85,7 +85,7 @@ class Loop
                 }
             ?>
                 <li class="shop-item" data-artticle-id="<?= esc($cartItem['id']) ?>">
-                    <span class="num_added hidden"><?= esc($cartItem['num_added']) ?></span>
+                    <!-- <span class="num_added hidden"><?= esc($cartItem['num_added']) ?></span> -->
                     <div class="item">
                         <div class="item-in">
                             <div class="left-side">
@@ -141,12 +141,13 @@ class Loop
 
     public static function getProducts(array $products, string $classes = '', bool $carousel = false)
     {
-        $publicQuantity = Services::renderer()->getData('publicQuantity');
-        $moreInfoBtn = Services::renderer()->getData('moreInfoBtn');
-        $hideBuyButtonsOfOutOfStock = Services::renderer()->getData('hideBuyButtonsOfOutOfStock');
-        $refreshAfterAddToCart = Services::renderer()->getData('refreshAfterAddToCart');
-        $showProductPrice = Services::renderer()->getData('showProductPrice');
-        $footerSocialZalo = Services::renderer()->getData('footerSocialZalo');
+        $viewData = Services::renderer()->getData();
+        $publicQuantity = $viewData['publicQuantity'] ?? null;
+        $moreInfoBtn = $viewData['moreInfoBtn'] ?? null;
+        $hideBuyButtonsOfOutOfStock = $viewData['hideBuyButtonsOfOutOfStock'] ?? null;
+        $refreshAfterAddToCart = $viewData['refreshAfterAddToCart'] ?? null;
+        $showProductPrice = $viewData['showProductPrice'] ?? null;
+        $footerSocialZalo = $viewData['footerSocialZalo'] ?? null;
 
         $showPriceOnCard = ($showProductPrice === null || $showProductPrice === '') ? true : ((int) $showProductPrice === 1);
         $contactUrlRaw = is_scalar($footerSocialZalo) ? (string) $footerSocialZalo : '';
@@ -159,7 +160,7 @@ class Loop
 
         if ($carousel) {
         ?>
-            <div class="carousel slide" id="small_carousel" data-ride="carousel" data-interval="3000">
+            <div class="carousel slide" id="small_carousel" data-ride="carousel" data-interval="3000" data-touch="true">
                 <ol class="carousel-indicators">
                     <?php foreach (array_keys($products) as $i): ?>
                         <li data-target="#small_carousel" data-slide-to="<?= $i ?>" class="<?= $i === 0 ? 'active' : '' ?>"></li>
@@ -185,16 +186,16 @@ class Loop
                     }
                 }
                 ?>
-                    <div class="product-list <?= $carousel ? 'item' : '' ?> <?= esc($classes) ?> <?= $active ?>">
+                    <div class="product-list <?= $carousel ? 'carousel-item' : '' ?> <?= esc($classes) ?> <?= $active ?>">
                         <div class="inner">
                             <div class="img-container">
                                 <a href="<?= esc($detailsUrl) ?>">
                                     <img src="<?= esc($backgroundImageFile) ?>" alt="<?= esc(character_limiter($article['title'], 70)) ?>" onerror="this.onerror=null;this.src='<?= esc(base_url('attachments/no-image-frontend.png')) ?>';">
                                 </a>
                             </div>
-                            <h6 class="product-title">
+                            <h2 class="product-title">
                                 <a href="<?= esc($detailsUrl) ?>"><?= character_limiter($article['title'], 70) ?></a>
-                            </h6>
+                            </h2>
                             <?php if ($showPriceOnCard): ?>
                                 <div class="price">
                                     <span class="underline"><?= lang('new_price') ?>: <span><?= format_currency($article['price']) ?></span></span>
@@ -230,12 +231,12 @@ class Loop
                                             <span class="text-to-bg"><?= lang('add_to_cart') ?></span>
                                         </a>
                                     </div>
-                                    <!-- <div class="add-to-cart">
-                                <a href="javascript:void(0);" class="add-to-cart btn-add more-blue" data-goto="<?= base_url('/checkout') ?>" data-id="<?= esc($article['id']) ?>">
-                                    <img class="loader" src="<?= base_url('assets/imgs/ajax-loader.gif') ?>" alt="Loading">
-                                    <span class="text-to-bg"><?= lang('buy_now') ?></span>
-                                </a>
-                            </div> -->
+                                    <div class="add-to-cart">
+                                        <a href="javascript:void(0);" class="add-to-cart btn-add more-blue" data-goto="<?= base_url('/checkout') ?>" data-id="<?= esc($article['id']) ?>">
+                                            <img class="loader" src="<?= base_url('assets/imgs/ajax-loader.gif') ?>" alt="Loading">
+                                            <span class="text-to-bg"><?= lang('buy_now') ?></span>
+                                        </a>
+                                    </div>
                                 <?php else: ?>
                                     <div>Product is out of stock</div>
                                 <?php endif; ?>
@@ -254,12 +255,6 @@ class Loop
             if ($carousel) {
                 ?>
                 </div>
-                <a class="left carousel-control" href="#small_carousel" role="button" data-slide="prev">
-                    <i class="fa fa-5x fa-angle-left" aria-hidden="true"></i>
-                </a>
-                <a class="right carousel-control" href="#small_carousel" role="button" data-slide="next">
-                    <i class="fa fa-5x fa-angle-right" aria-hidden="true"></i>
-                </a>
             </div>
 <?php
             }

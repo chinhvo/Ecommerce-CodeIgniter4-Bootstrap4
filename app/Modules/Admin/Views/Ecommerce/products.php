@@ -119,18 +119,21 @@
 										style="height: 100px;"></td>
 								<td><?= esc($row->title) ?></td>
 								<td><?= esc($row->price) ?></td>
-								<td><span class="<?= $color ?>" style="font-size: 12px;">
+								<td><span class="<?= $color ?> products-qty-badge">
 										<?= esc($row->quantity) ?>
 									</span></td>
 								<td>
 									<?= ($row->vendor_id > 0) ? '<a href="?show_vendor=' . esc($row->vendor_id) . '">' . esc($row->vendor_name) . '</a>' : lang('products_no_vendor') ?>
 								</td>
 								<td><?= esc($row->position) ?></td>
-								<td class="text-right"><a
-										href="<?= base_url('admin/publish/' . $row->id) ?>"
-										class="btn btn-info btn-sm"> <?= lang('products_edit_button') ?> </a> <a
-										href="<?= base_url('admin/products?delete=' . $row->id) ?>"
-										class="btn btn-danger btn-sm confirm-delete"> <?= lang('products_delete_button') ?> </a></td>
+								<td class="text-center align-middle">
+									<a href="<?= base_url('admin/publish/' . $row->id) ?>" class="admin-action-link" title="<?= lang('products_edit_button') ?>">
+										<i class="fa fa-pencil fa-2x"></i>
+									</a>
+									<a href="<?= base_url('admin/products?delete=' . $row->id) ?>" class="admin-action-link admin-action-link--danger confirm-delete" title="<?= lang('products_delete_button') ?>">
+										<i class="fa fa-trash fa-lg"></i>
+									</a>
+								</td>
 							</tr>
 						<?php endforeach; ?>
 					</tbody>

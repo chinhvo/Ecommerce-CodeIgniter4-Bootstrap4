@@ -124,7 +124,8 @@ class BlogModel extends Model
             ]);
             $id = $this->db->insertID();
 
-            $url = vnToStr(except_letters(url_title($post['title'][$myTranslationNum] . '_' . $id, '-', true)));
+            $ascii = str_replace('_', ' ', vnToStr($post['title'][$myTranslationNum]));
+            $url = url_title($ascii . ' ' . $id, '-', true);
             $this->db->table('blog_posts')->update(['url' => $url], ['id' => $id]);
         }
 

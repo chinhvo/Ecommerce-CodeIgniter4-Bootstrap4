@@ -1,5 +1,5 @@
 <?= $this->extend('_parts/layout') ?>
-<?= $this->section('content') ?>
+<?= $this->section('checkout') ?>
 <div class="container">
     <div class="body">
         <?= purchase_steps(1, 2, 3) ?>

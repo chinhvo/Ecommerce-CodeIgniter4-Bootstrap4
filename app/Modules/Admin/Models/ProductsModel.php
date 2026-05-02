@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Admin\Models;
 
 use CodeIgniter\Model;
@@ -9,8 +10,20 @@ class ProductsModel extends Model
     protected $primaryKey = 'id';
     protected $returnType = 'array';
     protected $allowedFields = [
-        'image', 'shop_categorie', 'quantity', 'in_slider', 'highlighted', 'position', 
-        'virtual_products', 'folder', 'brand_id', 'time', 'time_update', 'url', 'vendor_id', 'visibility'
+        'image',
+        'shop_categorie',
+        'quantity',
+        'in_slider',
+        'highlighted',
+        'position',
+        'virtual_products',
+        'folder',
+        'brand_id',
+        'time',
+        'time_update',
+        'url',
+        'vendor_id',
+        'visibility'
     ];
 
     public function deleteProduct(int $id): void
@@ -146,7 +159,7 @@ class ProductsModel extends Model
             $id = $this->db->insertID();
 
             if (!$this->db->table('products')->where('id', $id)->update([
-                'url' => vnToStr(except_letters($_POST['title'][$myTranslationNum])) . '_' . $id
+                'url' => url_title(str_replace('_', ' ', vnToStr($_POST['title'][$myTranslationNum])) . ' ' . $id, '-', true)
             ])) {
                 log_message('error', print_r($this->db->error(), true));
             }

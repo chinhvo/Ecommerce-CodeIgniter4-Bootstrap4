@@ -4,10 +4,9 @@
 <div class="container" id="checkout-page">
     <div class="body">
         <?php if (isset($cartItems['array']) && $cartItems['array'] != null) { ?>
-
             <?php if ($shippingOrder != 0 && $shippingOrder != null) { ?>
-                <div style="padding: 20px 0;">
-                    <div style="color:red">
+                <div class="shipping-promo-banner">
+                    <div class="shipping-promo-text">
                         <strong><?= lang('promo') ?></strong> - <?= str_replace(array('%price%', '%currency%'), array($shippingOrder, CURRENCY), lang('freeShipping')) ?>!
                     </div>
                 </div>
@@ -15,6 +14,14 @@
 
             <?= purchase_steps(1, 2) ?>
             <div class="row bottom-30">
+                <div class="col-sm-3">
+                    <div class="filter-sidebar">
+                        <div class="title cloth-bg-color">
+                            <span><?= lang('best_sellers') ?></span>
+                        </div>
+                        <?= $load::getProducts($bestSellers, '', true) ?>
+                    </div>
+                </div>
                 <div class="col-sm-9 left-side">
                     <form method="POST" id="goOrder">
                         <div class="title alone cloth-bg-color">
@@ -38,43 +45,44 @@
                         ?>
                         <div class="row payment-type-box">
                             <div class="col-12">
-                                <span class="top-header"><?= lang('choose_payment') ?>:</span>
-                                <select class="payment-type" data-style="btn-blue" name="payment_type">
+                                <label for="paymentTypeSelect" class="top-header d-block"><?= lang('choose_payment') ?>:</label>
+                                <select id="paymentTypeSelect" class="payment-type" data-style="btn-blue" name="payment_type">
+                                    <?php $selectedPaymentType = $_POST['payment_type'] ?? 'cashOnDelivery'; ?>
                                     <?php if ($cashondelivery_visibility == 1) { ?>
-                                        <option value="cashOnDelivery"><?= lang('cash_on_delivery') ?> </option>
+                                        <option value="cashOnDelivery" <?= $selectedPaymentType === 'cashOnDelivery' ? 'selected' : '' ?>><?= lang('cash_on_delivery') ?> </option>
                                     <?php }
                                     if (filter_var($paypal_email, FILTER_VALIDATE_EMAIL)) { ?>
-                                        <option value="PayPal"><?= lang('paypal') ?> </option>
+                                        <option value="PayPal" <?= $selectedPaymentType === 'PayPal' ? 'selected' : '' ?>><?= lang('paypal') ?> </option>
                                     <?php }
                                     if (isset($bank_account['iban']) && $bank_account['iban'] != null) { ?>
-                                        <option value="Bank"><?= lang('bank_payment') ?> </option>
+                                        <option value="Bank" <?= $selectedPaymentType === 'Bank' ? 'selected' : '' ?>><?= lang('bank_payment') ?> </option>
                                     <?php } ?>
                                 </select>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-6">
-                                <label for="firstNameInput"><?= lang('first_name') ?> (<sup><?= lang('requires') ?></sup>)</label>
+                                <label for="firstNameInput"><?= lang('first_name') ?> <span class="text-danger">*</span></label>
                                 <input id="firstNameInput" class="form-control" name="first_name" value="<?= @$_POST['first_name'] ?>" type="text" placeholder="<?= lang('first_name') ?>">
                             </div>
                             <div class="form-group col-sm-6">
-                                <label for="lastNameInput"><?= lang('last_name') ?> (<sup><?= lang('requires') ?></sup>)</label>
+                                <label for="lastNameInput"><?= lang('last_name') ?> <span class="text-danger">*</span></label>
                                 <input id="lastNameInput" class="form-control" name="last_name" value="<?= @$_POST['last_name'] ?>" type="text" placeholder="<?= lang('last_name') ?>">
                             </div>
                             <div class="form-group col-sm-6">
-                                <label for="emailAddressInput"><?= lang('email_address') ?> (<sup><?= lang('requires') ?></sup>)</label>
+                                <label for="emailAddressInput"><?= lang('email_address') ?> <span class="text-danger">*</span></label>
                                 <input id="emailAddressInput" class="form-control" name="email" value="<?= @$_POST['email'] ?>" type="text" placeholder="<?= lang('email_address') ?>">
                             </div>
                             <div class="form-group col-sm-6">
-                                <label for="phoneInput"><?= lang('phone') ?> (<sup><?= lang('requires') ?></sup>)</label>
+                                <label for="phoneInput"><?= lang('phone') ?> <span class="text-danger">*</span></label>
                                 <input id="phoneInput" class="form-control" name="phone" value="<?= @$_POST['phone'] ?>" type="text" placeholder="<?= lang('phone') ?>">
                             </div>
                             <div class="form-group col-sm-12">
-                                <label for="addressInput"><?= lang('address') ?> (<sup><?= lang('requires') ?></sup>)</label>
-                                <textarea id="addressInput" name="address" class="form-control" rows="3"><?= @$_POST['address'] ?></textarea>
+                                <label for="addressInput"><?= lang('address') ?> <span class="text-danger">*</span></label>
+                                <textarea id="addressInput" name="address" class="form-control" rows="3" placeholder="<?= lang('address') ?>"><?= @$_POST['address'] ?></textarea>
                             </div>
                             <div class="form-group col-sm-6">
-                                <label for="cityInput"><?= lang('city') ?> (<sup><?= lang('requires') ?></sup>)</label>
+                                <label for="cityInput"><?= lang('city') ?> <span class="text-danger">*</span></label>
                                 <input id="cityInput" class="form-control" name="city" value="<?= @$_POST['city'] ?>" type="text" placeholder="<?= lang('city') ?>">
                             </div>
                             <div class="form-group col-sm-6">
@@ -83,14 +91,18 @@
                             </div>
                             <div class="form-group col-sm-12">
                                 <label for="notesInput"><?= lang('notes') ?></label>
-                                <textarea id="notesInput" class="form-control" name="notes" rows="3"><?= @$_POST['notes'] ?></textarea>
+                                <textarea id="notesInput" class="form-control" name="notes" rows="3" placeholder="<?= lang('notes') ?>"><?= @$_POST['notes'] ?></textarea>
                             </div>
                         </div>
                         <?php if ($codeDiscounts == 1) { ?>
-                            <div class="discount">
-                                <label><?= lang('discount_code') ?></label>
-                                <input class="form-control" name="discountCode" value="<?= @$_POST['discountCode'] ?>" placeholder="<?= lang('enter_discount_code') ?>" type="text">
-                                <a href="javascript:void(0);" class="btn btn-secondary" onclick="checkDiscountCode()"><?= lang('check_code') ?></a>
+                            <div class="discount mb-2  mt-2">
+                                <label for="discountCodeInput"><?= lang('discount_code') ?></label>
+                                <div class="input-group">
+                                    <input id="discountCodeInput" class="form-control" name="discountCode" value="<?= @$_POST['discountCode'] ?>" placeholder="<?= lang('enter_discount_code') ?>" type="text">
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-secondary" onclick="checkDiscountCode()"><?= lang('check_code') ?></button>
+                                    </div>
+                                </div>
                             </div>
                         <?php } ?>
                         <div class="table-responsive">
@@ -120,19 +132,19 @@
                                                 ?>
                                                 <img class="product-image" src="<?= $productImage ?>" alt="">
 
-                                                <a href="<?= base_url('home/removeFromCart?delete-product=' . $item['id'] . '&back-to=checkout') ?>" class="btn btn-xs btn-danger remove-product">
+                                                <a href="<?= base_url('home/removeFromCart?delete-product=' . $item['id'] . '&back-to=checkout') ?>" class="btn btn-sm btn-danger remove-product">
                                                     <i class="fa fa-times" aria-hidden="true"></i>
                                                 </a>
                                             </td>
                                             <td><a href="<?= esc($detailsUrl) ?>"><?= $item['title'] ?></a></td>
                                             <td>
-                                                <a class="btn btn-xs btn-primary refresh-me add-to-cart <?= $item['quantity'] <= $item['num_added'] ? 'disabled' : '' ?>" data-id="<?= $item['id'] ?>" href="javascript:void(0);">
+                                                <a class="btn btn-sm btn-primary refresh-me add-to-cart <?= $item['quantity'] <= $item['num_added'] ? 'disabled' : '' ?>" data-id="<?= $item['id'] ?>" href="javascript:void(0);">
                                                     <span class="fa fa-plus"></span>
                                                 </a>
                                                 <span class="quantity-num">
                                                     <?= $item['num_added'] ?>
                                                 </span>
-                                                <a class="btn btn-xs btn-danger" onclick="removeProduct(<?= $item['id'] ?>, true)" href="javascript:void(0);">
+                                                <a class="btn btn-sm btn-danger" onclick="removeProduct(<?= $item['id'] ?>, true)" href="javascript:void(0);">
                                                     <span class="fa fa-minus"></span>
                                                 </a>
                                             </td>
@@ -177,14 +189,6 @@
                         </a>
                         <div class="d-block d-sm-none bottom-30"></div>
                         <div class="clearfix"></div>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="filter-sidebar">
-                        <div class="title cloth-bg-color">
-                            <span><?= lang('best_sellers') ?></span>
-                        </div>
-                        <?= $load::getProducts($bestSellers, '', true) ?>
                     </div>
                 </div>
             </div>

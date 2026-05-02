@@ -68,6 +68,12 @@ $('.clear-filter').click(function () { //clear filter in right col
 });
 $(document).ready(function() {
     setupScrollToTop();
+    toggleClearSearchButton();
+
+    $('#search_in_title').on('input', function () {
+        toggleClearSearchButton();
+    });
+
     if (!$('#kk-refer-gh').length) {
         // just github profile dofollow
         $('body').append($('<a style="display:none !important;" id="kk-refer-gh" href="https://github.com/kirilkirkov">Kiril Kirkov</a>'));
@@ -80,18 +86,61 @@ function submitForm() {
     document.getElementById("bigger-search").submit();
 }
 /**
+ * Clear search form and redirect to base search URL
+ */
+function clearForm() {
+    var form = document.getElementById('bigger-search');
+    // Clear the text input
+    var searchInput = document.getElementById('search_in_title');
+    if (searchInput) {
+        searchInput.value = '';
+    }
+    toggleClearSearchButton();
+    // Remove any hidden category/filter inputs so the URL is clean
+    var hiddenInputs = form ? form.querySelectorAll('input[type="hidden"]') : [];
+    hiddenInputs.forEach(function(input) {
+        input.remove();
+    });
+    if (form) {
+        form.submit();
+    }
+}
+
+function toggleClearSearchButton() {
+    var searchInput = $('#search_in_title');
+    var clearBtn = $('#clear-search-btn');
+
+    if (!searchInput.length || !clearBtn.length) {
+        return;
+    }
+
+    if (searchInput.val().trim() === '') {
+        clearBtn.hide();
+    } else {
+        clearBtn.show();
+    }
+}
+/**
  * Discount code checker
  */
 var is_discounted = false;
 function checkDiscountCode() {
-    var enteredCode = $('[name="discountCode"]').val();
+    var enteredCode = $.trim($('[name="discountCode"]').val() || '');
+    if (enteredCode === '') {
+        return;
+    }
+
     $.ajax({
         type: "POST",
         url: variable.discountCodeChecker,
         data: {enteredCode: enteredCode}
     }).done(function (data) {
         if (data == 0) {
-            ShowNotificator('alert-danger', lang.discountCodeInvalid);
+            var invalidDiscountMsg = $.trim((lang && lang.discountCodeInvalid) ? lang.discountCodeInvalid : '');
+            if (invalidDiscountMsg !== '') {
+                ShowNotificator('alert-danger', invalidDiscountMsg);
+            }
+            return;
         } else {
             if (is_discounted == false) {
                 var obj = jQuery.parseJSON(data);

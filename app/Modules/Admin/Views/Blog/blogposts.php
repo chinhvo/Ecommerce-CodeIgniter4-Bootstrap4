@@ -83,11 +83,13 @@ use App\Core\BlogType; ?>
 							<td>
 								<span class="badge badge-info"><?= esc($typeLabel) ?></span>
 							</td>
-							<td class="blogpost-td-action">
-								<a href="<?= base_url('admin/blogpublish/' . $row['id']) ?>"
-									class="btn btn-primary btn-sm"><?= lang('edit') ?></a>
-								<a href="<?= base_url('admin/blog/?delete=' . $row['id']) ?>"
-									class="btn btn-danger btn-sm confirm-delete"><?= lang('delete') ?></a>
+							<td class="blogpost-td-action text-center align-middle">
+								<a href="<?= base_url('admin/blogpublish/' . $row['id']) ?>" class="admin-action-link" title="<?= lang('edit') ?>">
+									<i class="fa fa-pencil fa-2x"></i>
+								</a>
+								<a href="<?= base_url('admin/blog/?delete=' . $row['id']) ?>" class="admin-action-link admin-action-link--danger confirm-delete" title="<?= lang('delete') ?>">
+									<i class="fa fa-trash fa-2x"></i>
+								</a>
 							</td>
 						</tr>
 					<?php endforeach; ?>

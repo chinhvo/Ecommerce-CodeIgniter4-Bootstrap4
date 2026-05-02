@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Core;
+
 use App\Controllers\BaseController;
 
 class MyController extends BaseController
@@ -166,31 +168,29 @@ class MyController extends BaseController
      * Email subscribe form from footer
      */
 
-    private function checkForPostRequests()
+    protected function subscribeUserRequest()
     {
         $subscribeEmail = $this->request->getPost('subscribeEmail');
 
-        if ($subscribeEmail) {
-            $arr = [
-                'browser' => $this->request->getUserAgent()->getAgentString(),
-                'ip'      => $this->request->getIPAddress(),
-                'time'    => time(),
-                'email'   => $subscribeEmail
-            ];
-
-            if (filter_var($arr['email'], FILTER_VALIDATE_EMAIL) && !$this->session->get('email_added')) {
-                $this->session->set('email_added', 1);
-                $publicModel = model('App\Models\PublicModel');
-                $publicModel->setSubscribe($arr);
-                $this->session->setFlashdata('emailAdded', lang('email_added'));
-            }
-
-            if (!headers_sent()) {
-                return redirect()->to(base_url());
-            } else {
-                echo 'window.location = "' . base_url() . '"';
-            }
+        if (!$subscribeEmail) {
+            return redirect()->back();
         }
+
+        $arr = [
+            'browser' => $this->request->getUserAgent()->getAgentString(),
+            'ip'      => $this->request->getIPAddress(),
+            'time'    => time(),
+            'email'   => $subscribeEmail
+        ];
+
+        if (filter_var($arr['email'], FILTER_VALIDATE_EMAIL) && !$this->session->get('email_added')) {
+            $this->session->set('email_added', 1);
+            $publicModel = model('App\Models\PublicModel');
+            $publicModel->setSubscribe($arr);
+            $this->session->setFlashdata('emailAdded', lang('email_added'));
+        }
+
+        return redirect()->back();
     }
 
     /*
@@ -200,11 +200,10 @@ class MyController extends BaseController
     private function setReferrer()
     {
         if ($this->session->get('referrer') === null) {
-//             $ref = $this->request->getServer('HTTP_REFERER') ?? 'Direct';
-//             $this->session->set('referrer', $ref);
+            /*
+            $ref = $this->request->getServer('HTTP_REFERER') ?? 'Direct';
+            $this->session->set('referrer', $ref);
+            */
         }
     }
-
-
-
 }

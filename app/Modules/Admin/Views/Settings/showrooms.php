@@ -57,8 +57,8 @@
                                         <td>
                                             <?php if (!empty($showroom['main_image'])) : ?>
                                                 <img src="<?= base_url(esc($showroom['main_image'])) ?>"
-                                                     alt="<?= esc($showroom['name']) ?>"
-                                                     style="height:48px;width:auto;object-fit:cover;border-radius:3px;">
+                                                    alt="<?= esc($showroom['name']) ?>"
+                                                    style="height:48px;width:auto;object-fit:cover;border-radius:3px;">
                                             <?php else : ?>
                                                 <span class="text-muted">-</span>
                                             <?php endif; ?>
@@ -80,9 +80,9 @@
                                                 <?= lang('edit') ?>
                                             </a>
                                             <form action="<?= base_url('admin/showrooms/delete/' . (int) $showroom['id']) ?>"
-                                                  method="post"
-                                                  class="d-inline"
-                                                  onsubmit="return confirm('<?= lang('showroom_delete_confirm') ?>')">
+                                                method="post"
+                                                class="d-inline"
+                                                onsubmit="return confirm('<?= lang('showroom_delete_confirm') ?>')">
                                                 <?= csrf_field() ?>
                                                 <button type="submit" class="btn btn-outline-danger btn-sm"><?= lang('delete') ?></button>
                                             </form>
@@ -117,56 +117,51 @@
                                     <div class="form-group">
                                         <label for="showroom_name"><?= lang('showroom_name') ?> <span class="text-danger">*</span></label>
                                         <input type="text" name="name" id="showroom_name" class="form-control" required
-                                               value="<?= esc(old('name', $editShowroom['name'] ?? '')) ?>">
+                                            value="<?= esc(old('name', $editShowroom['name'] ?? '')) ?>">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="showroom_address"><?= lang('showroom_address') ?> <span class="text-danger">*</span></label>
                                         <input type="text" name="address" id="showroom_address" class="form-control" required
-                                               value="<?= esc(old('address', $editShowroom['address'] ?? '')) ?>">
+                                            value="<?= esc(old('address', $editShowroom['address'] ?? '')) ?>">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="showroom_google_map"><?= lang('showroom_google_map_location') ?></label>
                                         <input type="text" name="google_map_location" id="showroom_google_map" class="form-control" placeholder="https://maps.google.com/..."
-                                               value="<?= esc(old('google_map_location', $editShowroom['google_map_location'] ?? '')) ?>">
+                                            value="<?= esc(old('google_map_location', $editShowroom['google_map_location'] ?? '')) ?>">
                                     </div>
 
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="showroom_phone"><?= lang('showroom_contact_phone') ?></label>
                                             <input type="text" name="contact_phone" id="showroom_phone" class="form-control"
-                                                   value="<?= esc(old('contact_phone', $editShowroom['contact_phone'] ?? '')) ?>">
+                                                value="<?= esc(old('contact_phone', $editShowroom['contact_phone'] ?? '')) ?>">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="showroom_email"><?= lang('showroom_email') ?></label>
                                             <input type="email" name="email" id="showroom_email" class="form-control"
-                                                   value="<?= esc(old('email', $editShowroom['email'] ?? '')) ?>">
+                                                value="<?= esc(old('email', $editShowroom['email'] ?? '')) ?>">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="showroom_representative"><?= lang('showroom_representative_person') ?></label>
                                         <input type="text" name="representative_person" id="showroom_representative" class="form-control"
-                                               value="<?= esc(old('representative_person', $editShowroom['representative_person'] ?? '')) ?>">
+                                            value="<?= esc(old('representative_person', $editShowroom['representative_person'] ?? '')) ?>">
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="showroom_main_image">
-                                            <?= lang('showroom_main_image') ?>
-                                            <?php if (empty($editShowroom)) : ?>
-                                                <span class="text-danger">*</span>
-                                            <?php endif; ?>
-                                        </label>
+                                        <label for="showroom_main_image"><?= lang('showroom_main_image') ?></label>
                                         <?php if (!empty($editShowroom['main_image'])) : ?>
                                             <div class="mb-2">
                                                 <img src="<?= base_url(esc($editShowroom['main_image'])) ?>"
-                                                     alt="<?= lang('showroom_image_current') ?>"
-                                                     style="height:80px;width:auto;object-fit:cover;border-radius:4px;">
+                                                    alt="<?= lang('showroom_image_current') ?>"
+                                                    style="height:80px;width:auto;object-fit:cover;border-radius:4px;">
                                                 <small class="d-block text-muted mt-1"><?= lang('showroom_image_replace') ?></small>
                                             </div>
                                         <?php endif; ?>
-                                        <input type="file" name="main_image" id="showroom_main_image" class="form-control-file" accept="image/*" <?= empty($editShowroom) ? 'required' : '' ?>>
+                                        <input type="file" name="main_image" id="showroom_main_image" class="form-control-file" accept="image/*">
                                         <small class="text-muted"><?= lang('showroom_image_hint') ?></small>
                                     </div>
 
@@ -179,21 +174,21 @@
                                         <div class="form-group col-md-6">
                                             <label for="showroom_position"><?= lang('showroom_position') ?></label>
                                             <input type="number" min="0" name="position" id="showroom_position" class="form-control"
-                                                   value="<?= esc(old('position', $editShowroom['position'] ?? 0)) ?>">
+                                                value="<?= esc(old('position', $editShowroom['position'] ?? 0)) ?>">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label><?= lang('showroom_is_active') ?></label>
                                             <div>
                                                 <input type="checkbox"
-                                                       name="is_active"
-                                                       id="showroom_is_active"
-                                                       value="1"
-                                                       data-toggle="toggle"
-                                                       data-on="<?= lang('showroom_is_active_on') ?>"
-                                                       data-off="<?= lang('showroom_is_active_off') ?>"
-                                                       data-onstyle="success"
-                                                       data-offstyle="secondary"
-                                                       <?= (int) old('is_active', $editShowroom['is_active'] ?? 1) === 1 ? 'checked' : '' ?>>
+                                                    name="is_active"
+                                                    id="showroom_is_active"
+                                                    value="1"
+                                                    data-toggle="toggle"
+                                                    data-on="<?= lang('showroom_is_active_on') ?>"
+                                                    data-off="<?= lang('showroom_is_active_off') ?>"
+                                                    data-onstyle="success"
+                                                    data-offstyle="secondary"
+                                                    <?= (int) old('is_active', $editShowroom['is_active'] ?? 1) === 1 ? 'checked' : '' ?>>
                                                 <input type="hidden" name="is_active" value="0" id="showroom_is_active_hidden">
                                             </div>
                                         </div>
@@ -213,13 +208,13 @@
     </div>
 
     <script>
-        $(function () {
-            $('#showroom_is_active').on('change', function () {
+        $(function() {
+            $('#showroom_is_active').on('change', function() {
                 $('#showroom_is_active_hidden').prop('disabled', this.checked);
             }).trigger('change');
 
             <?php if (!empty($openModal) || !empty(old('name')) || !empty(old('address'))) : ?>
-            $('#showroomModal').modal('show');
+                $('#showroomModal').modal('show');
             <?php endif; ?>
         });
     </script>

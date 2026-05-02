@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Controllers;
+
 use App\Core\MyController;
 
 class Home extends MyController
@@ -101,6 +103,11 @@ class Home extends MyController
     public function clearShoppingCart()
     {
         $this->shoppingcart->clearShoppingCart();
+    }
+
+    public function subscribe()
+    {
+        return $this->subscribeUserRequest();
     }
 
     public function confirmLink($md5)
