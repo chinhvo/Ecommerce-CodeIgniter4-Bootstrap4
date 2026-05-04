@@ -674,3 +674,27 @@ a.orders-referral {
 .products-qty-badge {
   font-size: 12px;
 }
+
+/*efinder fixing overlap issue*/
+.elfinder-contextmenu-item span{
+  margin-left: 20px;
+}
+
+.elfinder-contextmenu-item .elfinder-contextmenu-icon{
+  width: auto;
+  height: auto;
+  left: auto;
+}
+
+
+.elfinder-contextmenu{
+  min-width: 150px;
+}
+
+.elfinder-contextmenu-item{
+  min-height: 25px;
+}
+
+.elfinder-tree{
+  height: 98%;
+}
